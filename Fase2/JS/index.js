@@ -21,3 +21,7 @@ function logOut(){
 function toPerfil(){
     window.location.replace("http://127.0.0.1:5500/HTML/perfil.html")
 }
+
+function toCodes(){
+    window.location.replace("http://127.0.0.1:5500/HTML/codes.html")
+}

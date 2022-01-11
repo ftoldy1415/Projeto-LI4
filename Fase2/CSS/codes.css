@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+}
+
+.title{
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: black;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 10px;
+
+}
+
+.goBack{
+    position: absolute;
+    right: 10%;
+    top: 0px;
+}
+
+button{
+    margin-top: 10px;
+    width: 100px;
+    background-color: rgb(253,118,8);
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover{
+    color: black;
+}
