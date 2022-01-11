@@ -19,7 +19,6 @@ body{
     width: 25%;
 }
 
-
 /* Control the right side */
 .right {
     right: 0;
@@ -54,5 +53,10 @@ button:hover{
 .bottom{
     position: absolute;
     bottom: 30px;
-    padding: 10px 10px 10px 10px
+    left: 10px;
+    right: 10px;
+}
+
+#braga{
+    width: 95%;
 }

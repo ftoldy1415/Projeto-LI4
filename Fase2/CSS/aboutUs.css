@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+}
+
+.title{
+    color: rgb(253, 118, 8);
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: black;
+    box-sizing: border-box;
+
+}
+
+div{
+    text-align: center;
+    margin: 10px 10px 10px 10px;
+}
+
+img{
+    margin: 20px 20px 20px 20px;
+}
+
+button{
+    margin-top: 20px;
+    width: 100px;
+    background-color: rgb(253,118,8);
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover{
+    color: black;
+}
+
+.goBack{
+    text-align: center;
+}
