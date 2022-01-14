@@ -1,31 +1,28 @@
 
 
 
-const data = {
-    name:"mariana"
-};
+// const data = {
+//     name:"mariana"
+// }; 
 
-fetch('http://127.0.0.1:8080/api/v1/person', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    })
-    .then((response) =>{
+// fetch('http://127.0.0.1:8080/api/v1/person', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(data),
+//     })
 
-    const test = JSON.parse(response);
 
-    console.log(test[0].id);
-    })
-    
-    .then((data) => {
-    // console.log('Success:', data);
-    })
+// .then((response) => response.json())
 
-    .catch((error) => {
-    console.error('Error:', error);
-});
+// .then((data) => {
+//     console.log(data);
+// })
+
+// .catch((error) => {
+// console.error('Error:', error);
+// });
 
 
 
@@ -83,12 +80,14 @@ function login(){
     
 }
 
+
+
 function toSignIn(){
     window.location.replace("http://127.0.0.1:5500/HTML/signIn.html")
 }
 
 function toOwnerPage(){
-    window.location.replace("http://127.0.0.1:5500/HTML/ownerPage.html")
+    window.location.replace("http://127.0.0.1:5500/HTML/frontPageOwner.html")
 
 }
 
@@ -121,7 +120,7 @@ function toAval(){
     window.location.replace("http://127.0.0.1:5500/HTML/avaliacao.html")
 }
 
-function toReservas(){
+function toBookings(){
     window.location.replace("http://127.0.0.1:5500/HTML/reservas.html")
 }
 
