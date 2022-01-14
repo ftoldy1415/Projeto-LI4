@@ -11,14 +11,15 @@
 .left { 
     left: 0;
     background-color: black;
-    width: 24%;
+    width: 30%;
     color: white;
 }
 
 /* Control the right side */
 .right {
     right: 0;
-    width: 70%;
+    width: 65%;
+    background-color: white;
     border: 10px black solid;
     padding: 20px;
 
@@ -57,4 +58,8 @@ button:hover{
     position: absolute;
     right: 10%;
     top: 5%;
+}
+
+body{
+    background-color: black;
 }

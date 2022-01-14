@@ -24,13 +24,13 @@ input{
 
 .fa-user{
     position: absolute;
-    top: 15px ;
+    top: 346px ;
     z-index: 1;
 }
 
 .fa-lock{
     position: absolute;
-    top: 50px;
+    top: 380px;
     z-index: 1;
 }
 
@@ -56,4 +56,25 @@ button:hover{
 
 #one{
     color: salmon;
+}
+
+#secondLock{
+    position: absolute;
+    top: 415px;
+    z-index: 1;
+}
+
+.fa-sort-numeric-down{
+    position: absolute;
+    top: 450px;
+    z-index: 1;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
