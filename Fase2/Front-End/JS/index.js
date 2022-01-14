@@ -116,3 +116,15 @@ function toPerfil(){
 function toCodes(){
     window.location.replace("http://127.0.0.1:5500/HTML/codes.html")
 }
+
+function toAval(){
+    window.location.replace("http://127.0.0.1:5500/HTML/avaliacao.html")
+}
+
+function toReservas(){
+    window.location.replace("http://127.0.0.1:5500/HTML/reservas.html")
+}
+
+function toRestaurante(){
+    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html")
+}
