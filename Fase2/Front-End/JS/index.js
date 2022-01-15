@@ -401,15 +401,29 @@ function saveFilter(){
 //------------------------------------rest-----------------------------------
 
 function addRestaurante(){
+    let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
+    
+    let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
 
-    let horarioJunto = createHorario();
+    let quartaHorario = "3:" + document.getElementById("quartaAbertura").value + "--" + document.getElementById("quartaFecho").value + ";";
+
+    let quintaHorario = "4:" + document.getElementById("quintaAbertura").value + "--" + document.getElementById("quintaFecho").value + ";";
+
+    let sextaHorario = "5:" + document.getElementById("sextaAbertura").value + "--" + document.getElementById("sextaFecho").value + ";";
+
+    let sabadoHorario = "6:" + document.getElementById("sabadoAbertura").value + "--" + document.getElementById("sabadoFecho").value + ";";
+
+    let domingoHorario = "7:" + document.getElementById("domingoAbertura").value + "--" + document.getElementById("domingoFecho").value + ";";
+
+    let horarioJunto =  segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
+    //let horarioJunto = createHorario();
 
 
     var data1 = {
         nome : document.getElementById("nome").value,
         rua : document.getElementById("rua").value,
         localidade : document.getElementById("localidade").value,
-        telefone : document.getElementById("telefone").value,
+        num_telefone : document.getElementById("telefone").value, 
         horario : horarioJunto
     };
 
@@ -420,6 +434,8 @@ function addRestaurante(){
         },
         body: JSON.stringify(data1),
     })
+
+
 }
 
 function createHorario(){
