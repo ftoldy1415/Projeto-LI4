@@ -183,6 +183,64 @@ function login(){
 }
 
 
+function addRestaurante(){
+
+    let horarioJunto = document.getElementById("segundaAbertura").value + ";" + document.getElementById("segundaFecho").value + ";" + document.getElementById("tercaAbertura").value + ";" + document.getElementById("tercaFecho").value + ";" + document.getElementById("quartaAbertura").value + ";" + document.getElementById("quartaFecho").value + ";" + document.getElementById("quintaAbertura").value + ";" + document.getElementById("quintaFecho").value + ";" + document.getElementById("sextaAbertura").value + ";" + document.getElementById("sextaFecho").value + ";" + document.getElementById("sabadoAbertura").value + ";" + document.getElementById("sabadoFecho").value + ";" + document.getElementById("domingoAbertura").value + ";" + document.getElementById("domingoFecho").value;
+
+
+    var data1 = {
+        nome : document.getElementById("nome").value,
+        endereco : document.getElementById("endereco").value,
+        telefone : document.getElementById("telefone").value,
+        horario : horarioJunto
+    };
+
+    fetch('http://127.0.0.1:8080/api/restaurante/registar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data1),
+    })
+}
+
+
+function getRestaurant(){
+
+    
+    fetch('http://127.0.0.1:8080/api/cliente/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data1),
+    })
+
+    .then(response => {
+        let a = response.json();
+        return a;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    })
+
+    document.getElementById("nomeRest").textContent = a.nome;
+    document.getElementById("endereco").textContent = a.endereco;
+    document.getElementById("telefone").textContent = a.telefone;
+
+
+    document.getElementById("segunda").textContent = a.segundaAbertura + " -- " + a.segundaFecho;
+    document.getElementById("terca").textContent = a.tercaAbertura + " -- " + a.tercaFecho;
+    document.getElementById("quarta").textContent = a.quartaAbertura + " -- " + a.quartaFecho;
+    document.getElementById("quinta").textContent = a.quintaAbertura + " -- " + a.quintaFecho;
+    document.getElementById("sexta").textContent = a.sextaAbertura + " -- " + a.sextaFecho;
+    document.getElementById("sabado").textContent = a.sabadoAbertura + " -- " + a.sabadoFecho;
+    document.getElementById("domingo").textContent = a.domingoAbertura + " -- " + a.domingoFecho;
+
+}
+
+
+
 function signInUser(){
 
     let password1 = document.getElementById("password").value;
