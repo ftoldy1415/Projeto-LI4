@@ -137,10 +137,9 @@
 
 
 
+//--------------------------------LOG IN------------------------------------
 
-
-
-function login(){
+function loginUser(){
 
     var data1 = {
         email : document.getElementById("email").value,
@@ -157,30 +156,137 @@ function login(){
     })
 
     .then(response => {
-        let a = response.json();
-        let b = a.login;
-        console.log(b);
+        return response.json()
     })
     .then((data) => {
-        return data.login;
+        console.log(data.login);
+        if(data.login){
+            window.location.replace("http://127.0.0.1:5500/HTML/frontPage.html")
+        }
+        else{
+            document.getElementById("response").textContent = "Credencias fornecidas inválidas";
+        }
     })
-    // .then()
-    //     if(resp === true){
-    //         window.location.replace("http://127.0.0.1:5500/HTML/frontPage.html");
-    //     } else { document.getElementById("response").textContent = "Dados fornecidos Errados";}
-    // })
 
     .catch((error) => {
         console.error('Error:', error);
     })
-
-
-
-
-
-    // window.location.replace("http://127.0.0.1:5500/HTML/frontPage.html")
-    
 }
+
+function loginOwner(){
+
+    var data1 = {
+        email : document.getElementById("email").value,
+        palavra_passe : document.getElementById("password").value
+    };
+
+
+    fetch('http://127.0.0.1:8080/api/cliente/login', {  ////////// qual o url
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data1),
+    })
+
+    .then(response => {
+        return response.json()
+    })
+    .then((data) => {
+        console.log(data.login);
+        if(data.login){
+            window.location.replace("http://127.0.0.1:5500/HTML/frontPageOwner.html")
+        }
+        else{
+            document.getElementById("response").textContent = "Credencias fornecidas inválidas";
+        }
+    })
+
+    .catch((error) => {
+        console.error('Error:', error);
+    })
+}
+
+
+//--------------------------------SIGN IN-----------------------------------
+
+function signInUser(){
+
+    let password1 = document.getElementById("password").value;
+    let password2 = document.getElementById("secondPassword").value;
+    
+    if( password1 === password2 ){
+
+        var data = {
+            nif : document.getElementById("nif").value,
+            nome : document.getElementById("name").value,
+            email : document.getElementById("email").value,
+            palavra_passe : document.getElementById("password").value,
+            num_telemovel : document.getElementById("phoneNumber").value,
+            nome_utilizador : document.getElementById("name").value
+        };
+
+
+        fetch('http://127.0.0.1:8080/api/cliente/registar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            })
+            .then((data) => {
+            console.log('Success:', data);
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+        });
+
+        window.location.replace("http://127.0.0.1:5500/HTML/frontPage.html");
+
+
+    } else {
+        document.getElementById("error").textContent = "Palavras passes não coincidem";
+    }
+}
+
+function signInOwner(){
+
+    let password1 = document.getElementById("password").value;
+    let password2 = document.getElementById("secondPassword").value;
+    
+    if( password1 === password2 ){
+
+        var data = {
+            nif : document.getElementById("nif").value,
+            email : document.getElementById("email").value,
+            palavra_passe : document.getElementById("password").value,
+        };
+
+
+        fetch('http://127.0.0.1:8080/api/cliente/registar', {   ////////// qual o url
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+            })
+            .then((data) => {
+            console.log('Success:', data);
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+        });
+
+        window.location.replace("http://127.0.0.1:5500/HTML/frontPageOwner.html");
+
+
+    } else {
+        document.getElementById("error").textContent = "Palavras passes não coincidem";
+    }
+}
+
+
+
 
 
 function addRestaurante(){
@@ -241,59 +347,23 @@ function getRestaurant(){
 
 
 
-function signInUser(){
-
-    let password1 = document.getElementById("password").value;
-    let password2 = document.getElementById("secondPassword").value;
-    
-    if( password1 === password2 ){
-
-        var data = {
-            nif : document.getElementById("nif").value,
-            nome : document.getElementById("name").value,
-            email : document.getElementById("email").value,
-            palavra_passe : document.getElementById("password").value,
-            num_telemovel : document.getElementById("phoneNumber").value,
-            nome_utilizador : document.getElementById("name").value
-        };
 
 
-        fetch('http://127.0.0.1:8080/api/cliente/registar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-            })
-            .then((data) => {
-            console.log('Success:', data);
-            })
-            .catch((error) => {
-            console.error('Error:', error);
-        });
+//------------------------------CHANGE WINDOW METHODS-----------------------
 
-        window.location.replace("http://127.0.0.1:5500/HTML/frontPage.html");
-
-
-    } else {
-        document.getElementById("error").textContent = "Palavras passes não coincidem";
-    }
+function toLogInUser(){
+    window.location.replace("http://127.0.0.1:5500/HTML/logInUser.html");
 }
 
-function toSignInUser(){
-    window.location.replace("http://127.0.0.1:5500/HTML/signInUser.html");
-    signInUser();
-}
-
-function toSignIn(){
-    window.location.replace("http://127.0.0.1:5500/HTML/signIn.html")
+function toLogInOwner(){
+    window.location.replace("http://127.0.0.1:5500/HTML/logInOwner.html");
 }
 
 function toOwnerPage(){
     window.location.replace("http://127.0.0.1:5500/HTML/frontPageOwner.html")
 }
 
-function toSignInClient(){
+function toSignInUser(){
     window.location.replace("http://127.0.0.1:5500/HTML/signInUser.html")
 }
 
