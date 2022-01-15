@@ -402,12 +402,13 @@ function saveFilter(){
 
 function addRestaurante(){
 
-    let horarioJunto = document.getElementById("segundaAbertura").value + ";" + document.getElementById("segundaFecho").value + ";" + document.getElementById("tercaAbertura").value + ";" + document.getElementById("tercaFecho").value + ";" + document.getElementById("quartaAbertura").value + ";" + document.getElementById("quartaFecho").value + ";" + document.getElementById("quintaAbertura").value + ";" + document.getElementById("quintaFecho").value + ";" + document.getElementById("sextaAbertura").value + ";" + document.getElementById("sextaFecho").value + ";" + document.getElementById("sabadoAbertura").value + ";" + document.getElementById("sabadoFecho").value + ";" + document.getElementById("domingoAbertura").value + ";" + document.getElementById("domingoFecho").value;
+    let horarioJunto = createHorario();
 
 
     var data1 = {
         nome : document.getElementById("nome").value,
-        endereco : document.getElementById("endereco").value,
+        rua : document.getElementById("rua").value,
+        localidade : document.getElementById("localidade").value,
         telefone : document.getElementById("telefone").value,
         horario : horarioJunto
     };
@@ -421,9 +422,25 @@ function addRestaurante(){
     })
 }
 
+function createHorario(){
+    let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
+    
+    let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
+
+    let quartaHorario = "3:" + document.getElementById("quartaAbertura").value + "--" + document.getElementById("quartaFecho").value + ";";
+
+    let quintaHorario = "4:" + document.getElementById("quintaAbertura").value + "--" + document.getElementById("quintaFecho").value + ";";
+
+    let sextaHorario = "5:" + document.getElementById("sextaAbertura").value + "--" + document.getElementById("sextaFecho").value + ";";
+
+    let sabadoHorario = "6:" + document.getElementById("sabadoAbertura").value + "--" + document.getElementById("sabadoFecho").value + ";";
+
+    let domingoHorario = "7:" + document.getElementById("domingoAbertura").value + "--" + document.getElementById("domingoFecho").value + ";";
+
+    return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
+}
 
 function getRestaurant(){
-
     
     fetch('http://127.0.0.1:8080/api/cliente/login', {
             method: 'POST',
@@ -444,19 +461,55 @@ function getRestaurant(){
     document.getElementById("nomeRest").textContent = a.nome;
     document.getElementById("endereco").textContent = a.endereco;
     document.getElementById("telefone").textContent = a.telefone;
+    document.getElementById("localidade").textContent = a.localidade;
 
+    let horarioObj = new timeRest(a);
 
-    document.getElementById("segunda").textContent = a.segundaAbertura + " -- " + a.segundaFecho;
-    document.getElementById("terca").textContent = a.tercaAbertura + " -- " + a.tercaFecho;
-    document.getElementById("quarta").textContent = a.quartaAbertura + " -- " + a.quartaFecho;
-    document.getElementById("quinta").textContent = a.quintaAbertura + " -- " + a.quintaFecho;
-    document.getElementById("sexta").textContent = a.sextaAbertura + " -- " + a.sextaFecho;
-    document.getElementById("sabado").textContent = a.sabadoAbertura + " -- " + a.sabadoFecho;
-    document.getElementById("domingo").textContent = a.domingoAbertura + " -- " + a.domingoFecho;
+    document.getElementById("segunda").textContent = horarioObj.segundaAbertura + " -- " + horarioObj.segundaFecho;
+    document.getElementById("terca").textContent = horarioObj.tercaAbertura + " -- " + horarioObj.tercaFecho;
+    document.getElementById("quarta").textContent = horarioObj.quartaAbertura + " -- " + horarioObj.quartaFecho;
+    document.getElementById("quinta").textContent = horarioObj.quintaAbertura + " -- " + horarioObj.quintaFecho;
+    document.getElementById("sexta").textContent = horarioObj.sextaAbertura + " -- " + horarioObj.sextaFecho;
+    document.getElementById("sabado").textContent = horarioObj.sabadoAbertura + " -- " + horarioObj.sabadoFecho;
+    document.getElementById("domingo").textContent = horarioObj.domingoAbertura + " -- " + horarioObj.domingoFecho;
 
 }
 
+function getAbertura(dia){
+    return dia.slice(2,6);
+}
 
+function getFecho(dia){
+    return dia.slide(-5);
+}
+
+class timeRest {
+    constructor(horario){
+        
+        const myArray = horario.slipt(";");
+        this._segundaAbertura = getAbertura(myArray[0]);
+        this._segundaFecho = getFecho(myArray[0]);
+
+        this._tercaAbertura = getAbertura(myArray[1]);
+        this._tercaFecho = getFecho(myArray[1]);
+
+        this._quartaAbertura = getAbertura(myArray[2]);
+        this._quartaFecho = getFecho(myArray[2]);
+        
+        this._quintaAbertura = getAbertura(myArray[3]);
+        this._quintaFecho = getFecho(myArray[3]);
+    
+        this._sextaAbertura = getAbertura(myArray[4]);
+        this._sextaFecho = getFecho(myArray[4]);
+
+        this._sabadoAbertura = getAbertura(myArray[5]);
+        this._sabadoFecho = getFecho(myArray[5]);
+
+        this._domingoAbertura = getAbertura(myArray[6]);
+        this._domingoFecho = getFecho(myArray[6]);
+        
+    }
+}
 
 
 
