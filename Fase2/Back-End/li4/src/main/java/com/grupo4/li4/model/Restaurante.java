@@ -17,7 +17,7 @@ public class Restaurante {
     @Column(name = "horario")
     private String horario;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nif")
+    @JoinColumn(name = "proprietario_email", referencedColumnName = "email")
     private Proprietario proprietario;
 
 
@@ -71,5 +71,17 @@ public class Restaurante {
 
     public void setProprietario(Proprietario proprietario) {
         this.proprietario = proprietario;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurante{" +
+                "nome='" + nome + '\'' +
+                ", rua='" + rua + '\'' +
+                ", localidade='" + localidade + '\'' +
+                ", num_telefone=" + num_telefone +
+                ", horario='" + horario + '\'' +
+                ", proprietario=" + proprietario +
+                '}';
     }
 }

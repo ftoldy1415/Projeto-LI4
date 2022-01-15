@@ -3,17 +3,17 @@ package com.grupo4.li4.controllers;
 import com.grupo4.li4.model.AtualizarDadosForm;
 import com.grupo4.li4.model.Cliente;
 import com.grupo4.li4.model.LoginForm;
-import netscape.javascript.JSObject;
+import com.grupo4.li4.model.Restaurante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.grupo4.li4.services.ClienteService;
+import com.grupo4.li4.services.AppService;
 
 @RestController
 @RequestMapping("api/cliente")
 public class ClienteController {
 
     @Autowired
-    private ClienteService clienteService;
+    private AppService appService;
     private String nome;
 
     @GetMapping("/hello")
@@ -24,12 +24,11 @@ public class ClienteController {
 
     @GetMapping(value = "/login")
     public String login(@RequestBody LoginForm loginForm){
-        this.nome = loginForm.getEmail();
+        boolean res = appService.loginCliente(loginForm);
 
+        if(res) this.nome = loginForm.getEmail();
 
-        System.out.println(loginForm.toString());
-
-        return "{ \"login\": " + clienteService.login(loginForm) +"}";
+        return "{ \"login\": " + res +"}";
     }
 
     @GetMapping(value = "/logout")
@@ -39,11 +38,16 @@ public class ClienteController {
 
     @PostMapping(value = "/registar")
     public void registar(@RequestBody Cliente cliente){
-        clienteService.registar(cliente);
+        appService.registar(cliente);
     }
 
     @PostMapping(value = "/alterar_dados")
     public void alterarDados(@RequestBody AtualizarDadosForm atualizarDadosForm ){
-        clienteService.atualizarDados(atualizarDadosForm,this.nome);
+        appService.atualizarDados(atualizarDadosForm,this.nome);
     }
+
+
+
+
+
 }
