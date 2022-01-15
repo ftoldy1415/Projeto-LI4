@@ -460,6 +460,23 @@ function getRestaurant(){
 
 
 
+function initMap() {
+    const myLatLng = { lat: -25.363, lng: 131.044 };
+    const myLatLng1 = { lat: -25.363, lng: 131.55 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 4,
+      center: myLatLng,
+    });
+  
+    new google.maps.Marker({
+      position: myLatLng,
+      map,
+      title: "Hello World!",
+    });
+
+
+
+}
 
 
 
@@ -520,5 +537,10 @@ function toRestaurante(){
 
 function toAddRest(){
     window.location.replace("http://127.0.0.1:5500/HTML/addRestaurante.html")
+}
 
+function toMap(){
+    window.location.replace("http://127.0.0.1:5500/HTML/map.html");
+    initMap();
+    
 }
