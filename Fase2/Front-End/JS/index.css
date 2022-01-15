@@ -1,0 +1,59 @@
+body{
+    background-color: black;
+    text-align: center;
+}
+
+div{
+    position: relative;
+}
+
+#firstImg{
+    margin-top: 100px;
+}
+
+input{
+    background-color: rgb(253, 118, 8);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    width: 179px;
+    border: none;
+    margin-top: 10px;
+
+}
+
+.fa-user{
+    position: absolute;
+    top: 15px ;
+    z-index: 1;
+}
+
+.fa-lock{
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+}
+
+button{
+    margin-top: 20%;
+    width: 200px;
+    background-color: rgb(253,118,8);
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+::placeholder{
+    color: white;
+}
+
+button:hover{
+    color: black;
+}
+
+#one{
+    color: salmon;
+}
