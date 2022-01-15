@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In Proprietário</title>
-    <link rel="stylesheet" href="/CSS/signInOwner.css">
+    <link rel="stylesheet" href="/CSS/signInUser.css">
     <script src="https://kit.fontawesome.com/8394857980.js" crossorigin="anonymous"></script>
 
 
@@ -17,7 +17,7 @@
     <img src="/images/logo.png" alt="" id="firstImg"><br><br>
 
     <form action="">
-        <i class="fas fa-user"></i>
+        <i class="fas fa-envelope-square"></i>
         <input id="email" type="email" placeholder="Email"><br>
         <i class="fas fa-lock"></i>
         <input id="password" type="password" placeholder="Password"><br>
@@ -25,9 +25,16 @@
         <input id="secondPassword" type="password" placeholder="Confirm Password"><br>
         <i class="fas fa-sort-numeric-down"></i>
         <input id="nif" type="number" placeholder="NIF"><br>
+        <i class="fas fa-user"></i>
+        <input id="name" type="text" placeholder="Nome de utilizador"><br>
+        <i class="fas fa-phone"></i>
+        <input id="phoneNumber" type="number" placeholder="Número de telemóvel"><br>
+
+        <p id="error" ></p>
+
     </form>
 
-    <button onclick="toOwnerPage()">Confirmar</button>
+    <button onclick="signInUser()">Confirmar</button>
     <button onclick="toSignIn()">Back</button>
 
 
