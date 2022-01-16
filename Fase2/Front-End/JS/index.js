@@ -257,9 +257,9 @@ function signInOwner(){
 
         var data1 = {
             nif : document.getElementById("nif").value,
-            nome : document.getElementById("nome").value, 
+            nome : document.getElementById("name").value, 
             email : document.getElementById("email").value,
-            palavra_passe : document.getElementById("password").value,
+            password : document.getElementById("password").value,
         };
 
 
@@ -403,74 +403,53 @@ function saveFilter(){
 //------------------------------------MAP-----------------------------------
 
 
-
-// function initMap(lat,long) {
-
-//     var pos = getCoords();
-
-//     console.log(pos.lat.valueOf());
-
-//     const myLatLng = { lat: 41.563105, lng: -8.420382 }; 
-//     const myLatLng1 = { lat: 41.560195, lng: -8.395384}; 
-
-//     const coords = []; 
-
-//     coords.push(myLatLng);
-//     coords.push(myLatLng1);
-
-//     const map = new google.maps.Map(document.getElementById("map"), { 
-//         zoom: 14, 
-//         center: myLatLng, 
-//     }); 
-
-//     for( let i = 0 ; i<coords.length ; i++ ){
-
-//         let marker = new google.maps.Marker({ 
-//             position: coords[i], 
-//             map,
-//     });
-
-//     marker.addListener("click", ()=> {
-//         toRestaurant( 
-//             console.log(marker.getPosition().lat()), 
-//             console.log(marker.getPosition().lng())); 
-//         })
-//     }
-
-    
-
-// }
-    
-function toRestaurant(lat, lng){ 
-    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html"); 
-    getRestaurant(lat,lng); 
-}
-
 function initMap() {
 
-    var pos;
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+        var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
 
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-            pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            };
+        const myLatLng = { lat: 41.563105, lng: -8.420382 }; 
+        const myLatLng1 = { lat: 41.560195, lng: -8.395384}; 
 
-            let lat = pos.lat.valueOf();
-            let lng = pos.lng.valueOf();
-            
-            initMap(lat,lng);
+        const coords = []; 
 
-            },
-            () => {
-            handleLocationError(true, infoWindow, map.getCenter());
-            }
-        );
-        } else {
-        handleLocationError(false, infoWindow, map.getCenter());
+        coords.push(myLatLng);
+        coords.push(myLatLng1);
+
+        const map = new google.maps.Map(document.getElementById("map"), { 
+            zoom: 14, 
+        }); 
+
+        map.setCenter(pos);
+
+        for( let i = 0 ; i<coords.length ; i++ ){
+
+            let marker = new google.maps.Marker({ 
+                position: coords[i], 
+                map,
+        });
+
+        marker.addListener("click", ()=> {
+            toRestaurant( 
+                console.log(marker.getPosition().lat()), 
+                console.log(marker.getPosition().lng())); 
+            })
         }
+
+        },
+        () => {
+        handleLocationError(true, infoWindow, map.getCenter());
+        }
+    );
+    } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+    }
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -486,63 +465,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 //------------------------------------rest-----------------------------------
 
-function addRestaurante(){
-    let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
-    
-    let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
+function toRestaurant(lat, lng){
 
-    let quartaHorario = "3:" + document.getElementById("quartaAbertura").value + "--" + document.getElementById("quartaFecho").value + ";";
-
-    let quintaHorario = "4:" + document.getElementById("quintaAbertura").value + "--" + document.getElementById("quintaFecho").value + ";";
-
-    let sextaHorario = "5:" + document.getElementById("sextaAbertura").value + "--" + document.getElementById("sextaFecho").value + ";";
-
-    let sabadoHorario = "6:" + document.getElementById("sabadoAbertura").value + "--" + document.getElementById("sabadoFecho").value + ";";
-
-    let domingoHorario = "7:" + document.getElementById("domingoAbertura").value + "--" + document.getElementById("domingoFecho").value + ";";
-
-    let horarioJunto =  segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
-    //let horarioJunto = createHorario();
-
-
-    var data1 = {
-        nome : document.getElementById("nome").value,
-        rua : document.getElementById("rua").value,
-        localidade : document.getElementById("localidade").value,
-        num_telefone : document.getElementById("telefone").value, 
-        horario : horarioJunto
-    };
-
-    fetch('http://127.0.0.1:8080/api/restaurante/registar', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data1),
-    })
-
-
-}
-
-function createHorario(){
-    let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
-    
-    let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
-
-    let quartaHorario = "3:" + document.getElementById("quartaAbertura").value + "--" + document.getElementById("quartaFecho").value + ";";
-
-    let quintaHorario = "4:" + document.getElementById("quintaAbertura").value + "--" + document.getElementById("quintaFecho").value + ";";
-
-    let sextaHorario = "5:" + document.getElementById("sextaAbertura").value + "--" + document.getElementById("sextaFecho").value + ";";
-
-    let sabadoHorario = "6:" + document.getElementById("sabadoAbertura").value + "--" + document.getElementById("sabadoFecho").value + ";";
-
-    let domingoHorario = "7:" + document.getElementById("domingoAbertura").value + "--" + document.getElementById("domingoFecho").value + ";";
-
-    return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
-}
-
-function getRestaurant(lat, lng){
+    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html");
 
     var data1 = {
         lat: lat, 
@@ -581,6 +506,66 @@ function getRestaurant(lat, lng){
     document.getElementById("domingo").textContent = horarioObj.domingoAbertura + " -- " + horarioObj.domingoFecho;
 
 }
+
+function AddRestaurant(){
+
+    let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
+    
+    let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
+
+    let quartaHorario = "3:" + document.getElementById("quartaAbertura").value + "--" + document.getElementById("quartaFecho").value + ";";
+
+    let quintaHorario = "4:" + document.getElementById("quintaAbertura").value + "--" + document.getElementById("quintaFecho").value + ";";
+
+    let sextaHorario = "5:" + document.getElementById("sextaAbertura").value + "--" + document.getElementById("sextaFecho").value + ";";
+
+    let sabadoHorario = "6:" + document.getElementById("sabadoAbertura").value + "--" + document.getElementById("sabadoFecho").value + ";";
+
+    let domingoHorario = "7:" + document.getElementById("domingoAbertura").value + "--" + document.getElementById("domingoFecho").value + ";";
+
+    let horarioJunto =  segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
+    //let horarioJunto = createHorario();
+
+
+    var data1 = {
+        nome : document.getElementById("nome").value,
+        rua : document.getElementById("rua").value,
+        localidade : document.getElementById("localidade").value,
+        num_telefone : document.getElementById("telefone").value, 
+        horario : horarioJunto
+    };
+
+    fetch('http://127.0.0.1:8080/api/restaurante/registar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data1),
+    })
+
+    document.getElementById("response").textContent = "Restaurante adicionado"
+
+}
+
+function createHorario(){
+    let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
+    
+    let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
+
+    let quartaHorario = "3:" + document.getElementById("quartaAbertura").value + "--" + document.getElementById("quartaFecho").value + ";";
+
+    let quintaHorario = "4:" + document.getElementById("quintaAbertura").value + "--" + document.getElementById("quintaFecho").value + ";";
+
+    let sextaHorario = "5:" + document.getElementById("sextaAbertura").value + "--" + document.getElementById("sextaFecho").value + ";";
+
+    let sabadoHorario = "6:" + document.getElementById("sabadoAbertura").value + "--" + document.getElementById("sabadoFecho").value + ";";
+
+    let domingoHorario = "7:" + document.getElementById("domingoAbertura").value + "--" + document.getElementById("domingoFecho").value + ";";
+
+    return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
+}
+
+
 
 function getAbertura(dia){
     return dia.slice(2,6);
@@ -637,7 +622,7 @@ function toLogInOwner(){
     window.location.replace("http://127.0.0.1:5500/HTML/logInOwner.html");
 }
 
-function toOwnerPage(){
+function toFrontPageOwner(){
     window.location.replace("http://127.0.0.1:5500/HTML/frontPageOwner.html")
 }
 
@@ -678,15 +663,16 @@ function toBookings(){
     window.location.replace("http://127.0.0.1:5500/HTML/reservas.html")
 }
 
-function toRestaurante(){
-    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html")
-}
-
-function toAddRest(){
+function toAddRestaurant(){
     window.location.replace("http://127.0.0.1:5500/HTML/addRestaurante.html")
 }
 
 function toMap(){
     window.location.replace("http://127.0.0.1:5500/HTML/map.html");
     initMap();
+}
+
+
+function back(){
+    window.history.back();
 }
