@@ -17,8 +17,6 @@
                 <br>
                 <br>
 
-
-
                 <label for="rua">Endereço : </label>
                 <input type="text" name = "rua" id = "rua">
                 <br>
@@ -32,7 +30,8 @@
                 <label for="telefone">Contacto Telefónico : </label>
                 <input type="text" name = "telefone" id = "telefone">
                 <br>
-                <br>
+                
+                <p>Adicione as suas coordenadas : <span><input type="number" name="lat" id="lat" placeholder="latitude"></span> e <span><input type="number" name ="longitude" id="longitude" placeholder="longitude"></span></p>
                 <div >
                     <h4>Insira o horário :</h4>
                     <label class = "horario" for = "segundaAbertura">Segunda-feira : </label>
@@ -85,18 +84,18 @@
                     <label class = "horario" for = "domingoAbertura">Domingo : </label>
                     <input type="time" name="domingoAbertura" id="domingoAbertura">
                     <label for="domingoFecho"> -- </label>
-                    <input type="time" name="domingoFecho" id="domingoFecho">
+                    <input type="time" name="domingoFecho" id="domingoFecho"><br><br>
                 </div>
                 
             </form>
-            <button class = "button" onclick="addRestaurante()">Confirmar</button>
-            <button class = "button" onclick="toRestaurante()">Cancelar</button>
-            <script src="/JS/index.js"></script>
-
+            <button class = "button" onclick="addRestaurant()">Confirmar</button>
+            <button class = "button" onclick="toFrontPageOwner()">Cancelar</button>
+            <p id="response"></p>
         </div>
 
     </div>
 
     
+    <script src="/JS/index.js"></script>
 </body>
 </html>

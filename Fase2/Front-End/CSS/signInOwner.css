@@ -29,10 +29,16 @@ input{
 }
 
 .fa-lock{
-    position: absolute;
-    top: 380px;
-    z-index: 1;
+    position: absolute; 
+    top: 415px; 
+    z-index: 1; 
 }
+
+.fa-signature{ 
+    position: absolute; 
+    top: 380px; 
+    z-index: 1; 
+} 
 
 button{
     margin-top: 20px;
@@ -60,13 +66,13 @@ button:hover{
 
 #secondLock{
     position: absolute;
-    top: 415px;
+    top: 450px; 
     z-index: 1;
 }
 
 .fa-sort-numeric-down{
     position: absolute;
-    top: 450px;
+    top: 485px; 
     z-index: 1;
 }
 

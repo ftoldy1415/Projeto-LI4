@@ -136,7 +136,6 @@
 
 
 
-
 //--------------------------------LOG IN------------------------------------
 
 function loginUser(){
@@ -181,7 +180,7 @@ function loginOwner(){
     };
 
 
-    fetch('http://127.0.0.1:8080/api/cliente/login', {  ////////// qual o url
+    fetch('http://127.0.0.1:8080/api/proprietario/login', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -258,12 +257,13 @@ function signInOwner(){
 
         var data1 = {
             nif : document.getElementById("nif").value,
+            nome : document.getElementById("name").value, 
             email : document.getElementById("email").value,
-            palavra_passe : document.getElementById("password").value,
+            password : document.getElementById("password").value,
         };
 
 
-        fetch('http://127.0.0.1:8080/api/cliente/registar', {   ////////// qual o url
+        fetch('http://127.0.0.1:8080/api/proprietario/registar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -290,7 +290,7 @@ function logOutUser(){
         nothing: ""
     }
 
-    fetch('http://127.0.0.1:8080/api/cliente/login', {  ////////// qual o url
+    fetch('http://127.0.0.1:8080/api/cliente/logout', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -398,9 +398,117 @@ function saveFilter(){
 
 }
 
+
+
+//------------------------------------MAP-----------------------------------
+
+
+function initMap() {
+
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+        var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+
+        const myLatLng = { lat: 41.563105, lng: -8.420382 }; 
+        const myLatLng1 = { lat: 41.560195, lng: -8.395384}; 
+
+        const coords = []; 
+
+        coords.push(myLatLng);
+        coords.push(myLatLng1);
+
+        const map = new google.maps.Map(document.getElementById("map"), { 
+            zoom: 14, 
+        }); 
+
+        map.setCenter(pos);
+
+        for( let i = 0 ; i<coords.length ; i++ ){
+
+            let marker = new google.maps.Marker({ 
+                position: coords[i], 
+                map,
+        });
+
+        marker.addListener("click", ()=> {
+            toRestaurant( 
+                console.log(marker.getPosition().lat()), 
+                console.log(marker.getPosition().lng())); 
+            })
+        }
+
+        },
+        () => {
+        handleLocationError(true, infoWindow, map.getCenter());
+        }
+    );
+    } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+}
+
+
 //------------------------------------rest-----------------------------------
 
-function addRestaurante(){
+function toRestaurant(lat, lng){
+
+    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html");
+
+    var data1 = {
+        lat: lat, 
+        lng : lng 
+    }
+    
+    fetch('http://127.0.0.1:8080/api/cliente/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data1),
+    })
+
+    .then(response => {
+        let a = response.json();
+        return a;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    })
+
+    document.getElementById("nomeRest").textContent = a.nome;
+    document.getElementById("endereco").textContent = a.endereco;
+    document.getElementById("telefone").textContent = a.telefone;
+    document.getElementById("localidade").textContent = a.localidade;
+
+    let horarioObj = new timeRest(a);
+
+    document.getElementById("segunda").textContent = horarioObj.segundaAbertura + " -- " + horarioObj.segundaFecho;
+    document.getElementById("terca").textContent = horarioObj.tercaAbertura + " -- " + horarioObj.tercaFecho;
+    document.getElementById("quarta").textContent = horarioObj.quartaAbertura + " -- " + horarioObj.quartaFecho;
+    document.getElementById("quinta").textContent = horarioObj.quintaAbertura + " -- " + horarioObj.quintaFecho;
+    document.getElementById("sexta").textContent = horarioObj.sextaAbertura + " -- " + horarioObj.sextaFecho;
+    document.getElementById("sabado").textContent = horarioObj.sabadoAbertura + " -- " + horarioObj.sabadoFecho;
+    document.getElementById("domingo").textContent = horarioObj.domingoAbertura + " -- " + horarioObj.domingoFecho;
+
+}
+
+function AddRestaurant(){
+
     let segundaHorario = "1:" + document.getElementById("segundaAbertura").value + "--" + document.getElementById("segundaFecho").value + ";";
     
     let tercaHorario = "2:" + document.getElementById("tercaAbertura").value + "--" + document.getElementById("tercaFecho").value + ";";
@@ -435,6 +543,7 @@ function addRestaurante(){
         body: JSON.stringify(data1),
     })
 
+    document.getElementById("response").textContent = "Restaurante adicionado"
 
 }
 
@@ -456,40 +565,7 @@ function createHorario(){
     return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
 }
 
-function getRestaurant(){
-    
-    fetch('http://127.0.0.1:8080/api/cliente/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data1),
-    })
 
-    .then(response => {
-        let a = response.json();
-        return a;
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    })
-
-    document.getElementById("nomeRest").textContent = a.nome;
-    document.getElementById("endereco").textContent = a.endereco;
-    document.getElementById("telefone").textContent = a.telefone;
-    document.getElementById("localidade").textContent = a.localidade;
-
-    let horarioObj = new timeRest(a);
-
-    document.getElementById("segunda").textContent = horarioObj.segundaAbertura + " -- " + horarioObj.segundaFecho;
-    document.getElementById("terca").textContent = horarioObj.tercaAbertura + " -- " + horarioObj.tercaFecho;
-    document.getElementById("quarta").textContent = horarioObj.quartaAbertura + " -- " + horarioObj.quartaFecho;
-    document.getElementById("quinta").textContent = horarioObj.quintaAbertura + " -- " + horarioObj.quintaFecho;
-    document.getElementById("sexta").textContent = horarioObj.sextaAbertura + " -- " + horarioObj.sextaFecho;
-    document.getElementById("sabado").textContent = horarioObj.sabadoAbertura + " -- " + horarioObj.sabadoFecho;
-    document.getElementById("domingo").textContent = horarioObj.domingoAbertura + " -- " + horarioObj.domingoFecho;
-
-}
 
 function getAbertura(dia){
     return dia.slice(2,6);
@@ -529,23 +605,10 @@ class timeRest {
 
 
 
-function initMap() {
-    const myLatLng = { lat: -25.363, lng: 131.044 };
-    const myLatLng1 = { lat: -25.363, lng: 131.55 };
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 4,
-      center: myLatLng,
-    });
-  
-    new google.maps.Marker({
-      position: myLatLng,
-      map,
-      title: "Hello World!",
-    });
+//------------------------------------RESTAURANT----------------------------------- 
 
 
 
-}
 
 
 
@@ -559,7 +622,7 @@ function toLogInOwner(){
     window.location.replace("http://127.0.0.1:5500/HTML/logInOwner.html");
 }
 
-function toOwnerPage(){
+function toFrontPageOwner(){
     window.location.replace("http://127.0.0.1:5500/HTML/frontPageOwner.html")
 }
 
@@ -600,16 +663,16 @@ function toBookings(){
     window.location.replace("http://127.0.0.1:5500/HTML/reservas.html")
 }
 
-function toRestaurante(){
-    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html")
-}
-
-function toAddRest(){
+function toAddRestaurant(){
     window.location.replace("http://127.0.0.1:5500/HTML/addRestaurante.html")
 }
 
 function toMap(){
     window.location.replace("http://127.0.0.1:5500/HTML/map.html");
     initMap();
-    
+}
+
+
+function back(){
+    window.history.back();
 }
