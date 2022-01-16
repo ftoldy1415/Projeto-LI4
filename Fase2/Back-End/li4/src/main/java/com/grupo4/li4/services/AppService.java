@@ -21,8 +21,8 @@ public class AppService {
 
 
     public boolean loginCliente(LoginForm lf){
-        if(!clienteRepo.existsById(lf.getEmail())) return false;
-        else return clienteRepo.getById(lf.getEmail()).
+        if(clienteRepo.encontraPorEmail(lf.getEmail()) == null) return false;
+        else return clienteRepo.encontraPorEmail(lf.getEmail()).
                                 getPalavra_passe().
                                 equals(lf.getPalavra_passe());
     }
@@ -33,35 +33,43 @@ public class AppService {
 
 
     public void atualizarDados(AtualizarDadosForm form, String email){
-        String nome = form.getNome_utilizador();
+        String nome_utilizador = form.getNome_utilizador();
         String password = form.getPalavra_passe();
         int num_telemovel = form.getNum_telemovel();
 
-        Cliente c = clienteRepo.getById(email);
-        if(!nome.equals("")) c.setNome_utilizador(nome);
+        Cliente c = clienteRepo.encontraPorEmail(email);
+        if(!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
         if(!password.equals("")) c.setPalavra_passe(password);
         if(num_telemovel != 0) c.setNum_telemovel(num_telemovel);
         clienteRepo.save(c);
     }
 
     public void registarProprietario(Proprietario proprietario){
+        System.out.println(proprietario.getEmail());
+        System.out.println(proprietario.getNif());
         this.proprietarioRepo.save(proprietario);
     }
 
 
     public void registarRestaurante(Restaurante restaurante, String email){
-        Proprietario p = proprietarioRepo.getById(email);
+        Proprietario p = proprietarioRepo.encontraPorEmail(email);
         restaurante.setProprietario(p);
-        //p.setRestaurante(restaurante);
         restauranteRepo.save(restaurante);
     }
 
     public boolean loginProprietario(LoginForm loginForm){
-        if(!proprietarioRepo.existsById(loginForm.getEmail())) return false;
-        else return (proprietarioRepo.getById(loginForm.getEmail())
+        if(proprietarioRepo.encontraPorEmail(loginForm.getEmail()) == null) return false;
+        else return (proprietarioRepo.encontraPorEmail(loginForm.getEmail())
                                      .getPassword()
                                      .equals(loginForm.getPalavra_passe()));
     }
 
+    public Restaurante obtemInfoRestaurante(String nome){
+        Restaurante r = restauranteRepo.getById(nome);
+        return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario());
+    }
+
+    public void teste(){
+    }
 
 }

@@ -17,13 +17,23 @@ public class Restaurante {
     @Column(name = "horario")
     private String horario;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "proprietario_email", referencedColumnName = "email")
+    @JoinColumn(name = "proprietario_nif", referencedColumnName = "nif")
     private Proprietario proprietario;
 
 
     public Restaurante(){
 
     }
+
+    public Restaurante(String nome, String rua, String localidade, int num_telefone, String horario){
+        this.nome = nome;
+        this.rua = rua;
+        this.localidade = localidade;
+        this.num_telefone = num_telefone;
+        this.horario = horario;
+        this.proprietario = null;
+    }
+
 
     public String getNome() {
         return nome;

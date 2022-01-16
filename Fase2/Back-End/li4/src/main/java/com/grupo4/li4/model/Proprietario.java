@@ -6,22 +6,21 @@ import javax.persistence.*;
 @Table(name = "proprietario")
 public class Proprietario {
     @Id
-    @Column(name = "email")
-    private String email;
+    @Column(name = "nif")
+    private int nif;
 
     @Column(name = "nome")
     private String nome;
     @Column(name = "password")
     private String password;
-    @Column(name = "nif")
-    private int nif;
-    @OneToOne(mappedBy = "proprietario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "email")
+    private String email;
+    @OneToOne(mappedBy = "proprietario" /*, cascade = CascadeType.ALL*/, fetch = FetchType.LAZY)
     private Restaurante restaurante;
 
     public Proprietario(){
-
     }
-
+/*
     public Proprietario(String email, String nome, String password, int nif, Restaurante restaurante){
         this.email = email;
         this.nome = nome;
@@ -29,7 +28,7 @@ public class Proprietario {
         this.nif = nif;
         this.restaurante = restaurante;
     }
-
+*/
     public int getNif() {
         return nif;
     }

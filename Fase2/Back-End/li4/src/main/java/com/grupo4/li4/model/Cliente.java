@@ -3,11 +3,13 @@ package com.grupo4.li4.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "cliente")
 public class Cliente {
     @Id
-    private String email;
+    private int nif;
 
     @Column(name = "nome")
     private String nome;
@@ -17,8 +19,8 @@ public class Cliente {
     private String palavra_passe;
     @Column(name = "num_telemovel")
     private int num_telemovel;
-    @Column(name = "nif")
-    private int nif;
+    @Column(name = "email")
+    private String email;
 
     public Cliente() {
     }
@@ -70,4 +72,8 @@ public class Cliente {
     public void setNome_utilizador(String nome_utilizador) {
         this.nome_utilizador = nome_utilizador;
     }
+
+
+
+
 }
