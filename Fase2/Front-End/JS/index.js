@@ -136,7 +136,6 @@
 
 
 
-
 //--------------------------------LOG IN------------------------------------
 
 function loginUser(){
@@ -181,7 +180,7 @@ function loginOwner(){
     };
 
 
-    fetch('http://127.0.0.1:8080/api/cliente/login', {  ////////// qual o url
+    fetch('http://127.0.0.1:8080/api/proprietario/login', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -258,12 +257,13 @@ function signInOwner(){
 
         var data1 = {
             nif : document.getElementById("nif").value,
+            nome : document.getElementById("nome").value, 
             email : document.getElementById("email").value,
             palavra_passe : document.getElementById("password").value,
         };
 
 
-        fetch('http://127.0.0.1:8080/api/cliente/registar', {   ////////// qual o url
+        fetch('http://127.0.0.1:8080/api/proprietario/registar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -290,7 +290,7 @@ function logOutUser(){
         nothing: ""
     }
 
-    fetch('http://127.0.0.1:8080/api/cliente/login', {  ////////// qual o url
+    fetch('http://127.0.0.1:8080/api/cliente/logout', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -398,6 +398,92 @@ function saveFilter(){
 
 }
 
+
+
+//------------------------------------MAP-----------------------------------
+
+
+
+// function initMap(lat,long) {
+
+//     var pos = getCoords();
+
+//     console.log(pos.lat.valueOf());
+
+//     const myLatLng = { lat: 41.563105, lng: -8.420382 }; 
+//     const myLatLng1 = { lat: 41.560195, lng: -8.395384}; 
+
+//     const coords = []; 
+
+//     coords.push(myLatLng);
+//     coords.push(myLatLng1);
+
+//     const map = new google.maps.Map(document.getElementById("map"), { 
+//         zoom: 14, 
+//         center: myLatLng, 
+//     }); 
+
+//     for( let i = 0 ; i<coords.length ; i++ ){
+
+//         let marker = new google.maps.Marker({ 
+//             position: coords[i], 
+//             map,
+//     });
+
+//     marker.addListener("click", ()=> {
+//         toRestaurant( 
+//             console.log(marker.getPosition().lat()), 
+//             console.log(marker.getPosition().lng())); 
+//         })
+//     }
+
+    
+
+// }
+    
+function toRestaurant(lat, lng){ 
+    window.location.replace("http://127.0.0.1:5500/HTML/restaurante.html"); 
+    getRestaurant(lat,lng); 
+}
+
+function initMap() {
+
+    var pos;
+
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+
+            let lat = pos.lat.valueOf();
+            let lng = pos.lng.valueOf();
+            
+            initMap(lat,lng);
+
+            },
+            () => {
+            handleLocationError(true, infoWindow, map.getCenter());
+            }
+        );
+        } else {
+        handleLocationError(false, infoWindow, map.getCenter());
+        }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+}
+
+
 //------------------------------------rest-----------------------------------
 
 function addRestaurante(){
@@ -456,14 +542,19 @@ function createHorario(){
     return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
 }
 
-function getRestaurant(){
+function getRestaurant(lat, lng){
+
+    var data1 = {
+        lat: lat, 
+        lng : lng 
+    }
     
     fetch('http://127.0.0.1:8080/api/cliente/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data1),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data1),
     })
 
     .then(response => {
@@ -529,23 +620,10 @@ class timeRest {
 
 
 
-function initMap() {
-    const myLatLng = { lat: -25.363, lng: 131.044 };
-    const myLatLng1 = { lat: -25.363, lng: 131.55 };
-    const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 4,
-      center: myLatLng,
-    });
-  
-    new google.maps.Marker({
-      position: myLatLng,
-      map,
-      title: "Hello World!",
-    });
+//------------------------------------RESTAURANT----------------------------------- 
 
 
 
-}
 
 
 
@@ -611,5 +689,4 @@ function toAddRest(){
 function toMap(){
     window.location.replace("http://127.0.0.1:5500/HTML/map.html");
     initMap();
-    
 }
