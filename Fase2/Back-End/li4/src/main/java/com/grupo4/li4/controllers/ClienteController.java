@@ -15,7 +15,7 @@ public class ClienteController {
     private AppService appService;
     private String email;
 
-
+    @CrossOrigin
     @GetMapping("/teste")
     public void teste(){
         appService.teste();
@@ -27,7 +27,7 @@ public class ClienteController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/login")
+    @PostMapping(value = "/login")
     public String login(@RequestBody LoginForm loginForm){
         boolean res = appService.loginCliente(loginForm);
 
@@ -37,7 +37,7 @@ public class ClienteController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/logout")
+    @PostMapping(value = "/logout")
     public void logout(){
         this.email = null;
     }
