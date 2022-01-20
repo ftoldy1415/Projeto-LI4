@@ -73,7 +73,4 @@ public class Cliente {
         this.nome_utilizador = nome_utilizador;
     }
 
-
-
-
 }

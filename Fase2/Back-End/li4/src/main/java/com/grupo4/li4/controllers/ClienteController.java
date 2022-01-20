@@ -51,8 +51,7 @@ public class ClienteController {
     @CrossOrigin
     @PostMapping(value = "/alterar_dados")
     public void alterarDados(@RequestBody AtualizarDadosForm atualizarDadosForm){
-        String novoEmail = appService.atualizarDados(atualizarDadosForm,this.email);
-        this.email = novoEmail;
+        this.email = appService.atualizarDados(atualizarDadosForm,this.email);
     }
 
     @CrossOrigin

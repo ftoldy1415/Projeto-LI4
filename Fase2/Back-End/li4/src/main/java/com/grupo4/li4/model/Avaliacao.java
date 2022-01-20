@@ -3,15 +3,17 @@ package com.grupo4.li4.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "avaliacao")
 public class Avaliacao {
 
     @Id
     private int id_avaliacao;
 
     @Column(name = "estrelas")
-    private int estrlas;
+    private int estrelas;
 
     @Column(name = "comentario")
     private String comentario;
@@ -28,12 +30,12 @@ public class Avaliacao {
         this.id_avaliacao = id_avaliacao;
     }
 
-    public int getEstrlas() {
-        return estrlas;
+    public int getEstrelas() {
+        return estrelas;
     }
 
-    public void setEstrlas(int estrlas) {
-        this.estrlas = estrlas;
+    public void setEstrelas(int estrelas) {
+        this.estrelas = estrelas;
     }
 
     public String getComentario() {
