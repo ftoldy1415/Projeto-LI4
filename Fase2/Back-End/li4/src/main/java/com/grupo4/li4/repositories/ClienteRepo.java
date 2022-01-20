@@ -9,4 +9,5 @@ public interface ClienteRepo extends JpaRepository<Cliente,Integer> {
     @Query("FROM Cliente WHERE email = ?1")
     Cliente encontraPorEmail(String email);
 
+
 }

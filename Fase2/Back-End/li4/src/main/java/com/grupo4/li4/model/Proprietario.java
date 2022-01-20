@@ -1,6 +1,7 @@
 package com.grupo4.li4.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "proprietario")
@@ -15,8 +16,8 @@ public class Proprietario {
     private String password;
     @Column(name = "email")
     private String email;
-    @OneToOne(mappedBy = "proprietario" /*, cascade = CascadeType.ALL*/, fetch = FetchType.LAZY)
-    private Restaurante restaurante;
+    @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Restaurante> restaurantes;
 
     public Proprietario(){
     }
@@ -61,11 +62,18 @@ public class Proprietario {
         this.email = email;
     }
 
-    public Restaurante getRestaurante() {
-        return restaurante;
+    public List<Restaurante> getRestaurante(){
+        return this.restaurantes;
     }
 
-    public void setRestaurante(Restaurante restaurante) {
-        this.restaurante = restaurante;
+    public void setRestaurante(List<Restaurante> restaurantes) {
+        this.restaurantes = restaurantes;
+    }
+
+    public Restaurante getRestauranteNome(String nome){
+        for(Restaurante r : this.restaurantes){
+            if(r.getNome().equals(nome)) return r;
+        }
+        return null;
     }
 }

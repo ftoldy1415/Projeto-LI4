@@ -32,16 +32,25 @@ public class AppService {
     }
 
 
-    public void atualizarDados(AtualizarDadosForm form, String email){
+    public String atualizarDados(AtualizarDadosForm form, String email){
+        String nome = form.getNome();
         String nome_utilizador = form.getNome_utilizador();
-        String password = form.getPalavra_passe();
-        int num_telemovel = form.getNum_telemovel();
+        String palavra_passe = form.getPalavra_passe();
+        String num_telemovel = form.getNum_telemovel();
+        String palavra_passe_antiga = form.getPalavra_passe_antiga();
+        String novo_email = form.getEmail();
+
 
         Cliente c = clienteRepo.encontraPorEmail(email);
-        if(!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
-        if(!password.equals("")) c.setPalavra_passe(password);
-        if(num_telemovel != 0) c.setNum_telemovel(num_telemovel);
-        clienteRepo.save(c);
+        if(palavra_passe_antiga.equals(c.getPalavra_passe())){
+            if(!nome.equals("")) c.setNome(nome);
+            if(!nome_utilizador.equals("")) c.setNome_utilizador(nome);
+            if(!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
+            if(!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
+            if(!novo_email.equals("")) c.setEmail(novo_email);
+            clienteRepo.save(c);
+        }
+        return novo_email;
     }
 
     public void registarProprietario(Proprietario proprietario){
@@ -67,6 +76,14 @@ public class AppService {
     public Restaurante obtemInfoRestaurante(String nome){
         Restaurante r = restauranteRepo.getById(nome);
         return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario());
+    }
+
+    public Cliente obtemInfoCliente(String email){
+        return this.clienteRepo.encontraPorEmail(email);
+    }
+
+    public Restaurante obtemRestaurante(String nome, String email){
+        return this.proprietarioRepo.encontraPorEmail(email).getRestauranteNome(nome);
     }
 
     public void teste(){

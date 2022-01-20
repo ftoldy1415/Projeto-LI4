@@ -16,7 +16,7 @@ public class Restaurante {
     private int num_telefone;
     @Column(name = "horario")
     private String horario;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proprietario_nif", referencedColumnName = "nif")
     private Proprietario proprietario;
 

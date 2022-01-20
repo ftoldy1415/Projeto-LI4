@@ -13,7 +13,7 @@ public class ClienteController {
 
     @Autowired
     private AppService appService;
-    private String nome;
+    private String email;
 
 
     @GetMapping("/teste")
@@ -23,7 +23,7 @@ public class ClienteController {
 
     @GetMapping("/hello")
     public String hello(){
-        return this.nome;
+        return this.email;
     }
 
     @CrossOrigin
@@ -31,7 +31,7 @@ public class ClienteController {
     public String login(@RequestBody LoginForm loginForm){
         boolean res = appService.loginCliente(loginForm);
 
-        if(res) this.nome = loginForm.getEmail();
+        if(res) this.email = loginForm.getEmail();
 
         return "{ \"login\": " + res +"}";
     }
@@ -39,7 +39,7 @@ public class ClienteController {
     @CrossOrigin
     @GetMapping(value = "/logout")
     public void logout(){
-        this.nome = null;
+        this.email = null;
     }
 
     @CrossOrigin
@@ -50,7 +50,20 @@ public class ClienteController {
 
     @CrossOrigin
     @PostMapping(value = "/alterar_dados")
-    public void alterarDados(@RequestBody AtualizarDadosForm atualizarDadosForm ){
-        appService.atualizarDados(atualizarDadosForm,this.nome);
+    public void alterarDados(@RequestBody AtualizarDadosForm atualizarDadosForm){
+        String novoEmail = appService.atualizarDados(atualizarDadosForm,this.email);
+        this.email = novoEmail;
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/dados_cliente")
+    public Cliente forneceDados() {
+        return appService.obtemInfoCliente(this.email);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/filtro")
+    public void aterarFiltro(){
+
     }
 }
