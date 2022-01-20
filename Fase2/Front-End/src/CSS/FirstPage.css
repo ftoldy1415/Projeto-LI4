@@ -1,0 +1,34 @@
+body{
+    background-color: black;
+    text-align: center;
+}
+
+
+
+#firstImg{
+    margin-top: 100px;
+}
+
+
+.botton{
+    margin-top: 20%;
+    width: 300px;
+    background-color: rgb(253,118,8);
+    border: none;
+    padding: 10px 10px 10px 10px;
+    margin: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+
+::placeholder{
+    color: white;
+}
+
+.botton:hover{
+    color: black;
+}
