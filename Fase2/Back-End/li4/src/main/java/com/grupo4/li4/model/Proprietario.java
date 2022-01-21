@@ -62,7 +62,7 @@ public class Proprietario {
         this.email = email;
     }
 
-    public List<Restaurante> getRestaurante(){
+    public List<Restaurante> getRestaurantes(){
         return this.restaurantes;
     }
 
@@ -76,4 +76,6 @@ public class Proprietario {
         }
         return null;
     }
+
+
 }

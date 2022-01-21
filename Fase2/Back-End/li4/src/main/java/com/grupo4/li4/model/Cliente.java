@@ -1,9 +1,7 @@
 package com.grupo4.li4.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -21,6 +19,16 @@ public class Cliente {
     private int num_telemovel;
     @Column(name = "email")
     private String email;
+    @Column(name = "filtro_distancia")
+    private int filtro_distancia;
+    @Column(name = "filtro_estrelas")
+    private int filtro_estrelas;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Avaliacao> avaliacoes;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reserva> reservas;
 
     public Cliente() {
     }
@@ -49,6 +57,22 @@ public class Cliente {
         return this.nome_utilizador;
     }
 
+    public int getFiltro_distancia(){
+        return this.filtro_distancia;
+    }
+
+    public void setFiltro_distancia(int filtro_distancia){
+        this.filtro_distancia = filtro_distancia;
+    }
+
+    public int getFiltro_estrelas(){
+        return this.filtro_estrelas;
+    }
+
+    public void setFiltro_estrelas(int filtro_estrelas){
+        this.filtro_estrelas = filtro_estrelas;
+    }
+
     public void setNif(int nif) {
         this.nif = nif;
     }
@@ -71,6 +95,18 @@ public class Cliente {
 
     public void setNome_utilizador(String nome_utilizador) {
         this.nome_utilizador = nome_utilizador;
+    }
+
+    public List<Avaliacao> getAvaliacoes(){
+        return this.avaliacoes;
+    }
+
+    public List<Reserva> getReservas(){
+        return this.reservas;
+    }
+
+    public void addReserva(Reserva r ){
+        this.reservas.add(r);
     }
 
 }

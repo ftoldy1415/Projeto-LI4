@@ -1,11 +1,14 @@
 package com.grupo4.li4.controllers;
 
-import com.grupo4.li4.model.AtualizarDadosForm;
-import com.grupo4.li4.model.Cliente;
-import com.grupo4.li4.model.LoginForm;
+import com.grupo4.li4.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.grupo4.li4.services.AppService;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/cliente")
@@ -45,6 +48,8 @@ public class ClienteController {
     @CrossOrigin
     @PostMapping(value = "/registar")
     public void registar(@RequestBody Cliente cliente){
+        cliente.setFiltro_distancia(5);
+        cliente.setFiltro_estrelas(5);
         appService.registar(cliente);
     }
 
@@ -63,6 +68,30 @@ public class ClienteController {
     @CrossOrigin
     @PostMapping(value = "/filtro")
     public void aterarFiltro(){
-
     }
+
+    @CrossOrigin
+    @PostMapping(value = "/avaliacao")
+    public void avaliacao(@RequestBody AvaliacaoForm form){
+        appService.avaliacao(form,this.email);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/reserva")
+    public void reserva(@RequestBody Map<String,Object> input){
+        Date dataSql = Date.valueOf((String) input.get("data"));
+        int num_pessoas = (Integer) input.get("num_pessoas");
+        String nome_restaurante = (String) input.get("nome_restaurante");
+        List<String> pratos = (List<String>) input.get("pratos");
+        appService.criarReserva(dataSql, num_pessoas, nome_restaurante, pratos, this.email);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/filtra_restaurantes")
+    public List<Map<String, Object>> filtra_restaurantes(@RequestBody Map<String, Object> input){
+        double lat = (Double) input.get("lat");
+        double lng = (Double) input.get("lng");
+        return appService.filtra_restaurantes(lat, lng, this.email);
+    }
+
 }

@@ -8,6 +8,7 @@ public class AtualizarDadosForm {
     private String num_telemovel;
     private String nome_utilizador;
     private String palavra_passe_antiga;
+    private String raio_distancia;
 
     public AtualizarDadosForm() {
     }
@@ -34,5 +35,9 @@ public class AtualizarDadosForm {
 
     public String getPalavra_passe_antiga(){
         return this.palavra_passe_antiga;
+    }
+
+    public String getRaio_distancia(){
+        return this.raio_distancia;
     }
 }

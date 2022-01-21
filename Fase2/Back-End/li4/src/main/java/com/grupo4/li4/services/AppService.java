@@ -1,11 +1,15 @@
 package com.grupo4.li4.services;
 
 import com.grupo4.li4.model.*;
-import com.grupo4.li4.repositories.ProprietarioRepo;
-import com.grupo4.li4.repositories.RestauranteRepo;
+import com.grupo4.li4.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.grupo4.li4.repositories.ClienteRepo;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AppService {
@@ -19,6 +23,15 @@ public class AppService {
     @Autowired
     private ProprietarioRepo proprietarioRepo;
 
+    @Autowired
+    private AvaliacaoRepo avaliacaoRepo;
+
+    @Autowired
+    private PratoRepo pratoRepo;
+
+    @Autowired
+    private ReservaRepo reservaRepo;
+
 
     public boolean loginCliente(LoginForm lf){
         if(clienteRepo.encontraPorEmail(lf.getEmail()) == null) return false;
@@ -28,6 +41,7 @@ public class AppService {
     }
 
     public void registar(Cliente cliente){
+
         clienteRepo.save(cliente);
     }
 
@@ -39,6 +53,7 @@ public class AppService {
         String num_telemovel = form.getNum_telemovel();
         String palavra_passe_antiga = form.getPalavra_passe_antiga();
         String novo_email = form.getEmail();
+        String novo_raio = form.getRaio_distancia();
 
 
         Cliente c = clienteRepo.encontraPorEmail(email);
@@ -48,6 +63,7 @@ public class AppService {
             if(!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
             if(!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
             if(!novo_email.equals("")) c.setEmail(novo_email);
+            if(!novo_raio.equals("")) c.setFiltro_distancia(Integer.parseInt(novo_raio));
             clienteRepo.save(c);
         }
         return novo_email;
@@ -86,7 +102,88 @@ public class AppService {
         return this.proprietarioRepo.encontraPorEmail(email).getRestauranteNome(nome);
     }
 
+    public void avaliacao(AvaliacaoForm form, String email){
+        Cliente c = this.clienteRepo.encontraPorEmail(email);
+        Restaurante r = this.restauranteRepo.getById(form.getNome_restaurante());
+        Avaliacao a = new Avaliacao(Integer.parseInt(form.getEstrelas()), form.getComentario(),r,c);
+        this.avaliacaoRepo.save(a);
+    }
+
+    public List<Restaurante> obterRestaurantesProprietario(String email){
+        Proprietario p = this.proprietarioRepo.encontraPorEmail(email);
+        return p.getRestaurantes();
+    }
+
+    public void inserirPrato(String nome, Float preco, String nome_restaurante, String email){
+        Prato p = new Prato(nome, preco);
+        this.pratoRepo.save(p);
+        Restaurante r = this.restauranteRepo.getById(nome_restaurante);
+        r.addPrato(p);
+        this.restauranteRepo.save(r);
+    }
+
     public void teste(){
     }
+
+    public void removerRestaurante(String nome){
+        this.restauranteRepo.deleteById(nome);
+    }
+
+    public void criarReserva(Date data, int num_pessoal, String nome_restaurante, List<String> pratos, String email){
+        Restaurante r = this.restauranteRepo.getById(nome_restaurante);
+        Cliente c = this.clienteRepo.encontraPorEmail(email);
+        List<Prato> pratos_reserva = new ArrayList<>();
+        List<Prato> aux = r.getPratos();
+        for(int i = 0; i < pratos.size(); i++){
+            for(Prato p : aux){
+                if(p.getNome().equals(pratos.get(i))){
+                    pratos_reserva.add(p);
+                    break;
+                }
+            }
+        }
+
+        Reserva reserva = new Reserva(data, num_pessoal, c, r,pratos_reserva);
+        this.reservaRepo.save(reserva);
+    }
+
+    public static double distance(double lat1, double lat2, double lon1,
+                                  double lon2, double el1, double el2) {
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        double height = el1 - el2;
+
+        distance = Math.pow(distance, 2) + Math.pow(height, 2);
+
+        return Math.sqrt(distance);
+    }
+
+    public List<Map<String, Object>> filtra_restaurantes(double lat, double lng, String email){
+        Cliente c = this.clienteRepo.encontraPorEmail(email);
+        List<Restaurante> r = this.restauranteRepo.findAll();
+        List<Map<String, Object>> restaurantes = new ArrayList<>();
+        for(Restaurante rest : r){
+            double dist = distance(lat, rest.getLatitude(), lng, rest.getLongitude(),0.0,0.0);
+            System.out.println("Distance from " + rest.getNome() + ": " + dist);
+            if(dist < c.getFiltro_distancia() * 1000) {
+                Map<String,Object> aux = new HashMap<>();
+                aux.put("nome", rest.getNome());
+                aux.put("lat",rest.getLatitude());
+                aux.put("lng", rest.getLongitude());
+                restaurantes.add(aux);
+            }
+        }
+        return restaurantes;
+    }
+
 
 }

@@ -1,6 +1,9 @@
 package com.grupo4.li4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurante")
@@ -10,19 +13,38 @@ public class Restaurante {
 
     @Column(name = "rua")
     private String rua;
+
     @Column(name = "localidade")
     private String localidade;
+
     @Column(name = "num_telefone")
     private int num_telefone;
+
     @Column(name = "horario")
     private String horario;
+
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proprietario_nif", referencedColumnName = "nif")
+    @JsonIgnore
     private Proprietario proprietario;
 
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Reserva> reservas;
+
+    @ManyToMany
+    @JoinTable(
+            name = "serve",
+            joinColumns = @JoinColumn(name = "restaurante_nome"),
+            inverseJoinColumns = @JoinColumn(name = "prato_id"))
+    private List<Prato> pratos;
 
     public Restaurante(){
-
     }
 
     public Restaurante(String nome, String rua, String localidade, int num_telefone, String horario){
@@ -34,6 +56,13 @@ public class Restaurante {
         this.proprietario = null;
     }
 
+    public void addPrato(Prato prato){
+        this.pratos.add(prato);
+    }
+
+    public void addReserva(Reserva r){
+        this.addReserva(r);
+    }
 
     public String getNome() {
         return nome;
@@ -81,6 +110,18 @@ public class Restaurante {
 
     public void setProprietario(Proprietario proprietario) {
         this.proprietario = proprietario;
+    }
+
+    public List<Prato> getPratos(){
+        return this.pratos;
+    }
+
+    public double getLatitude(){
+        return this.latitude;
+    }
+
+    public double getLongitude(){
+        return this.longitude;
     }
 
     @Override

@@ -7,7 +7,9 @@ import com.grupo4.li4.services.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,6 +20,7 @@ public class ProprietarioController {
     private AppService appService;
 
     private String email;
+    private String restaurante;
 
     @GetMapping(value = "/teste")
     public String teste(){
@@ -59,7 +62,39 @@ public class ProprietarioController {
         res.put("num_telefone", r.getNum_telefone());
         res.put("horario", r.getHorario());
         return res;
+    }
 
+    @CrossOrigin
+    @PostMapping(value = "/obter_restaurantes")
+    public List<Map<String,Object>> obtemRestaurantes(){
+        List<Map<String, Object>> res = new ArrayList<>();
+        List<Restaurante> rs =  this.appService.obterRestaurantesProprietario(this.email);
+
+        for(Restaurante r : rs){
+            Map<String, Object> m = new HashMap<>();
+            m.put("label", r.getNome());
+            m.put("value", r.getNome());
+            res.add(m);
+        }
+        return res;
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/inserir_prato")
+    public void inserirPrato(@RequestBody Map<String, Object> input){
+        this.appService.inserirPrato((String) input.get("nome"), Float.parseFloat((String) input.get("preco")), (String) input.get("nome_restaurante"),  this.email);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/remover_restaurante")
+    public void removerRestaurante(@RequestBody Map<String,Object> param){
+        this.appService.removerRestaurante((String)param.get("nome"));
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/nome_restaurante")
+    public void restauranteAtual(@RequestBody Map<String, Object> input){
+        this.restaurante = (String) input.get("nome");
     }
 
 

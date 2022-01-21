@@ -21,6 +21,8 @@ public class RestauranteController {
     @CrossOrigin
     @PostMapping(value = "/registar")
     public void registarRestaurante(@RequestBody Restaurante restaurante){
+        System.out.println("latitude: " + restaurante.getLatitude());
+        System.out.println("longitude: " + restaurante.getLongitude());
         appService.registarRestaurante(restaurante, proprietarioController.getEmail());
     }
 
@@ -29,7 +31,5 @@ public class RestauranteController {
     public Restaurante obterInfo(@RequestBody Map<String,Object> nome){
         return this.appService.obtemInfoRestaurante((String) nome.get("nome"));
     }
-
-
 
 }
