@@ -80,12 +80,6 @@ public class ProprietarioController {
     }
 
     @CrossOrigin
-    @PostMapping(value = "/inserir_prato")
-    public void inserirPrato(@RequestBody Map<String, Object> input){
-        this.appService.inserirPrato((String) input.get("nome"), Float.parseFloat((String) input.get("preco")), (String) input.get("nome_restaurante"),  this.email);
-    }
-
-    @CrossOrigin
     @PostMapping(value = "/remover_restaurante")
     public void removerRestaurante(@RequestBody Map<String,Object> param){
         this.appService.removerRestaurante((String)param.get("nome"));
@@ -95,6 +89,12 @@ public class ProprietarioController {
     @PostMapping(value = "/nome_restaurante")
     public void restauranteAtual(@RequestBody Map<String, Object> input){
         this.restaurante = (String) input.get("nome");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/alterar_dados")
+    public void alterar_dados(@RequestBody Map<String, Object> input){
+        this.appService.alterar_dados_Restaurante(input, this.restaurante);
     }
 
 

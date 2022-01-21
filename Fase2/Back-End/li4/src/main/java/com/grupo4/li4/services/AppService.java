@@ -46,13 +46,12 @@ public class AppService {
     }
 
 
-    public String atualizarDados(AtualizarDadosForm form, String email){
+    public void atualizarDados(AtualizarDadosForm form, String email){
         String nome = form.getNome();
         String nome_utilizador = form.getNome_utilizador();
         String palavra_passe = form.getPalavra_passe();
         String num_telemovel = form.getNum_telemovel();
         String palavra_passe_antiga = form.getPalavra_passe_antiga();
-        String novo_email = form.getEmail();
         String novo_raio = form.getRaio_distancia();
 
 
@@ -62,11 +61,9 @@ public class AppService {
             if(!nome_utilizador.equals("")) c.setNome_utilizador(nome);
             if(!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
             if(!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
-            if(!novo_email.equals("")) c.setEmail(novo_email);
             if(!novo_raio.equals("")) c.setFiltro_distancia(Integer.parseInt(novo_raio));
             clienteRepo.save(c);
         }
-        return novo_email;
     }
 
     public void registarProprietario(Proprietario proprietario){
@@ -185,5 +182,17 @@ public class AppService {
         return restaurantes;
     }
 
+    public void alterar_dados_Restaurante(Map<String, Object> input, String nome_restaurante){
+        //num_telefone
+        //horario
+        String num_telefone = (String) input.get("num_telefone");
+        String horario = (String) input.get("horario");
+
+        Restaurante r = this.restauranteRepo.getById(nome_restaurante);
+        if(!horario.equals("")) r.setHorario(horario);
+        if(!num_telefone.equals("")) r.setNum_telefone(Integer.parseInt(num_telefone));
+
+        this.restauranteRepo.save(r);
+    }
 
 }

@@ -3,7 +3,6 @@ package com.grupo4.li4.model;
 public class AtualizarDadosForm {
 
     private String nome;
-    private String email;
     private String palavra_passe;
     private String num_telemovel;
     private String nome_utilizador;
@@ -15,10 +14,6 @@ public class AtualizarDadosForm {
 
     public String getNome(){
         return this.nome;
-    }
-
-    public String getEmail(){
-        return this.email;
     }
 
     public String getNome_utilizador() {

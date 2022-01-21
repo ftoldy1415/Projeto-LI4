@@ -32,4 +32,5 @@ public class RestauranteController {
         return this.appService.obtemInfoRestaurante((String) nome.get("nome"));
     }
 
+
 }
