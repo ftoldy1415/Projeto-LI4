@@ -17,7 +17,8 @@ public class ClienteController {
     @Autowired
     private AppService appService;
     private String email;
-
+    private double latitude;
+    private double longitude;
 
     @GetMapping("/teste")
     public void teste(){
@@ -30,7 +31,7 @@ public class ClienteController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/login")
+    @PostMapping(value = "/login")
     public String login(@RequestBody LoginForm loginForm){
         boolean res = appService.loginCliente(loginForm);
 
@@ -40,7 +41,7 @@ public class ClienteController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/logout")
+    @PostMapping(value = "/logout")
     public void logout(){
         this.email = null;
     }
@@ -89,10 +90,15 @@ public class ClienteController {
 
     @CrossOrigin
     @PostMapping(value = "/filtra_restaurantes")
-    public List<Map<String, Object>> filtra_restaurantes(@RequestBody Map<String, Object> input){
-        double lat = (Double) input.get("lat");
-        double lng = (Double) input.get("lng");
-        return appService.filtra_restaurantes(lat, lng, this.email);
+    public List<Map<String, Object>> filtra_restaurantes(){
+        return appService.filtra_restaurantes(this.latitude, this.longitude, this.email);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/recebe_localizacao")
+    public void recebeLocalizacao(@RequestBody Map<String,Object> input){
+        this.latitude = (double) input.get("lat");
+        this.longitude = (double) input.get("lng");
     }
 
 }

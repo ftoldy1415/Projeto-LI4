@@ -164,7 +164,7 @@ public class AppService {
         return Math.sqrt(distance);
     }
 
-    public List<Map<String, Object>> filtra_restaurantes(double lat, double lng, String email){
+    public List<Map<String, Object>> filtra_restaurantes(double lat, double lng ,String email){
         Cliente c = this.clienteRepo.encontraPorEmail(email);
         List<Restaurante> r = this.restauranteRepo.findAll();
         List<Map<String, Object>> restaurantes = new ArrayList<>();
@@ -172,11 +172,11 @@ public class AppService {
             double dist = distance(lat, rest.getLatitude(), lng, rest.getLongitude(),0.0,0.0);
             System.out.println("Distance from " + rest.getNome() + ": " + dist);
             if(dist < c.getFiltro_distancia() * 1000) {
-                Map<String,Object> aux = new HashMap<>();
-                aux.put("nome", rest.getNome());
-                aux.put("lat",rest.getLatitude());
-                aux.put("lng", rest.getLongitude());
-                restaurantes.add(aux);
+            Map<String,Object> aux = new HashMap<>();
+            aux.put("nome", rest.getNome());
+            aux.put("lat",rest.getLatitude());
+            aux.put("lng", rest.getLongitude());
+            restaurantes.add(aux);
             }
         }
         return restaurantes;

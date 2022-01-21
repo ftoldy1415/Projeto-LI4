@@ -27,7 +27,7 @@ public class RestauranteController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/obtem_info")
+    @PostMapping(value = "/obtem_info")
     public Restaurante obterInfo(@RequestBody Map<String,Object> nome){
         return this.appService.obtemInfoRestaurante((String) nome.get("nome"));
     }
