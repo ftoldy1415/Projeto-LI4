@@ -43,7 +43,7 @@ function Restaurante(){
 
 
     function getAbertura(dia){
-        return dia.slice(2,6);
+        return dia.slice(0,4);
     }
     
     function getFecho(dia){

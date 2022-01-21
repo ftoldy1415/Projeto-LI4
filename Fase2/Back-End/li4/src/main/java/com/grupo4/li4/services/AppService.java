@@ -58,7 +58,7 @@ public class AppService {
         Cliente c = clienteRepo.encontraPorEmail(email);
         if(palavra_passe_antiga.equals(c.getPalavra_passe())){
             if(!nome.equals("")) c.setNome(nome);
-            if(!nome_utilizador.equals("")) c.setNome_utilizador(nome);
+            if(!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
             if(!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
             if(!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
             if(!novo_raio.equals("")) c.setFiltro_distancia(Integer.parseInt(novo_raio));

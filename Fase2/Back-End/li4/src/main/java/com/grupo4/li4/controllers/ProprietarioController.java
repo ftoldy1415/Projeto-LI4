@@ -45,6 +45,7 @@ public class ProprietarioController {
     @PostMapping(value = "/registar")
     public void registar(@RequestBody Proprietario proprietario){
         this.appService.registarProprietario(proprietario);
+        this.email = proprietario.getEmail();
     }
 
     public String getEmail(){

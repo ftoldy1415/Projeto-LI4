@@ -4,9 +4,36 @@ import { useHistory } from "react-router-dom";
 import {useEffect, useRef, useState} from 'react'
 
 
-import '../CSS/reservas.css';
+import '../CSS/Reservas.css';
 
-function addReservas(){
+function Reserva(){
+    const [pratos,setPratos] = useState([]);
+    const [selected,setSelected] = useState('');
+    let history = useHistory();
+
+    const data1 = {nothing : ''};
+
+    const getPratos= async () => {
+        const response = await fetch('http://127.0.0.1:8080/api/proprietario/obter_restaurantes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data1),
+        });
+        const pratos = await response.json();
+        setPratos(pratos);
+
+    }
+
+    useEffect( () => {
+        getPratos();
+    },[]);
+
+    const handleChange = (e) => {
+        setSelected(e.value);
+    }
+
     return(
         <div>
             <div>
@@ -38,10 +65,14 @@ function addReservas(){
             <div class = "divForm2">        
                 <br/>
                 <br/>
+                <h1>Selecione o prato : </h1>
+                <Select options={pratos} onChange={handleChange}/>
                 <button className = "button" onclick="confirm()">Confirmar</button>
                 <button className = "button" onclick="toRestaurante()">Cancelar</button>
 
             </div>
         </div>
-    )
+    );
 }
+
+export default Reserva;

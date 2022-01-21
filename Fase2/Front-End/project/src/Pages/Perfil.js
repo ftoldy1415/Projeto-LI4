@@ -9,7 +9,7 @@ import '../CSS/Perfil.css';
 function Perfil(){
 
     const [user,setUser] = useState({nif: '', nome:'', email:'', palavra_passe:'', num_telemovel:'', nome_utilizador:''});
-    const [userChanged, setUserChanged] = useState({nome:'', email:'', palavra_passe:'', num_telemovel:'', nome_utilizador:'', palavra_passe_antiga: ''});
+    const [userChanged, setUserChanged] = useState({nome:'', palavra_passe:'', num_telemovel:'', nome_utilizador:'', palavra_passe_antiga: ''});
     const [secondPassword, setPassword] = useState('');
     const [kms, setKms] = useState(0);
     const data1 = {nothing: ""};
@@ -17,85 +17,85 @@ function Perfil(){
 
 
 
-    //useEffect( ()=>{
+    useEffect( ()=>{
     
-        fetch('http://127.0.0.1:8080/api/cliente/hello', {
+        fetch('http://127.0.0.1:8080/api/cliente/dados_cliente', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data1),
+        })
+
+        .then(response => {
+            return response.json();
+        })
+        .then((data) => {
+
+            setUser(data);
+
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    },[userChanged]);
+
+    const Back = () => {
+        let path = '/FrontPageUser';
+        history.push(path);
+    }
+
+    const HandleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setUserChanged({...userChanged, [name]:value});
+    }
+
+    const SavePerfil = () => {
+
+        console.log(userChanged);
+        
+        if( secondPassword == userChanged.palavra_passe ){
+
+            fetch('http://127.0.0.1:8080/api/cliente/alterar_dados', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userChanged),
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    const SaveFilter = () => {
+
+
+        fetch('http://127.0.0.1:8080/api/cliente/filtro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data1),
-    })
+            body: JSON.stringify(kms),
+            })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+        });
 
-    .then(response => {
-        console.log( response.json());
-    })
-    //.then((data) => {
-
-        //setUser(data);
-    //    console.log(data);
-
-    //})
-    //.catch((error) => {
-    //        console.error('Error:', error);
-    //});
-    //},[]);
-
-    // const Back = () => {
-    //     let path = '/FrontPageUser';
-    //     history.push(path);
-    // }
-
-    // const HandleChange = (e) => {
-    //     const name = e.target.name;
-    //     const value = e.target.value;
-    //     setUserChanged({...userChanged, [name]:value});
-    // }
-
-    // const SavePerfil = () => {
-        
-    //     if( secondPassword == userChanged.palavra_passe ){
-
-    //         fetch('http://127.0.0.1:8080/api/cliente/alterar_dados', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(userChanged),
-    //             })
-    //             .then((data) => {
-    //                 console.log(data);
-    //             })
-    //             .catch((error) => {
-    //             console.error('Error:', error);
-    //         });
-    //     }
-    // }
-
-    // const SaveFilter = () => {
-
-    //     fetch('http://127.0.0.1:8080/api/cliente/filtro', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(kms),
-    //         })
-    //         .then((data) => {
-    //             console.log(data);
-    //         })
-    //         .catch((error) => {
-    //         console.error('Error:', error);
-    //     });
-
-    // }
-
-
+    }
 
 
     return (
     <div>
-        {/* <div className="split left">
+        <div className="split left">
         <div className="centered">
 
             <h1>Meu perfil</h1><br />
@@ -105,8 +105,8 @@ function Perfil(){
             <p>Email: {user.email}</p>
 
         </div>
-        </div> */}
-{/* 
+        </div>
+ 
         <div className="split right">
             <div>
 
@@ -117,7 +117,6 @@ function Perfil(){
 
                     <input type="text"      name="nome_utilizador"          placeholder="novo username"         value={userChanged.nome_utilizador}      onChange={HandleChange}/><br/><br/><br/>
                     <input type="text"      name="nome"                     placeholder="novo nome"             value={userChanged.nome}                 onChange={HandleChange}/><br/><br/><br/>
-                    <input type="email"     name="email"                    placeholder="novo email"            value={userChanged.email}                onChange={HandleChange}/><br/><br/><br/>
                     <input type="number"    name="num_telemovel"            placeholder="número de telemóvel"   value={userChanged.num_telemovel}        onChange={HandleChange}/><br/><br/><br/>
                     <input type="password"  name="palavra_passe_antiga"     placeholder="password antiga"       value={userChanged.palavra_passe_antiga} onChange={HandleChange}/><br/><br/>
                     <input type="password"  name="palavra_passe"            placeholder="password nova"         value={userChanged.palavra_passe}        onChange={HandleChange}/><br/><br/>
@@ -132,7 +131,7 @@ function Perfil(){
                     <button onClick={SaveFilter} >Guardar Alterações</button>
                 </form>
             </div>
-        </div> */}
+        </div>
     </div>
 
     );

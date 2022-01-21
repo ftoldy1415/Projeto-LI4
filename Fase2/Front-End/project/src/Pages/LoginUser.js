@@ -8,6 +8,7 @@ import '../CSS/LoginUser.css';
 
 function LoginUser(){
 
+
     const [ email , setEmail] = useState('');
     const [ password , setPassword] = useState('');
     const history = useHistory();
@@ -36,7 +37,6 @@ function LoginUser(){
         .then((data) => {
             if(data.login){
 
-                console.log(data.login)
                 let path = '/FrontPageUser';
                 history.push(path);
                 
@@ -92,6 +92,6 @@ function LoginUser(){
 
     </div>
     )
-};
+}
 
 export default LoginUser;

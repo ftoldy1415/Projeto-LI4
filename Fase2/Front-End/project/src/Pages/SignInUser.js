@@ -59,13 +59,13 @@ function SignInUser(){
             <img src="logo.png" alt="" id="firstImg"/><br/><br/>
 
             <form action="">
-                <input id="email"            type="email"    placeholder="Email"                name='email'          value={user.email}            onChange={handleChange}/><br/>
-                <input id="password"         type="password" placeholder="Password"             name='palavra_passe'  value={user.palavra_passe}    onChange={handleChange}/><br/>
-                <input id="secondPassword"   type="password" placeholder="Confirm Password"                           value={secondPassword}        onChange={(e) => setPassword(e.target.value)}/><br/>
-                <input id="nif"              type="number"   placeholder="NIF"                  name='nif'            value={user.nif}              onChange={handleChange}/><br/>
-                <input id="name"             type="text"     placeholder="Nome de utilizador"   name='nome_utilizador'value={user.nome_utilizador}  onChange={handleChange}/><br/>
-                <input id="name"             type="text"     placeholder="Nome"                 name='nome'           value={user.nome}             onChange={handleChange}/><br/>
-                <input id="phoneNumber"      type="number"   placeholder="Número de telemóvel"  name='num_telemovel'  value={user.num_telemovel}    onChange={handleChange}/><br/>
+                <input type="email"    placeholder="Email"                name='email'          value={user.email}            onChange={handleChange}/><br/>
+                <input type="password" placeholder="Password"             name='palavra_passe'  value={user.palavra_passe}    onChange={handleChange}/><br/>
+                <input type="password" placeholder="Confirm Password"                           value={secondPassword}        onChange={(e) => setPassword(e.target.value)}/><br/>
+                <input type="number"   placeholder="NIF"                  name='nif'            value={user.nif}              onChange={handleChange}/><br/>
+                <input type="text"     placeholder="Nome de utilizador"   name='nome_utilizador'value={user.nome_utilizador}  onChange={handleChange}/><br/>
+                <input type="text"     placeholder="Nome"                 name='nome'           value={user.nome}             onChange={handleChange}/><br/>
+                <input type="number"   placeholder="Número de telemóvel"  name='num_telemovel'  value={user.num_telemovel}    onChange={handleChange}/><br/>
 
             </form>
 

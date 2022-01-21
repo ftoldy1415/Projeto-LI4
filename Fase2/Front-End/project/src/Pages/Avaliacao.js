@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
 
 
-import '../CSS/avaliacao.css';
+import '../CSS/Avaliacao.css';
 
 function Avaliacao(){
 
@@ -59,5 +59,7 @@ function Avaliacao(){
                 <button className = "button" onclick="toRestaurante()">Cancelar</button>
             </div>
         </div>
-    )
+    );
 }
+
+export default Avaliacao;

@@ -51,6 +51,7 @@ public class ClienteController {
         cliente.setFiltro_distancia(5);
         cliente.setFiltro_estrelas(5);
         appService.registar(cliente);
+        this.email = cliente.getEmail();
     }
 
     @CrossOrigin

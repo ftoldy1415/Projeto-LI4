@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
+import {useState} from 'react';
+
 
 
 import '../CSS/FrontPageUser.css';
@@ -9,6 +11,16 @@ function FrontPageUser(){
 
     const history = useHistory();
 
+
+    const toMap = () => {
+
+
+
+
+
+        let path = '/Map';
+        history.push(path);        
+    }
 
     const AboutUs = ()=>{
         let path = '/AboutUs';
@@ -52,7 +64,7 @@ function FrontPageUser(){
                 <br />
                 <br />
 
-                <button onclick="toMap()">Mapa</button><br/>
+                <button onClick={toMap}>Mapa</button><br/>
                 <button onclick="toCodes()">Códigos Promocionais</button><br/>
                 <button onclick="toBookings()">Reservas</button><br/>
                 <button onClick={AboutUs}>About Us</button><br/>
