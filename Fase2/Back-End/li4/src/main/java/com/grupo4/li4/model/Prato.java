@@ -1,5 +1,7 @@
 package com.grupo4.li4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -20,9 +22,11 @@ public class Prato {
     private float preco;
 
     @ManyToMany(mappedBy = "pratos")
+    @JsonIgnore
     private List<Restaurante> restaurantes;
 
     @ManyToMany(mappedBy = "pratos")
+    @JsonIgnore
     private List<Reserva> reservas;
 
     public Prato(){
@@ -49,10 +53,26 @@ public class Prato {
         this.nome = nome;
     }
 
+    public float getPreco(){
+        return this.preco;
+    }
+
+    public void setPreco(float preco){
+        this.preco = preco;
+    }
+
     /*
     public List<Reserva> getReservas(){
         return this.reservas;
     }
      */
 
+    @Override
+    public String toString() {
+        return "Prato{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", preco=" + preco +
+                '}';
+    }
 }

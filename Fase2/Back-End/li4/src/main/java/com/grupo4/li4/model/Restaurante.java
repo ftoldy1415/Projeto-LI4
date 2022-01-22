@@ -49,13 +49,15 @@ public class Restaurante {
     public Restaurante(){
     }
 
-    public Restaurante(String nome, String rua, String localidade, int num_telefone, String horario){
+    public Restaurante(String nome, String rua, String localidade, int num_telefone, String horario, double lat, double lng){
         this.nome = nome;
         this.rua = rua;
         this.localidade = localidade;
         this.num_telefone = num_telefone;
         this.horario = horario;
         this.proprietario = null;
+        this.latitude = lat;
+        this.longitude = lng;
     }
 
     public void addPrato(Prato prato){
@@ -65,6 +67,7 @@ public class Restaurante {
     public void addReserva(Reserva r){
         this.addReserva(r);
     }
+
 
     public String getNome() {
         return nome;
@@ -106,6 +109,22 @@ public class Restaurante {
         this.horario = horario;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     public Proprietario getProprietario() {
         return proprietario;
     }
@@ -114,16 +133,20 @@ public class Restaurante {
         this.proprietario = proprietario;
     }
 
-    public List<Prato> getPratos(){
-        return this.pratos;
+    public List<Reserva> getReservas() {
+        return reservas;
     }
 
-    public double getLatitude(){
-        return this.latitude;
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
-    public double getLongitude(){
-        return this.longitude;
+    public List<Prato> getPratos() {
+        return pratos;
+    }
+
+    public void setPratos(List<Prato> pratos) {
+        this.pratos = pratos;
     }
 
     @Override
@@ -134,7 +157,6 @@ public class Restaurante {
                 ", localidade='" + localidade + '\'' +
                 ", num_telefone=" + num_telefone +
                 ", horario='" + horario + '\'' +
-                ", proprietario=" + proprietario +
                 '}';
     }
 }

@@ -32,89 +32,112 @@ public class AppService {
     @Autowired
     private ReservaRepo reservaRepo;
 
+    private String email_utilizador;
+    private String email_proprietario;
+    private String restaurante_atual;
+    private double lat_utilizador;
+    private double lng_utilizador;
+    private double lat_restaurante;
+    private double lng_restaurante;
+
+
+
 
     public boolean loginCliente(LoginForm lf){
         if(clienteRepo.encontraPorEmail(lf.getEmail()) == null) return false;
-        else return clienteRepo.encontraPorEmail(lf.getEmail()).
-                                getPalavra_passe().
-                                equals(lf.getPalavra_passe());
+        else{
+            this.email_utilizador = lf.getEmail();
+            return clienteRepo.encontraPorEmail(lf.getEmail()).
+                    getPalavra_passe().
+                    equals(lf.getPalavra_passe());
+        }
+    }
+
+    public void logoutCliente(){
+        this.email_utilizador = null;
     }
 
     public void registar(Cliente cliente){
-
+        this.email_utilizador = cliente.getEmail();
         clienteRepo.save(cliente);
     }
 
 
-    public void atualizarDados(AtualizarDadosForm form, String email){
+    public void atualizarDados(AtualizarDadosForm form){
         String nome = form.getNome();
         String nome_utilizador = form.getNome_utilizador();
         String palavra_passe = form.getPalavra_passe();
         String num_telemovel = form.getNum_telemovel();
         String palavra_passe_antiga = form.getPalavra_passe_antiga();
-        String novo_raio = form.getRaio_distancia();
 
 
-        Cliente c = clienteRepo.encontraPorEmail(email);
+        Cliente c = clienteRepo.encontraPorEmail(this.email_utilizador);
         if(palavra_passe_antiga.equals(c.getPalavra_passe())){
             if(!nome.equals("")) c.setNome(nome);
             if(!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
             if(!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
             if(!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
-            if(!novo_raio.equals("")) c.setFiltro_distancia(Integer.parseInt(novo_raio));
             clienteRepo.save(c);
         }
     }
 
+    public void alterarFiltro(Map<String, Object> input){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        c.setFiltro_distancia(Integer.parseInt((String) input.get("filtro")));
+        this.clienteRepo.save(c);
+    }
+
     public void registarProprietario(Proprietario proprietario){
-        System.out.println(proprietario.getEmail());
-        System.out.println(proprietario.getNif());
+        this.email_proprietario = proprietario.getEmail();
         this.proprietarioRepo.save(proprietario);
     }
 
 
-    public void registarRestaurante(Restaurante restaurante, String email){
-        Proprietario p = proprietarioRepo.encontraPorEmail(email);
+    public void registarRestaurante(Restaurante restaurante){
+        Proprietario p = proprietarioRepo.encontraPorEmail(this.email_proprietario);
         restaurante.setProprietario(p);
         restauranteRepo.save(restaurante);
     }
 
     public boolean loginProprietario(LoginForm loginForm){
         if(proprietarioRepo.encontraPorEmail(loginForm.getEmail()) == null) return false;
-        else return (proprietarioRepo.encontraPorEmail(loginForm.getEmail())
-                                     .getPassword()
-                                     .equals(loginForm.getPalavra_passe()));
+        else{
+            this.email_proprietario = loginForm.getEmail();
+            return (proprietarioRepo.encontraPorEmail(loginForm.getEmail())
+                    .getPassword()
+                    .equals(loginForm.getPalavra_passe()));
+        }
     }
 
     public Restaurante obtemInfoRestaurante(String nome){
-        Restaurante r = restauranteRepo.getById(nome);
-        return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario());
+        Restaurante r = this.restauranteRepo.getById(nome);
+        return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario(), r.getLatitude(), r.getLongitude());
     }
 
-    public Cliente obtemInfoCliente(String email){
-        return this.clienteRepo.encontraPorEmail(email);
+    public Cliente obtemInfoCliente(){
+        return this.clienteRepo.encontraPorEmail(this.email_utilizador);
     }
 
-    public Restaurante obtemRestaurante(String nome, String email){
-        return this.proprietarioRepo.encontraPorEmail(email).getRestauranteNome(nome);
+    public Restaurante obtemRestaurante(){
+        return this.proprietarioRepo.encontraPorEmail(this.email_proprietario).getRestauranteNome(this.restaurante_atual);
     }
 
-    public void avaliacao(AvaliacaoForm form, String email){
-        Cliente c = this.clienteRepo.encontraPorEmail(email);
-        Restaurante r = this.restauranteRepo.getById(form.getNome_restaurante());
+    public void avaliacao(AvaliacaoForm form){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         Avaliacao a = new Avaliacao(Integer.parseInt(form.getEstrelas()), form.getComentario(),r,c);
         this.avaliacaoRepo.save(a);
     }
 
-    public List<Restaurante> obterRestaurantesProprietario(String email){
-        Proprietario p = this.proprietarioRepo.encontraPorEmail(email);
+    public List<Restaurante> obterRestaurantesProprietario(){
+        Proprietario p = this.proprietarioRepo.encontraPorEmail(this.email_proprietario);
         return p.getRestaurantes();
     }
 
-    public void inserirPrato(String nome, Float preco, String nome_restaurante, String email){
+    public void inserirPrato(String nome, Float preco){
         Prato p = new Prato(nome, preco);
         this.pratoRepo.save(p);
-        Restaurante r = this.restauranteRepo.getById(nome_restaurante);
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         r.addPrato(p);
         this.restauranteRepo.save(r);
     }
@@ -126,9 +149,9 @@ public class AppService {
         this.restauranteRepo.deleteById(nome);
     }
 
-    public void criarReserva(Date data, int num_pessoal, String nome_restaurante, List<String> pratos, String email){
+    public void criarReserva(Date data, int num_pessoal, String nome_restaurante, List<String> pratos){
         Restaurante r = this.restauranteRepo.getById(nome_restaurante);
-        Cliente c = this.clienteRepo.encontraPorEmail(email);
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Prato> pratos_reserva = new ArrayList<>();
         List<Prato> aux = r.getPratos();
         for(int i = 0; i < pratos.size(); i++){
@@ -164,12 +187,12 @@ public class AppService {
         return Math.sqrt(distance);
     }
 
-    public List<Map<String, Object>> filtra_restaurantes(double lat, double lng ,String email){
-        Cliente c = this.clienteRepo.encontraPorEmail(email);
+    public List<Map<String, Object>> filtra_restaurantes(){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         List<Map<String, Object>> restaurantes = new ArrayList<>();
         for(Restaurante rest : r){
-            double dist = distance(lat, rest.getLatitude(), lng, rest.getLongitude(),0.0,0.0);
+            double dist = distance(this.lat_utilizador, rest.getLatitude(), this.lng_utilizador, rest.getLongitude(),0.0,0.0);
             System.out.println("Distance from " + rest.getNome() + ": " + dist);
             if(dist < c.getFiltro_distancia() * 1000) {
             Map<String,Object> aux = new HashMap<>();
@@ -182,28 +205,113 @@ public class AppService {
         return restaurantes;
     }
 
-    public void alterar_dados_Restaurante(Map<String, Object> input, String nome_restaurante){
+    public void alterar_numero_restaurante(Map<String, Object> input){
         //num_telefone
         //horario
         String num_telefone = (String) input.get("num_telefone");
-        String horario = (String) input.get("horario");
 
-        Restaurante r = this.restauranteRepo.getById(nome_restaurante);
-        if(!horario.equals("")) r.setHorario(horario);
-        if(!num_telefone.equals("")) r.setNum_telefone(Integer.parseInt(num_telefone));
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        r.setNum_telefone(Integer.parseInt(num_telefone));
 
         this.restauranteRepo.save(r);
     }
 
-    public Restaurante infoRestauranteCoordenadas(double lat , double lng){
+    public void alterar_horario_restaurante(Map<String, Object> input){
+        //num_telefone
+        //horario
+        String horario = (String) input.get("horario");
+
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        r.setHorario(horario);
+
+        this.restauranteRepo.save(r);
+    }
+
+    public Restaurante infoRestauranteCoordenadas(){
         List<Restaurante> res = this.restauranteRepo.findAll();
         Restaurante r = null;
         for(Restaurante restaurante : res){
-            if(restaurante.getLatitude() == lat && restaurante.getLongitude() == lng){
+            if(restaurante.getLatitude() == this.lat_restaurante && restaurante.getLongitude() == this.lng_restaurante){
                 r = restaurante;
                 break;
             }
         }
         return r;
+    }
+
+    public List<Map<String,Object>> infoPratos() {
+        Restaurante res = infoRestauranteCoordenadas();
+        List<Map<String,Object>> out = new ArrayList<>();
+        int i = 0;
+        for(Prato p : res.getPratos()){
+            Map<String,Object> pout = new HashMap<>();
+            pout.put("value",i);
+            pout.put("label",p.getNome());
+            out.add(pout);
+            i++;
+        }
+        return out;
+    }
+
+    public void logoutProprietario(){
+        this.email_proprietario = null;
+    }
+
+
+
+    public String getEmail_utilizador() {
+        return email_utilizador;
+    }
+
+    public void setEmail_utilizador(String email_utilizador) {
+        this.email_utilizador = email_utilizador;
+    }
+
+    public String getEmail_proprietario() {
+        return email_proprietario;
+    }
+
+    public void setEmail_proprietario(String email_proprietario) {
+        this.email_proprietario = email_proprietario;
+    }
+
+    public String getRestaurante_atual() {
+        return restaurante_atual;
+    }
+
+    public void setRestaurante_atual(String restaurante_atual) {
+        this.restaurante_atual = restaurante_atual;
+    }
+
+    public double getLat_utilizador() {
+        return lat_utilizador;
+    }
+
+    public void setLat_utilizador(double lat_utilizador) {
+        this.lat_utilizador = lat_utilizador;
+    }
+
+    public double getLng_utilizador() {
+        return lng_utilizador;
+    }
+
+    public void setLng_utilizador(double lng_utilizador) {
+        this.lng_utilizador = lng_utilizador;
+    }
+
+    public double getLat_restaurante() {
+        return lat_restaurante;
+    }
+
+    public void setLat_restaurante(double lat_restaurante) {
+        this.lat_restaurante = lat_restaurante;
+    }
+
+    public double getLng_restaurante() {
+        return lng_restaurante;
+    }
+
+    public void setLng_restaurante(double lng_restaurante) {
+        this.lng_restaurante = lng_restaurante;
     }
 }

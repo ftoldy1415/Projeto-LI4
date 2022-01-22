@@ -1,6 +1,7 @@
 package com.grupo4.li4.controllers;
 
 import com.grupo4.li4.model.LoginForm;
+import com.grupo4.li4.model.Prato;
 import com.grupo4.li4.model.Proprietario;
 import com.grupo4.li4.model.Restaurante;
 import com.grupo4.li4.services.AppService;
@@ -19,44 +20,35 @@ public class ProprietarioController {
     @Autowired
     private AppService appService;
 
-    private String email;
-    private String restaurante;
-
     @GetMapping(value = "/teste")
     public String teste(){
-        return this.email;
+        return "";//this.email;
     }
 
     @CrossOrigin
     @PostMapping(value = "/login")
     public String login(@RequestBody LoginForm loginForm){
         boolean res = appService.loginProprietario(loginForm);
-        if(res) this.email = loginForm.getEmail();
         return "{ \"login\": " + res +"}";
     }
 
     @CrossOrigin
     @PostMapping(value = "/logout")
     public void logout(){
-        this.email = "nao ta ca ninguem";
+        this.appService.logoutProprietario();
     }
 
     @CrossOrigin
     @PostMapping(value = "/registar")
     public void registar(@RequestBody Proprietario proprietario){
         this.appService.registarProprietario(proprietario);
-        this.email = proprietario.getEmail();
-    }
-
-    public String getEmail(){
-        return this.email;
     }
 
     @CrossOrigin
     @PostMapping(value = "/obtem_restaurante")
     public Map<String,Object> obtemRestaurante(){
         Map<String,Object> res = new HashMap<>();
-        Restaurante r = this.appService.obtemRestaurante(this.restaurante, this.email);
+        Restaurante r = this.appService.obtemRestaurante();
         res.put("nome", r.getNome());
         res.put("rua", r.getRua());
         res.put("localidade", r.getLocalidade());
@@ -69,7 +61,7 @@ public class ProprietarioController {
     @PostMapping(value = "/obter_restaurantes")
     public List<Map<String,Object>> obtemRestaurantes(){
         List<Map<String, Object>> res = new ArrayList<>();
-        List<Restaurante> rs =  this.appService.obterRestaurantesProprietario(this.email);
+        List<Restaurante> rs =  this.appService.obterRestaurantesProprietario();
 
         for(Restaurante r : rs){
             Map<String, Object> m = new HashMap<>();
@@ -89,14 +81,25 @@ public class ProprietarioController {
     @CrossOrigin
     @PostMapping(value = "/nome_restaurante")
     public void restauranteAtual(@RequestBody Map<String, Object> input){
-        this.restaurante = (String) input.get("nome");
+        this.appService.setRestaurante_atual((String) input.get("nome"));
     }
 
     @CrossOrigin
-    @PostMapping(value = "/alterar_dados")
-    public void alterar_dados(@RequestBody Map<String, Object> input){
-        this.appService.alterar_dados_Restaurante(input, this.restaurante);
+    @PostMapping(value = "/alterar_numero")
+    public void alterar_numero_restaurante(@RequestBody Map<String, Object> input){
+        this.appService.alterar_numero_restaurante(input);
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/alterar_horario")
+    public void alterar_horario_restaurante(@RequestBody Map<String, Object> input){
+        this.appService.alterar_horario_restaurante(input);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/inserir_prato")
+    public void inserirPrato(@RequestBody Map<String, Object> input){
+        this.appService.inserirPrato((String) input.get("nome"), Float.parseFloat((String) input.get("preco")));
+    }
 
 }

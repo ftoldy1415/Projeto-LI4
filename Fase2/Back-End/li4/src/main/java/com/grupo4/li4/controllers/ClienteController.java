@@ -16,9 +16,6 @@ public class ClienteController {
 
     @Autowired
     private AppService appService;
-    private String email;
-    private double latitude;
-    private double longitude;
 
     @GetMapping("/teste")
     public void teste(){
@@ -27,7 +24,7 @@ public class ClienteController {
 
     @GetMapping("/hello")
     public String hello(){
-        return this.email;
+        return "";//this.email;
     }
 
     @CrossOrigin
@@ -35,15 +32,13 @@ public class ClienteController {
     public String login(@RequestBody LoginForm loginForm){
         boolean res = appService.loginCliente(loginForm);
 
-        if(res) this.email = loginForm.getEmail();
-
         return "{ \"login\": " + res +"}";
     }
 
     @CrossOrigin
     @PostMapping(value = "/logout")
     public void logout(){
-        this.email = null;
+        this.appService.logoutCliente();
     }
 
     @CrossOrigin
@@ -52,30 +47,30 @@ public class ClienteController {
         cliente.setFiltro_distancia(5);
         cliente.setFiltro_estrelas(5);
         appService.registar(cliente);
-        this.email = cliente.getEmail();
     }
 
     @CrossOrigin
     @PostMapping(value = "/alterar_dados")
     public void alterarDados(@RequestBody AtualizarDadosForm atualizarDadosForm){
-        appService.atualizarDados(atualizarDadosForm,this.email);
+        appService.atualizarDados(atualizarDadosForm);
     }
 
     @CrossOrigin
     @PostMapping(value = "/dados_cliente")
     public Cliente forneceDados() {
-        return appService.obtemInfoCliente(this.email);
+        return appService.obtemInfoCliente();
     }
 
     @CrossOrigin
     @PostMapping(value = "/filtro")
-    public void aterarFiltro(){
+    public void aterarFiltro(@RequestBody Map<String, Object> input){
+        this.appService.alterarFiltro(input);
     }
 
     @CrossOrigin
     @PostMapping(value = "/avaliacao")
     public void avaliacao(@RequestBody AvaliacaoForm form){
-        appService.avaliacao(form,this.email);
+        appService.avaliacao(form);
     }
 
     @CrossOrigin
@@ -85,20 +80,20 @@ public class ClienteController {
         int num_pessoas = (Integer) input.get("num_pessoas");
         String nome_restaurante = (String) input.get("nome_restaurante");
         List<String> pratos = (List<String>) input.get("pratos");
-        appService.criarReserva(dataSql, num_pessoas, nome_restaurante, pratos, this.email);
+        appService.criarReserva(dataSql, num_pessoas, nome_restaurante, pratos);
     }
 
     @CrossOrigin
     @PostMapping(value = "/filtra_restaurantes")
     public List<Map<String, Object>> filtra_restaurantes(){
-        return appService.filtra_restaurantes(this.latitude, this.longitude, this.email);
+        return appService.filtra_restaurantes();
     }
 
     @CrossOrigin
     @PostMapping(value = "/recebe_localizacao")
     public void recebeLocalizacao(@RequestBody Map<String,Object> input){
-        this.latitude = (double) input.get("lat");
-        this.longitude = (double) input.get("lng");
+        this.appService.setLat_utilizador((double) input.get("lat"));
+        this.appService.setLng_utilizador((double) input.get("lng"));
     }
 
 }
