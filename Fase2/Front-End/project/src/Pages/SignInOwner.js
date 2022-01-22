@@ -14,14 +14,14 @@ function SignInOwner() {
     const [owner,setOwner] = useState({nif:'', nome:'', email:'', password:''});
     const [secondPassword,setPassword] = useState('');
 
-    const handleChange = (e) => {
+    function handleChange(e){
         const name = e.target.name;
         const value = e.target.value;
 
         setOwner({...owner,[name]: value});
     }
 
-    const SignIn = () => {
+    function SignIn(){
 
         if( secondPassword === owner.password ){
             fetch('http://127.0.0.1:8080/api/proprietario/registar', {
@@ -41,7 +41,7 @@ function SignInOwner() {
         }
     }
 
-    const Back = () => {
+    function Back(){
         let path = '/LoginOwner';
         history.push(path);
     }

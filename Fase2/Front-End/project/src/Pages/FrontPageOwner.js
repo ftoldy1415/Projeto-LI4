@@ -10,22 +10,22 @@ function FrontPageOwner(){
 
     const history = useHistory();
 
-    const AddRestaurant = () => {
+    function AddRestaurant() {
         let path = '/AddRestaurant';
         history.push(path);
     }
 
-    const RemoveRestaurant = () => {
+    function RemoveRestaurant() {
         let path = '/RemoveRestaurant';
         history.push(path);
     }
 
-    const EditRestaurant = () => {
+    function EditRestaurant() {
         let path = '/ChooseEditRestaurant';
         history.push(path);        
     }
 
-    const Back = () => {
+    function Back() {
         let path = '/';
         history.push(path);
     }

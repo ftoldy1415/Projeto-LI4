@@ -27,7 +27,7 @@ function listAvaliacoes(){
         getAvaliacoes();
     },[]);
 
-    const handleChange = (e) => {
+    function handleChange(e) {
         setSelected(e.value);
     }
 

@@ -20,6 +20,7 @@ function Restaurante(){
             horario:'',
             latitude:'',
             longitude:'',
+            estrelas:''
         });
     
     const data1 = {
@@ -38,7 +39,7 @@ function Restaurante(){
             return response.json()
         })
         .then(data => setRestaurante(data));
-    },[])
+    },[]);
 
     const horarioArr = parseHorario(restaurante.horario);
 
@@ -46,9 +47,57 @@ function Restaurante(){
         return horario.split(';');
     }
 
-    const toMenu = () => {
+    function toMenu(){
         let path = '/MenuRestaurante';
         history.push(path);
+    }
+
+    function toRestaurant(){
+        window.open(`https://www.google.com/maps?saddr=My+Location&daddr=${restaurante.latitude},${restaurante.longitude}`);
+    }
+
+    function toReservas(){
+        let path = '/Reservar';
+        history.push(path);
+    }
+
+    function toAval(){
+        let path = '/Avaliar';
+        history.push(path); 
+    }
+
+    function Back(){
+
+        fetch('http://127.0.0.1:8080/api/cliente/get_mapa_atual', { /////url
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({nothing: ''}),
+        })
+        .then(response => response.json())
+        .then(data => {
+
+        let path = '';
+
+            switch(data.mapa){
+                case "distancia":
+                    path = '/MapDistancia';
+                    history.push(path);          
+                    break;     
+
+                case "classificacao":
+                    path = '/MapClassificacao';
+                    history.push(path);          
+                    break;     
+                    
+                case "ambos":
+                    path = '/MapAmbos';
+                    history.push(path);          
+                    break;     
+            }
+
+        })
     }
 
     return(
@@ -57,30 +106,30 @@ function Restaurante(){
                 <div className="centered">
 
                     <h1>{restaurante.nome}</h1>
-                    <h2>Avaliação  : X</h2>
+                    <h2>Avaliação  : {restaurante.estrelas}</h2>
                     <button className = "button" onClick={toMenu}>Menu</button>
                     <br/>
                     <br/>
-                    <button className = "button" onclick="toRestaurant()">Direções</button>
+                    <button className = "button" onClick={toRestaurant}>Direções</button>
                     <br/>
                     <br/>
                     <button className = "button" onclick="toCodes()">Códigos Promocionais</button>
                     <br/>
                     <br/>
-                    <button className = "button" onclick="toReservas()">Reserva</button>
+                    <button className = "button" onClick={toReservas}>Reserva</button>
                     <br/>
                     <br/>
-                    <button className = "button" onclick="toAval()">Avaliação</button>
+                    <button className = "button" onClick={toAval}>Avaliação</button>
                     <br/>
                     <br/>
-                    <button className = "button" onclick="toFrontPage()">Voltar</button>
+                    <button className = "button" onClick={Back}>Voltar</button>
                 </div>
             </div>
 
             <div className="split right">
                 <div>
- 
-                    <h3>Morada : </h3>
+
+                    <h3>Rua : </h3>
                     <p style = {{color : 'black'}}>{restaurante.rua}</p><br/>
 
                     <h3>Localidade : </h3>

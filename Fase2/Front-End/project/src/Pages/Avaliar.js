@@ -1,23 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
+import { useRef } from "react";
 
 
 import '../CSS/Avaliacao.css';
 
-function Avaliacao(){
+function Avaliar(){
 
-    const [pontuacao, setPontuacao] = UseState('');
-    const [comentario, setComentario] = UseState('Sem comentário');
+    const history = useHistory();
+
+    const estrelas = useRef(null);
+    const comentario = useRef(null);
 
 
-    const sendAvaliacao = () => {
+    function handleSubmit() {
         var data1 = {
-            pontuacao : pontuacao,
-            comentario : comentario
+            estrelas : estrelas.current.value,
+            comentario : comentario.current.value,
         };
 
-        fetch('http://127.0.0.1:8080/api/cliente/login', {
+        fetch('http://127.0.0.1:8080/api/cliente/avaliacao', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,22 +27,23 @@ function Avaliacao(){
             body: JSON.stringify(data1),
         })
 
-        .then(response => {
-            return response.json()
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        })
+    let path = '/Restaurante';
+    history.push(path); 
+    
+    }
 
+    function Back() {
+        let path = '/Restaurante';
+        history.push(path);         
     }
 
     return(
         <div>
             <h1 className = "avalEditor">Avaliação Editor</h1>
             <div className = "divForm1">
-                <form className = "form1" action="">
+                <form className = "form1" action="" onSubmit={handleSubmit}>
                     <label for="estrelas">Numero de estrelas:</label>
-                    <select className = "estrelasInput" name="estrelas" id="estrelas">
+                    <select className = "estrelasInput" name="estrelas" id="estrelas" ref={estrelas}>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -52,14 +55,15 @@ function Avaliacao(){
                     <br/>
                     <label for = "labels">Coloque a sua opinião aqui:</label>
                     <br/>
-                    <textarea className = "textoAval" id="textoAval" name="textoAval" rows="20" cols="100"></textarea>
+                    <textarea className = "textoAval" id="textoAval" name="textoAval" rows="20" cols="100" ref={comentario}></textarea>
                     <br/>
+
+                    <button type='submit' onclick="confirm()">Confirmar</button>
                 </form>
-                <button className = "button" onclick="confirm()">Confirmar</button>
-                <button className = "button" onclick="toRestaurante()">Cancelar</button>
+                <button className = "button" onClick={Back}>Cancelar</button>
             </div>
         </div>
     );
 }
 
-export default Avaliacao;
+export default Avaliar;

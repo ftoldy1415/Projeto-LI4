@@ -8,20 +8,18 @@ import '../CSS/LoginUser.css';
 
 function LoginUser(){
 
+    const history = useHistory();
 
     const [ email , setEmail] = useState('');
     const [ password , setPassword] = useState('');
-    const history = useHistory();
 
 
-    const logInUser = () => {
-
+    function logInUser() {
 
         var data1 = {
             email : email,
             palavra_passe : password
         };
-
 
         fetch('http://127.0.0.1:8080/api/cliente/login', {
                 method: 'POST',
@@ -36,29 +34,22 @@ function LoginUser(){
         })
         .then((data) => {
             if(data.login){
-
                 let path = '/FrontPageUser';
                 history.push(path);
-                
             }
             else{
                 console.log(data.login)
             }
         })
-
-        .catch((error) => {
-            console.error('Error:', error);
-        })
-
-        
+        .catch(error => console.log(error));
     }
 
-    const signInUser = () =>{
+    function signInUser() {
         let path = '/SignInUser';
         history.push(path);
     }
 
-    const Back = () => {
+    function Back() {
         let path = '/';
         history.push(path);
     }

@@ -9,25 +9,19 @@ const mapContainerStyle = {
     width: "90vw",
     height: "90vh",
 };
-const center = {
-    lat: -23,
-    lng: 23,
-};
-
-
 
 export default function Map(){
 
+    const history = useHistory();
     const [location, setLocation] = useState('');
     const [restaurantes, setRestaurantes] = useState([]);
     const data1 = { nothing: ''};
-    const history = useHistory();
 
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: "AIzaSyChQt7M_XtYb4zpRdZpiaM6SMd25mOvngA",
         libraries: ["places"],
-    }); 
+    });
 
 
     const getLocation = async () => {
@@ -39,7 +33,6 @@ export default function Map(){
                 })
         ));
     } 
-
 
     const getRestaurants = async () => {
 
@@ -60,7 +53,7 @@ export default function Map(){
     },[]);
 
     
-    const goToRestaurant = (e) => {
+    function goToRestaurant(e) {
 
         const data1 = {
             lat: e.latLng.lat(),
@@ -79,7 +72,12 @@ export default function Map(){
         history.push(path); 
 
     }
- 
+
+    function Back() {
+        let path = '/FrontPageUser';
+        history.push(path); 
+    }
+
 
     if(loadError) return "Error Loading";
     if(!isLoaded) return "Loading";
@@ -87,9 +85,10 @@ export default function Map(){
 
     return(
         <div>
+            <button onClick={Back}>Voltar</button>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={8}
+            zoom={15}
             center={location}
             >
             {
@@ -100,7 +99,7 @@ export default function Map(){
                         onClick={goToRestaurant}
                     />
                 ))
-            }    
+            }
             </GoogleMap>
         </div> 
     );
