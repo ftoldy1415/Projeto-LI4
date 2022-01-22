@@ -40,8 +40,7 @@ public class AppService {
     private double lng_utilizador;
     private double lat_restaurante;
     private double lng_restaurante;
-
-
+    private String mapaAtual; //distancia, classificação, ambos
 
 
     public boolean loginCliente(LoginForm lf){
@@ -278,6 +277,11 @@ public class AppService {
         }
     }
 
+    public void alterarFiltroEstrelas(String filtro){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        c.setFiltro_estrelas(Integer.parseInt(filtro));
+        this.clienteRepo.save(c);
+    }
 
 
     public List<Prato> menu(){
@@ -339,5 +343,13 @@ public class AppService {
 
     public void setLng_restaurante(double lng_restaurante) {
         this.lng_restaurante = lng_restaurante;
+    }
+
+    public String getMapaAtual() {
+        return mapaAtual;
+    }
+
+    public void setMapaAtual(String mapaAtual) {
+        this.mapaAtual = mapaAtual;
     }
 }

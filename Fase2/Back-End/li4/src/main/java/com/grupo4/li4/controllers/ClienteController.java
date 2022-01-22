@@ -8,6 +8,7 @@ import com.grupo4.li4.services.AppService;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +64,7 @@ public class ClienteController {
     }
 
     @CrossOrigin
-    @PostMapping(value = "/filtro")
+    @PostMapping(value = "/filtro_distancia")
     public void aterarFiltro(@RequestBody Map<String, Object> input){
         this.appService.alterarFiltro(input);
     }
@@ -100,6 +101,26 @@ public class ClienteController {
     public void recebeLocalizacao(@RequestBody Map<String,Object> input){
         this.appService.setLat_utilizador((double) input.get("lat"));
         this.appService.setLng_utilizador((double) input.get("lng"));
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/filtro_estrelas")
+    public void alteraFiltroEstrelas(@RequestBody Map<String,Object> input){
+        this.appService.alterarFiltroEstrelas((String) input.get("filtro"));
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/set_mapa_atual")
+    public void setMapaAtual(@RequestBody Map<String, Object> input){
+        this.appService.setMapaAtual((String) input.get("mapa"));
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/get_mapa_atual")
+    public Map<String, Object> getMapaAtual(){
+        Map<String, Object> res = new HashMap<>();
+        res.put("mapa", this.appService.getMapaAtual());
+        return res;
     }
 
 }
