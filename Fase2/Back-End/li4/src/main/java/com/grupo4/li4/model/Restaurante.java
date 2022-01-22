@@ -34,9 +34,11 @@ public class Restaurante {
     @JsonIgnore
     private Proprietario proprietario;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reserva> reservas;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "serve",

@@ -50,29 +50,27 @@ function EditRestaurant(){
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data1),
-    })
-
-    .then(response => {
-        return response.json()
-    })
-    .then((data) => {
-        setRestaurante(data);
-    })
+            })
+            .then(response => {
+                return response.json()
+            })
+            .then((data) => {
+                setRestaurante(data);
+            })
     },[]);
 
 
-    function getAbertura(dia){
-        return dia.slice(2,6);
-    }
-    
-    function getFecho(dia){
-        return dia.slide(-5);
-    }
 
-    let horarioArr = parseHorario(restaurante.horario);
+
+    const horarioArr = parseHorario(restaurante.horario);
+
+    function getHora(dia,option) {
+        if ( option === 1) return ((dia.split("--"))[0]);
+        else return ((dia.split("--"))[1]); 
+    }
 
     function parseHorario(horario){
-        let arr = horario.spli(";");
+        return horario.split(';'); 
     }
 
     const handleSubmit = (e) => {
@@ -158,32 +156,33 @@ function EditRestaurant(){
         <div className="split left">
             <div className="centered">
                 <h1>{restaurante.nome}</h1><br></br>
-                <h2>{restaurante.num_telefone}</h2>
+                <h2>{restaurante.num_telefone}</h2> 
                 <h3>Horario Atual</h3>
-                <h4>Segunda-feira : </h4>
-                <p>{getAbertura(horarioArr[0])} -- {getFecho(horarioArr[0])}</p>
 
-                <h4>Terça-feira : </h4>
-                <p>{getAbertura(horarioArr[1])} -- {getFecho(horarioArr[1])}</p>
+                <h4 style = {{color : 'white'}}>Segunda-feira : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[0],1)}   --  {getHora(horarioArr[0],2)}</p><br/>
+                
+                <h4 style = {{color : 'white'}}>Terca-feira : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[1],1)}   --  {getHora(horarioArr[1],2)}</p><br/>
 
-                <h4>Quarta-feira : </h4>
-                <p>{getAbertura(horarioArr[2])} -- {getFecho(horarioArr[2])}</p>
+                <h4 style = {{color : 'white'}}>Quarta-feira : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[2],1)}   --  {getHora(horarioArr[2],2)}</p><br/>
 
-                <h4>Quinta-feira : </h4>
-                <p>{getAbertura(horarioArr[3])} -- {getFecho(horarioArr[3])}</p>
+                <h4 style = {{color : 'white'}}>Quinta-feira : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[3],1)}   --  {getHora(horarioArr[3],2)}</p><br/>
 
-                <h4>Sexta-feira : </h4>
-                <p>{getAbertura(horarioArr[4])} -- {getFecho(horarioArr[4])}</p>
+                <h4 style = {{color : 'white'}}>Sexta-feira : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[4],1)}   --  {getHora(horarioArr[4],2)}</p><br/>
 
-                <h4>Sábado : </h4>
-                <p>{getAbertura(horarioArr[5])} -- {getFecho(horarioArr[5])}</p>
+                <h4 style = {{color : 'white'}}>Sabado : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[5],1)}   --  {getHora(horarioArr[5],2)}</p><br/>
 
-                <h4>Domingo : </h4>
-                <p>{getAbertura(horarioArr[6])} -- {getFecho(horarioArr[6])}</p>
+                <h4 style = {{color : 'white'}}>Domingo : </h4>
+                <p style = {{color : 'white'}}>{getHora(horarioArr[6],1)}   --  {getHora(horarioArr[6],2)}</p><br/>
             </div>
         </div>
 
-        <div className="split right">
+        {/* <div className="split right">
             <div>
                 
                     <h1>Editar dados Restaurante</h1>
@@ -256,10 +255,11 @@ function EditRestaurant(){
                     </form>
 
             </div>
-        </div>
+        </div>  */}
     </div>
     );
 }
+
 
 
 export default EditRestaurant;

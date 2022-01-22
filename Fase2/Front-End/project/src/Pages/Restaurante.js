@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
+import {useState, useEffect} from 'react';
+
 
 
 import '../CSS/Restaurante.css';
@@ -8,13 +10,16 @@ import '../CSS/Restaurante.css';
 
 function Restaurante(){
 
+    const history = useHistory();
+
     const[restaurante,setRestaurante] = useState({
             nome:'',
             rua:'',
             localidade:'',
             num_telefone:'',
             horario:'',
-            proprietario:''
+            latitude:'',
+            longitude:'',
         });
     
     const data1 = {
@@ -22,38 +27,33 @@ function Restaurante(){
     }
 
     useEffect( ()=>{
-        fetch('http://127.0.0.1:8080/api/cliente/dados_cliente', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data1),
-    })
-
-    .then(response => {
-        return response.json()
-    })
-    .then((data) => {
-
-        setUser(data);
-        console.log(data);
-
-    })
+        fetch('http://127.0.0.1:8080/api/restaurante/info_restaurante', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data1),
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(data => setRestaurante(data));
     },[])
 
+    const horarioArr = parseHorario(restaurante.horario);
 
-    function getAbertura(dia){
-        return dia.slice(0,4);
+    function getHora(dia,option) {
+        if ( option === 1) return ((dia.split("--"))[0]);
+        else return ((dia.split("--"))[1]);
     }
-    
-    function getFecho(dia){
-        return dia.slide(-5);
-    }
-
-    let horarioArr = parseHorario(restaurante.horario);
 
     function parseHorario(horario){
-        let arr = horario.spli(";");
+        return horario.split(';');
+    }
+
+    const toMenu = () => {
+        let path = '/MenuRestaurante';
+        history.push(path);
     }
 
     return(
@@ -63,7 +63,7 @@ function Restaurante(){
 
                     <h1>{restaurante.nome}</h1>
                     <h2>Avaliação  : X</h2>
-                    <button className = "button" onclick="confirm()">Menu</button>
+                    <button className = "button" onClick={toMenu}>Menu</button>
                     <br/>
                     <br/>
                     <button className = "button" onclick="toRestaurant()">Direções</button>
@@ -84,39 +84,43 @@ function Restaurante(){
 
             <div className="split right">
                 <div>
-
+ 
                     <h3>Morada : </h3>
-                    <p>{restaurante.rua}</p>
+                    <p style = {{color : 'black'}}>{restaurante.rua}</p><br/>
 
                     <h3>Localidade : </h3>
-                    <p>{restaurante.localidade}</p>
+                    <p style = {{color : 'black'}}>{restaurante.localidade}</p><br/>
+
                     <h3>Horário : </h3>
 
-                    <h4>Segunda-feira : </h4>
-                    <p>{getAbertura(horarioArr[0])} -- {getFecho(horarioArr[0])}</p>
+                    <h4 style = {{color : 'black'}}>Segunda-feira : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[0],1)}   --  {getHora(horarioArr[0],2)}</p><br/>
+                    
+                    
+                    <h4 style = {{color : 'black'}}>Terca-feira : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[1],1)}   --  {getHora(horarioArr[1],2)}</p><br/>
 
-                    <h4>Terça-feira : </h4>
-                    <p>{getAbertura(horarioArr[1])} -- {getFecho(horarioArr[1])}</p>
+                    <h4 style = {{color : 'black'}}>Quarta-feira : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[2],1)}   --  {getHora(horarioArr[2],2)}</p><br/>
 
-                    <h4>Quarta-feira : </h4>
-                    <p>{getAbertura(horarioArr[2])} -- {getFecho(horarioArr[2])}</p>
+                    <h4 style = {{color : 'black'}}>Quinta-feira : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[3],1)}   --  {getHora(horarioArr[3],2)}</p><br/>
 
-                    <h4>Quinta-feira : </h4>
-                    <p>{getAbertura(horarioArr[3])} -- {getFecho(horarioArr[3])}</p>
+                    <h4 style = {{color : 'black'}}>Sexta-feira : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[4],1)}   --  {getHora(horarioArr[4],2)}</p><br/>
 
-                    <h4>Sexta-feira : </h4>
-                    <p>{getAbertura(horarioArr[4])} -- {getFecho(horarioArr[4])}</p>
+                    <h4 style = {{color : 'black'}}>Sabado : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[5],1)}   --  {getHora(horarioArr[5],2)}</p><br/>
 
-                    <h4>Sábado : </h4>
-                    <p>{getAbertura(horarioArr[5])} -- {getFecho(horarioArr[5])}</p>
-
-                    <h4>Domingo : </h4>
-                    <p>{getAbertura(horarioArr[6])} -- {getFecho(horarioArr[6])}</p>
+                    <h4 style = {{color : 'black'}}>Domingo : </h4>
+                    <p style = {{color : 'black'}}>{getHora(horarioArr[6],1)}   --  {getHora(horarioArr[6],2)}</p><br/>
 
                     <h3>Telefone : </h3>
-                    <p>{restaurante.num_telefone}</p>
+                    <p style = {{color : 'black'}}>{restaurante.num_telefone}</p>
                 </div>
-            </div>
+            </div> 
         </div>
     );
 }
+
+export default Restaurante;

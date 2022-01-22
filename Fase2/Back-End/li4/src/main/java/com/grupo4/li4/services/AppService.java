@@ -195,4 +195,15 @@ public class AppService {
         this.restauranteRepo.save(r);
     }
 
+    public Restaurante infoRestauranteCoordenadas(double lat , double lng){
+        List<Restaurante> res = this.restauranteRepo.findAll();
+        Restaurante r = null;
+        for(Restaurante restaurante : res){
+            if(restaurante.getLatitude() == lat && restaurante.getLongitude() == lng){
+                r = restaurante;
+                break;
+            }
+        }
+        return r;
+    }
 }

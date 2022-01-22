@@ -54,9 +54,9 @@ public class ProprietarioController {
 
     @CrossOrigin
     @PostMapping(value = "/obtem_restaurante")
-    public Map<String,Object> obtemRestaurante(@RequestBody Map<String,Object> body){
+    public Map<String,Object> obtemRestaurante(){
         Map<String,Object> res = new HashMap<>();
-        Restaurante r = this.appService.obtemRestaurante((String) body.get("nome"), this.email);
+        Restaurante r = this.appService.obtemRestaurante(this.restaurante, this.email);
         res.put("nome", r.getNome());
         res.put("rua", r.getRua());
         res.put("localidade", r.getLocalidade());

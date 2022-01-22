@@ -15,6 +15,8 @@ function AddRestaurant(){
     const rua = useRef(null);
     const localidade = useRef(null);
     const num_telefone = useRef(null);
+    const lat = useRef(null);
+    const lng = useRef(null);
     const aSegunda = useRef(null);
     const fSegunda = useRef(null);
     const aTerca = useRef(null);
@@ -42,8 +44,8 @@ function AddRestaurant(){
             localidade: localidade.current.value,
             num_telefone: num_telefone.current.value,
             horario: horario,
-            //lat : lat.current.value,
-            //lng : lng.current.value,
+            latitude : lat.current.value,
+            longitude : lng.current.value,
         }
 
 
@@ -108,7 +110,7 @@ function AddRestaurant(){
                     <input type="text" name = "num_telefone"  ref={num_telefone} />
                     <br/>
 
-                    <p>Adicione as suas coordenadas : <span><input type="number" name="lat" placeholder="lat"/></span> e   <span><input type="number" name ="lng"  placeholder="lng"/></span></p>
+                    <p>Adicione as suas coordenadas : <span><input type="number" placeholder="lat" ref={lat} step="0.000001" /></span> e   <span><input type="number" placeholder="lng" ref={lng} step="0.000001" /></span></p>
                     <div>
                         <h4>Insira o horário :</h4>
                         <label className = "horario" for = "aSegunda">Segunda-feira : </label>

@@ -1,6 +1,8 @@
 import React from "react";
 import {GoogleMap, useLoadScript, Marker, InfoWindow} from "@react-google-maps/api";
 import {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
+
 
 
 const mapContainerStyle = {
@@ -17,10 +19,10 @@ const center = {
 export default function Map(){
 
     const [location, setLocation] = useState('');
-    const [restaurants,setRestaurants] = useState([]);
-    //const firstRender = useRef(true);
+    const [restaurantes, setRestaurantes] = useState([]);
+    const data1 = { nothing: ''};
+    const history = useHistory();
 
-    //const [markers, setMarkers] = useState([{lat:20,lng:20,id: "hello",},{lat:30,lng:30,id: "hey",}]);
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: "AIzaSyChQt7M_XtYb4zpRdZpiaM6SMd25mOvngA",
@@ -28,36 +30,56 @@ export default function Map(){
     }); 
 
 
-
-    const getMyLocation = async () => {
-
-        navigator.geolocation.getCurrentPosition(
-        (position => {
-            setLocation({
+    const getLocation = async () => {
+            navigator.geolocation.getCurrentPosition(
+            (position => 
+                setLocation({
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
-            });        
-        }), () => null);
+                })
+        ));
+    } 
 
-        const response = await fetch('http://127.0.0.1:8080/api/proprietario/obter_restaurantes', {
+
+    const getRestaurants = async () => {
+
+        const response = await fetch('http://127.0.0.1:8080/api/cliente/filtra_restaurantes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(location),
+            body: JSON.stringify(data1),
         });
         const restaurants = await response.json();
-        setRestaurants(restaurants);
-
-        console.log()
-
-    };
-
+        setRestaurantes(restaurants);
+    }
 
     useEffect( () => {
-        getMyLocation();
+        getLocation();
+        getRestaurants();
     },[]);
 
+    
+    const goToRestaurant = (e) => {
+
+        const data1 = {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng(),
+        }
+
+        fetch('http://127.0.0.1:8080/api/restaurante/recebe_coordenadas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data1),
+        });
+
+        let path = '/Restaurante';
+        history.push(path); 
+
+    }
+ 
 
     if(loadError) return "Error Loading";
     if(!isLoaded) return "Loading";
@@ -65,20 +87,21 @@ export default function Map(){
 
     return(
         <div>
-            {/* <GoogleMap
+            <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={8}
-            center={center}
+            center={location}
             >
             {
-                restaurants.map( (marker) => (
+                restaurantes.map( (marker) => (
                     <Marker 
                         key={marker.id} 
                         position={ {lat: marker.lat, lng: marker.lng} }
+                        onClick={goToRestaurant}
                     />
                 ))
             }    
-            </GoogleMap> */}
-        </div>
+            </GoogleMap>
+        </div> 
     );
 }

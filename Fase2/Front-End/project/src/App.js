@@ -13,6 +13,8 @@ import AddRestaurant from './Pages/AddRestaurant';
 import RemoveRestaurant from './Pages/RemoveRestaurant';
 import ChooseEditRestaurant from './Pages/ChooseEditRestaurant';
 import EditRestaurant from './Pages/EditRestaurant';
+import MenuRestaurante from './Pages/MenuRestaurante';
+import Restaurante from './Pages/Restaurante';
 import SignInUser from './Pages/SignInUser';
 import SignInOwner from './Pages/SignInOwner';
 import AboutUs from './Pages/AboutUs';
@@ -36,6 +38,8 @@ function App() {
           <Route path="/RemoveRestaurant" component={RemoveRestaurant}></Route> 
           <Route path="/ChooseEditRestaurant" component={ChooseEditRestaurant}></Route> 
           <Route path="/EditRestaurant" component={EditRestaurant}></Route> 
+          <Route path="/MenuRestaurante" component={MenuRestaurante}></Route> 
+          <Route path="/Restaurante" component={Restaurante}></Route> 
           <Route path="/LoginOwner" component={LoginOwner}></Route>
           <Route path="/LoginUser" component={LoginUser}></Route>
           <Route path="/" exact component={FirstPage}></Route>

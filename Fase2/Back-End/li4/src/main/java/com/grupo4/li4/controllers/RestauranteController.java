@@ -12,8 +12,12 @@ import java.util.Map;
 @RequestMapping("api/restaurante")
 public class RestauranteController {
 
+
+
     @Autowired
     private AppService appService;
+    private double latitude;
+    private double longitude;
 
     @Autowired
     private ProprietarioController proprietarioController;
@@ -30,6 +34,19 @@ public class RestauranteController {
     @PostMapping(value = "/obtem_info")
     public Restaurante obterInfo(@RequestBody Map<String,Object> nome){
         return this.appService.obtemInfoRestaurante((String) nome.get("nome"));
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/recebe_coordenadas")
+    public void recebeCoordenadas(@RequestBody Map<String,Object> input){
+        this.latitude  = (double) input.get("lat");
+        this.longitude = (double) input.get("lng");
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/info_restaurante")
+    public Restaurante infoRestaurante(){
+        return this.appService.infoRestauranteCoordenadas(this.latitude,this.longitude);
     }
 
 

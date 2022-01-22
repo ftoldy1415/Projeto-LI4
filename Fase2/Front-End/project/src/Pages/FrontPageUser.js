@@ -10,16 +10,32 @@ import '../CSS/FrontPageUser.css';
 function FrontPageUser(){
 
     const history = useHistory();
+    const [location, setLocation] = useState('');
 
 
     const toMap = () => {
 
+        
 
+        navigator.geolocation.getCurrentPosition(
+            (position => {
 
-
+            fetch('http://127.0.0.1:8080/api/cliente/recebe_localizacao', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    }),
+            })
+        }));
+    
 
         let path = '/Map';
-        history.push(path);        
+        history.push(path);     
+    
     }
 
     const AboutUs = ()=>{
