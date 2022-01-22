@@ -135,4 +135,10 @@ public class ClienteController {
         return res;
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/get_reservas")
+    public List<Map<String, Object>> getReservas(){
+        return this.appService.getReservas();
+    }
+
 }

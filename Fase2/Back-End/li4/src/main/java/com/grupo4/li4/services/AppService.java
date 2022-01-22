@@ -62,7 +62,6 @@ public class AppService {
         clienteRepo.save(cliente);
     }
 
-
     public void atualizarDados(AtualizarDadosForm form){
         String nome = form.getNome();
         String nome_utilizador = form.getNome_utilizador();
@@ -324,6 +323,31 @@ public class AppService {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         return r.getPratos();
     }
+
+    public List<Map<String, Object>> getReservas(){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        List<Reserva> reservas = c.getReservas();
+        List<Map<String, Object>> res = new ArrayList<>();
+
+        for(Reserva r : reservas){
+            Map<String, Object> aux = new HashMap<>();
+            aux.put("nome_restaurante",r.getRestaurante().getNome());
+            aux.put("data", r.getData());
+            aux.put("hora", r.getHora());
+            aux.put("num_pessoas",r.getNum_pessoas());
+            aux.put("nome", r.getNome());
+            List<Prato> pratos = r.getPratos();
+            List<String> nomes = new ArrayList<>();
+            for(Prato p : pratos){
+                nomes.add(p.getNome());
+            }
+            aux.put("pratos", nomes);
+            res.add(aux);
+        }
+
+       return res;
+    }
+
 
     public String getEmail_utilizador() {
         return email_utilizador;

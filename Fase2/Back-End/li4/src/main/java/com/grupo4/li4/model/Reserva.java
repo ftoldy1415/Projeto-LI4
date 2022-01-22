@@ -1,5 +1,7 @@
 package com.grupo4.li4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.sql.Date;
@@ -27,10 +29,12 @@ public class Reserva {
     private String nome;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "cliente_nif", referencedColumnName = "nif")
     private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "restaurante_nome", referencedColumnName = "nome")
     private Restaurante restaurante;
 
