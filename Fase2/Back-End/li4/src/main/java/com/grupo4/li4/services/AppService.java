@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -149,8 +150,8 @@ public class AppService {
         this.restauranteRepo.deleteById(nome);
     }
 
-    public void criarReserva(Date data, int num_pessoal, String nome_restaurante, List<String> pratos){
-        Restaurante r = this.restauranteRepo.getById(nome_restaurante);
+    public void criarReserva(Date data, Time time, int num_pessoal, List<String> pratos){
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Prato> pratos_reserva = new ArrayList<>();
         List<Prato> aux = r.getPratos();
@@ -163,7 +164,7 @@ public class AppService {
             }
         }
 
-        Reserva reserva = new Reserva(data, num_pessoal, c, r,pratos_reserva);
+        Reserva reserva = new Reserva(data, time, num_pessoal, c, r,pratos_reserva);
         this.reservaRepo.save(reserva);
     }
 
@@ -256,6 +257,18 @@ public class AppService {
     public void logoutProprietario(){
         this.email_proprietario = null;
     }
+
+    public void setRestauranteAtualCoord(double lat, double lng){
+        List<Restaurante> rests = this.restauranteRepo.findAll();
+        for(Restaurante r : rests){
+            if(r.getLatitude() == lat && r.getLongitude() == lng){
+                this.restaurante_atual = r.getNome();
+                break;
+            }
+        }
+    }
+
+
 
 
 

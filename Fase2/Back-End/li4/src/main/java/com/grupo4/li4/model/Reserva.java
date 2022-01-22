@@ -3,6 +3,7 @@ package com.grupo4.li4.model;
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,9 @@ public class Reserva {
     private int id_reserva;
     @Column(name = "data")
     private Date data;
+
+    @Column(name = "hora")
+    private Time hora;
 
     @Column(name = "num_pessoas")
     private int num_pessoas;
@@ -38,11 +42,11 @@ public class Reserva {
 
 
     public Reserva(){
-
     }
 
-    public Reserva(Date data, int num_pessoas, Cliente cliente, Restaurante restaurante , List<Prato> pratos){
+    public Reserva(Date data, Time hora, int num_pessoas, Cliente cliente, Restaurante restaurante , List<Prato> pratos){
         this.data = data;
+        this.hora = hora;
         this.num_pessoas = num_pessoas;
         this.cliente = cliente;
         this.restaurante = restaurante;
@@ -57,5 +61,8 @@ public class Reserva {
         return this.data;
     }
 
+    public Time getTime(){
+        return this.hora;
+    }
 
 }

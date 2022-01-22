@@ -39,8 +39,11 @@ public class RestauranteController {
     @CrossOrigin
     @PostMapping(value = "/recebe_coordenadas")
     public void recebeCoordenadas(@RequestBody Map<String,Object> input){
-        this.appService.setLat_restaurante((double) input.get("lat"));
-        this.appService.setLng_restaurante((double) input.get("lng"));
+        double lat = (double) input.get("lat");
+        double lng = (double) input.get("lng");
+        this.appService.setLat_restaurante(lat);
+        this.appService.setLng_restaurante(lng);
+        this.appService.setRestauranteAtualCoord(lat, lng);
     }
 
     @CrossOrigin

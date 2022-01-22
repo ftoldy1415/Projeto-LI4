@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.grupo4.li4.services.AppService;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,11 +77,16 @@ public class ClienteController {
     @CrossOrigin
     @PostMapping(value = "/reserva")
     public void reserva(@RequestBody Map<String,Object> input){
-        Date dataSql = Date.valueOf((String) input.get("data"));
+        // nome, data, hora, num_pessoas, pratos
+        String data = (String) input.get("data");
+        String hora = (String) input.get("hora") + ":00";
         int num_pessoas = (Integer) input.get("num_pessoas");
-        String nome_restaurante = (String) input.get("nome_restaurante");
         List<String> pratos = (List<String>) input.get("pratos");
-        appService.criarReserva(dataSql, num_pessoas, nome_restaurante, pratos);
+        Date dataSql = Date.valueOf(data);
+        Time timeSql = Time.valueOf(hora);
+        System.out.println(timeSql);
+        appService.criarReserva(dataSql, timeSql, num_pessoas, pratos);
+
     }
 
     @CrossOrigin
