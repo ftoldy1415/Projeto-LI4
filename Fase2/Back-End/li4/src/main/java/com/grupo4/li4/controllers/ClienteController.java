@@ -97,6 +97,18 @@ public class ClienteController {
     }
 
     @CrossOrigin
+    @PostMapping(value = "/filtra_restaurantes_estrelas")
+    public List<Map<String, Object>> filtra_restaurantes_estrelas(){
+        return appService.filtra_restaurantes_estrelas();
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/filtra_restaurantes_ambos")
+    public List<Map<String, Object>> filtra_restaurantes_ambos(){
+        return appService.filtra_restaurantes_ambos();
+    }
+
+    @CrossOrigin
     @PostMapping(value = "/recebe_localizacao")
     public void recebeLocalizacao(@RequestBody Map<String,Object> input){
         this.appService.setLat_utilizador((double) input.get("lat"));

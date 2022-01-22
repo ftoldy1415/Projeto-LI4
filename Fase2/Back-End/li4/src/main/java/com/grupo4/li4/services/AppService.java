@@ -205,6 +205,42 @@ public class AppService {
         return restaurantes;
     }
 
+    public List<Map<String, Object>> filtra_restaurantes_estrelas(){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        List<Restaurante> r = this.restauranteRepo.findAll();
+        double estrelas = c.getFiltro_estrelas();
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        for(Restaurante res : r){
+            if(res.mediaAvaliacao() >= estrelas) {
+                Map<String,Object> aux = new HashMap<>();
+                aux.put("nome", res.getNome());
+                aux.put("lat",res.getLatitude());
+                aux.put("lng", res.getLongitude());
+                resultado.add(aux);
+            }
+        }
+        return resultado;
+    }
+
+    public List<Map<String, Object>> filtra_restaurantes_ambos(){
+        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        List<Restaurante> r = this.restauranteRepo.findAll();
+        double estrelas = c.getFiltro_estrelas();
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        for(Restaurante res : r){
+            double dist = distance(this.lat_utilizador, res.getLatitude(), this.lng_utilizador, res.getLongitude(),0.0,0.0);
+            if(dist < c.getFiltro_distancia() * 1000 && res.mediaAvaliacao() >= estrelas){
+                Map<String,Object> aux = new HashMap<>();
+                aux.put("nome", res.getNome());
+                aux.put("lat",res.getLatitude());
+                aux.put("lng", res.getLongitude());
+                resultado.add(aux);
+            }
+        }
+        return resultado;
+    }
+
+
     public void alterar_numero_restaurante(Map<String, Object> input){
         //num_telefone
         //horario
