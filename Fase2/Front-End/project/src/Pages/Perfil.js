@@ -99,14 +99,14 @@ function Perfil(){
         <div className="centered">
 
             <h1>Meu perfil</h1><br />
-            <p>Nome: {user.nome}</p>
             <p>Nome de utilizador: {user.nome_utilizador}</p>
+            <p>Nome: {user.nome}</p>
             <p>Numero de telemóvel: {user.num_telemovel}</p>
             <p>Email: {user.email}</p>
 
         </div>
         </div>
- 
+
         <div className="split right">
             <div>
 

@@ -26,7 +26,7 @@ function Restaurante(){
         nothing : ''
     }
 
-    useEffect( ()=>{
+    useEffect(()=>{
         fetch('http://127.0.0.1:8080/api/restaurante/info_restaurante', {
                 method: 'POST',
                 headers: {
@@ -41,11 +41,6 @@ function Restaurante(){
     },[])
 
     const horarioArr = parseHorario(restaurante.horario);
-
-    function getHora(dia,option) {
-        if ( option === 1) return ((dia.split("--"))[0]);
-        else return ((dia.split("--"))[1]);
-    }
 
     function parseHorario(horario){
         return horario.split(';');
@@ -94,26 +89,26 @@ function Restaurante(){
                     <h3>Horário : </h3>
 
                     <h4 style = {{color : 'black'}}>Segunda-feira : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[0],1)}   --  {getHora(horarioArr[0],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[0]}</p><br/>
                     
                     
                     <h4 style = {{color : 'black'}}>Terca-feira : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[1],1)}   --  {getHora(horarioArr[1],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[1]}</p><br/>
 
                     <h4 style = {{color : 'black'}}>Quarta-feira : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[2],1)}   --  {getHora(horarioArr[2],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[2]}</p><br/>
 
                     <h4 style = {{color : 'black'}}>Quinta-feira : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[3],1)}   --  {getHora(horarioArr[3],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[3]}</p><br/>
 
                     <h4 style = {{color : 'black'}}>Sexta-feira : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[4],1)}   --  {getHora(horarioArr[4],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[4]}</p><br/>
 
                     <h4 style = {{color : 'black'}}>Sabado : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[5],1)}   --  {getHora(horarioArr[5],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[5]}</p><br/>
 
                     <h4 style = {{color : 'black'}}>Domingo : </h4>
-                    <p style = {{color : 'black'}}>{getHora(horarioArr[6],1)}   --  {getHora(horarioArr[6],2)}</p><br/>
+                    <p style = {{color : 'black'}}>{horarioArr[6]}</p><br/>
 
                     <h3>Telefone : </h3>
                     <p style = {{color : 'black'}}>{restaurante.num_telefone}</p>
