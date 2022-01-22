@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
-import {useEffect, useRef, useState} from 'react'
-
+import { useRef } from "react";
 
 
 import '../CSS/AddRestaurant.css';
@@ -34,7 +32,7 @@ function AddRestaurant(){
 
 
 
-    const handleSubmit = (e) => {
+    function handleSubmit(e){
         let horario = createHorario();
         e.preventDefault();
 
@@ -66,12 +64,11 @@ function AddRestaurant(){
         });    
     }
 
-    const Back = () => {
+    function Back(){
         let path = '/FrontPageOwner';
         history.push(path);
     }
     
-
     function createHorario(){
         let segundaHorario = aSegunda.current.value + "--" + fSegunda.current.value + ";";
         let tercaHorario = aTerca.current.value + "--" + fTerca.current.value +";";
@@ -85,7 +82,6 @@ function AddRestaurant(){
     }
 
 
-    
     return(
         <div >
             <h1 >Adicionar Restaurante</h1>

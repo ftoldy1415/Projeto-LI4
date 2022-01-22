@@ -1,6 +1,7 @@
 package com.grupo4.li4.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import javax.persistence.*;
 import java.util.List;

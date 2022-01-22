@@ -6,16 +6,16 @@ import { useHistory } from "react-router-dom";
 import '../CSS/AddRestaurant.css';
 
 
-
 function ChooseEditRestaurant(){
+
+    let history = useHistory();
 
     const [restaurantes, setRestaurantes] = useState([]);
     const [selected, setSelected] = useState('');
-    let history = useHistory();
-
 
     const data1 = { nothing: ''};
 
+    
     const getRestaurants = async () => {
         const response = await fetch('http://127.0.0.1:8080/api/proprietario/obter_restaurantes', {
             method: 'POST',
@@ -32,11 +32,11 @@ function ChooseEditRestaurant(){
         getRestaurants();
     },[]);
 
-    const handleChange = (e) => {
+    function handleChange(e) {
         setSelected(e.value);
     }
 
-    const Edit = () => {
+    function Edit() {
 
         const data1 = {
             nome: selected
@@ -57,7 +57,7 @@ function ChooseEditRestaurant(){
         history.push(path);   
     }
 
-    const Back = () => {
+    function Back() {
         let path = '/FrontPageOwner';
         history.push(path);         
     }

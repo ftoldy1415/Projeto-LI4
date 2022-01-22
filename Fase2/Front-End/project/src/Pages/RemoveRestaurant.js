@@ -35,11 +35,11 @@ function RemoveRestaurant(){
         getRestaurants();
     },[]);
 
-    const handleChange = (e) => {
+    function handleChange(e){
         setSelected(e.value);
     }
 
-    const Delete = () => {
+    function Delete(){
 
         console.log(selected);
 
@@ -67,7 +67,7 @@ function RemoveRestaurant(){
         
     }
 
-    const Back = () => {
+    function Back(){
         let path = '/FrontPageOwner';
         history.push(path);       
     }

@@ -10,7 +10,7 @@ function LoginOwner(){
     const [user, setUser] = useState({email: '', palavra_passe: ''});
     const history = useHistory();
 
-    const handleChange = (e) => {
+    function handleChange(e) {
 
         const name = e.target.name;
         const value = e.target.value;
@@ -18,7 +18,7 @@ function LoginOwner(){
         setUser( {...user, [name] : value});
     }
 
-    const LoginOwner = () => {
+    function LoginOwner() {
 
         fetch('http://127.0.0.1:8080/api/proprietario/login', {
                 method: 'POST',
@@ -40,12 +40,12 @@ function LoginOwner(){
         })
     }
 
-    const SignInOwner = () => {
+    function SignInOwner() {
         let path = '/SignInOwner';
         history.push(path);
     }
 
-    const Back = () => {
+    function Back() {
         let path = '/';
         history.push(path);
     }

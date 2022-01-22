@@ -13,9 +13,7 @@ function FrontPageUser(){
     const [location, setLocation] = useState('');
 
 
-    const toMap = () => {
-
-        
+    function toMap() {
 
         navigator.geolocation.getCurrentPosition(
             (position => {
@@ -32,27 +30,23 @@ function FrontPageUser(){
             })
         }));
     
-
-        let path = '/Map';
+        let path = '/ChooseMap';
         history.push(path);     
-    
     }
 
-    const AboutUs = ()=>{
+    function AboutUs() {
         let path = '/AboutUs';
         history.push(path);
     } 
 
-    const Perfil = () => {
+    function Perfil() {
         let path = '/Perfil';
         history.push(path);
     }
 
-    const LogOutUser = () => {
+    function LogOutUser() {
 
-        var data1 = {
-            nothing: ""
-        }
+        var data1 = {nothing: ""}
 
         fetch('http://127.0.0.1:8080/api/cliente/logout', { 
                 method: 'POST',
@@ -62,15 +56,10 @@ function FrontPageUser(){
                 body: JSON.stringify(data1),
         })
 
-        .catch((error) => {
-            console.error('Error:', error);
-        })
-
         let path = '/';
         history.push(path);
 
     }
-
 
     return(
         <div>

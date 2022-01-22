@@ -12,6 +12,7 @@ function Perfil(){
     const [userChanged, setUserChanged] = useState({nome:'', palavra_passe:'', num_telemovel:'', nome_utilizador:'', palavra_passe_antiga: ''});
     const [secondPassword, setPassword] = useState('');
     const [kms, setKms] = useState(0);
+    const [estrelas, setEstrelas] = useState(0);
     const data1 = {nothing: ""};
     const history = useHistory();
 
@@ -40,18 +41,18 @@ function Perfil(){
         });
     },[userChanged]);
 
-    const Back = () => {
+    function Back(){
         let path = '/FrontPageUser';
         history.push(path);
     }
 
-    const HandleChange = (e) => {
+    function HandleChange(e){
         const name = e.target.name;
         const value = e.target.value;
         setUserChanged({...userChanged, [name]:value});
     }
 
-    const SavePerfil = () => {
+    function SavePerfil(){
 
         console.log(userChanged);
         
@@ -66,30 +67,45 @@ function Perfil(){
                 })
                 .then((data) => {
                     console.log(data);
-                })
-                .catch((error) => {
-                console.error('Error:', error);
-            });
+                });
         }
     }
 
-    const SaveFilter = () => {
+    function SaveDistancia(){
 
+        const data1 = {
+            filtro: kms,
+        }
 
-        fetch('http://127.0.0.1:8080/api/cliente/filtro', {
+        fetch('http://127.0.0.1:8080/api/cliente/filtro_distancia', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(kms),
+            body: JSON.stringify(data1),
             })
             .then((data) => {
                 console.log(data);
-            })
-            .catch((error) => {
-            console.error('Error:', error);
-        });
+            });
 
+    }
+
+    function SaveEstrelas(){
+
+        const data1 = {
+            filtro: estrelas,
+        }
+
+        fetch('http://127.0.0.1:8080/api/cliente/filtro_estrelas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data1),
+            })
+            .then((data) => {
+                console.log(data);
+            });
     }
 
 
@@ -123,12 +139,15 @@ function Perfil(){
                     <input type="password"                                  placeholder="password nova"                                                  onChange={(e) => setPassword(e.target.value)}/>
                     <br/>
 
-                    <button onClick={SavePerfil}>Guardar Alterações</button>
+                    <button onClick={SavePerfil}>Guardar</button>
 
                     <h1>Alterar distância no filtro</h1>
 
-                    <p>Procuro locais perto de mim em <span><input type="number" className="input-box" id="kilometers" value={kms} onChange={ (e) => setKms(e.target.value) }/></span> km</p>
-                    <button onClick={SaveFilter} >Guardar Alterações</button>
+                    <p>Procuro locais perto de mim em <span><input type="text" id="kilometers" value={kms} onChange={ (e) => setKms(e.target.value) }/></span> km</p>
+                    <button onClick={SaveDistancia} >Guardar</button><br/>
+
+                    <p>Procuro estabelecimentos com mais de <span><input type="text" value={estrelas} onChange={ (e) => setEstrelas(e.target.value) }/></span> estrelas</p>
+                    <button onClick={SaveEstrelas} >Guardar</button>
                 </form>
             </div>
         </div>

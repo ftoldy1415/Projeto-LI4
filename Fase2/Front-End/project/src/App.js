@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {BrowserRouter as Router , Route, Switch} from 'react-router-dom';
 
 
@@ -7,13 +6,18 @@ import FirstPage from './Pages/FirstPage';
 import LoginUser from './Pages/LoginUser';
 import LoginOwner from './Pages/LoginOwner';
 import FrontPageUser from './Pages/FrontPageUser';
-import Map from './Pages/Map';
+import ChooseMap from './Pages/ChooseMap';
+import MapDistancia from './Pages/MapDistancia';
+import MapClassificacao from './Pages/MapClassificacao';
+import MapAmbos from './Pages/MapAmbos';
 import FrontPageOwner from './Pages/FrontPageOwner';
 import AddRestaurant from './Pages/AddRestaurant';
 import RemoveRestaurant from './Pages/RemoveRestaurant';
 import ChooseEditRestaurant from './Pages/ChooseEditRestaurant';
 import EditRestaurant from './Pages/EditRestaurant';
 import MenuRestaurante from './Pages/MenuRestaurante';
+import Reservar from './Pages/Reservar';
+import Avaliar from './Pages/Avaliar';
 import Restaurante from './Pages/Restaurante';
 import SignInUser from './Pages/SignInUser';
 import SignInOwner from './Pages/SignInOwner';
@@ -32,13 +36,18 @@ function App() {
           <Route path="/SignInUser" component={SignInUser}></Route> 
           <Route path="/SignInOwner" component={SignInOwner}></Route> 
           <Route path="/FrontPageUser" component={FrontPageUser}></Route> 
-          <Route path="/Map" component={Map}></Route> 
+          <Route path="/ChooseMap" component={ChooseMap}></Route> 
+          <Route path="/MapDistancia" component={MapDistancia}></Route> 
+          <Route path="/MapClassificacao" component={MapClassificacao}></Route> 
+          <Route path="/MapAmbos" component={MapAmbos}></Route> 
           <Route path="/FrontPageOwner" component={FrontPageOwner}></Route> 
           <Route path="/AddRestaurant" component={AddRestaurant}></Route> 
           <Route path="/RemoveRestaurant" component={RemoveRestaurant}></Route> 
           <Route path="/ChooseEditRestaurant" component={ChooseEditRestaurant}></Route> 
           <Route path="/EditRestaurant" component={EditRestaurant}></Route> 
           <Route path="/MenuRestaurante" component={MenuRestaurante}></Route> 
+          <Route path="/Reservar" component={Reservar}></Route> 
+          <Route path="/Avaliar" component={Avaliar}></Route> 
           <Route path="/Restaurante" component={Restaurante}></Route> 
           <Route path="/LoginOwner" component={LoginOwner}></Route>
           <Route path="/LoginUser" component={LoginUser}></Route>

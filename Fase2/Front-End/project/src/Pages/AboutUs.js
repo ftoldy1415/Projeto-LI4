@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
-import {useEffect, useRef, useState} from 'react'
 
 
 import '../CSS/AboutUs.css';
@@ -11,7 +9,7 @@ function AboutUs(){
     const history = useHistory();
 
 
-    const Back = () => {
+    function Back(){
         let path = '/FrontPageUser';
         history.push(path);
     }

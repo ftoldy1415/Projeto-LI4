@@ -9,43 +9,35 @@ import '../CSS/Reservas.css';
 
 function MenuRestaurante() {
     
-    // const [pratos,SetAvaliacoes] = useState([]);
+    const [pratos,setPratos] = useState([]);
+    const data1 = {
+        nothing: '',
+    }
     
-    // const getPratos= async () => {
-    //     const response = await fetch('http://127.0.0.1:8080/api/proprietario/obter_restaurantes', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(data1),
-    //     });
-    //     const pratos = await response.json();
-    //     setPratos(pratos);
+    const getPratos= async () => {
+        const response = await fetch('http://127.0.0.1:8080/api/proprietario/obter_restaurantes', { // url
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data1),
+        });
+        const pratos = await response.json();
+        setPratos(pratos);
+    }
 
-    // }
-
-    // useEffect( () => {
-    //     getPratos();
-    // },[]);
-
-    // const handleChange = (e) => {
-    //     setSelected(e.value);
-    // }
-
+    useEffect( () => {
+        getPratos();
+    },[]);
     
+
     return(
         <div>
-            {/* <h1>Pratos : </h1>
-            {
-                pratos.map((pratos) => (
-                    <div>
-                        <h2>Nome : {prato.nome}</h2>
-                        <h4>Preco : {prato.preco}</h4>
-                    </div>  
-                ))
-            } */}
+            <h1>Menu do restaurante:</h1>
+            {pratos.map(
+                (prato) => { return <p>Nome: {prato.nome} Preço: {prato.preco}</p>}
+            )}
         </div>
-
     )
 }
 

@@ -15,13 +15,13 @@ function SignInUser(){
 
 
 
-    const handleChange = (e) => {
+    function handleChange(e){
         const name = e.target.name;
         const value = e.target.value;
         setUser({...user, [name]:value});
     }
 
-    const SignInUser = ()=>{
+    function SignInUser(){
 
         if( secondPassword === user.palavra_passe ){
 
@@ -44,7 +44,7 @@ function SignInUser(){
         }
     }
 
-    const Back = ()=>{
+    function Back(){
 
         let path = '/LogInUser';
         history.push(path);
