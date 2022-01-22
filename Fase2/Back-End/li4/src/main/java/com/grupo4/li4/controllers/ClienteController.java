@@ -81,12 +81,12 @@ public class ClienteController {
         String nome = (String) input.get("nome");
         String data = (String) input.get("data");
         String hora = (String) input.get("hora") + ":00";
-        int num_pessoas = (Integer) input.get("num_pessoas");
+        String num_pessoas = (String) input.get("num_pessoas");
         List<String> pratos = (List<String>) input.get("pratos");
         Date dataSql = Date.valueOf(data);
         Time timeSql = Time.valueOf(hora);
         System.out.println(timeSql);
-        appService.criarReserva(dataSql, timeSql, num_pessoas, nome, pratos);
+        appService.criarReserva(dataSql, timeSql, Integer.parseInt(num_pessoas), nome, pratos);
     }
 
     @CrossOrigin
