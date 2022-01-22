@@ -48,7 +48,7 @@ public class RestauranteController {
 
     @CrossOrigin
     @PostMapping(value = "/info_restaurante")
-    public Restaurante infoRestaurante(){
+    public Map<String, Object> infoRestaurante(){
         return this.appService.infoRestauranteCoordenadas();
     }
 
@@ -56,6 +56,12 @@ public class RestauranteController {
     @PostMapping(value = "/info_pratos")
     public List<Map<String,Object>> infoPratos(){
         return this.appService.infoPratos();
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/menu")
+    public List<Prato> menu(){
+        return this.appService.menu();
     }
 
 }

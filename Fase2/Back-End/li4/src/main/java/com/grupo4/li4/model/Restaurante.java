@@ -39,6 +39,10 @@ public class Restaurante {
     private List<Reserva> reservas;
 
     @JsonIgnore
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Avaliacao> avaliacoes;
+
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "serve",
@@ -58,6 +62,25 @@ public class Restaurante {
         this.proprietario = null;
         this.latitude = lat;
         this.longitude = lng;
+    }
+
+
+    public double mediaAvaliacao(){
+        double media = 0;
+        int total = 0;
+        for(Avaliacao a : this.avaliacoes){
+            total++;
+            media += a.getEstrelas();
+        }
+        if(total == 0 ) return 0;
+        return media/total;
+    }
+    public void setAvaliacoes(List<Avaliacao> avaliacoes){
+        this.avaliacoes = avaliacoes;
+    }
+
+    public List<Avaliacao> getAvaliacao(){
+        return this.avaliacoes;
     }
 
     public void addPrato(Prato prato){

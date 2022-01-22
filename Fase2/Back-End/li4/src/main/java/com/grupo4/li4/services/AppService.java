@@ -150,7 +150,7 @@ public class AppService {
         this.restauranteRepo.deleteById(nome);
     }
 
-    public void criarReserva(Date data, Time time, int num_pessoal, List<String> pratos){
+    public void criarReserva(Date data, Time time, int num_pessoal, String nome, List<String> pratos){
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Prato> pratos_reserva = new ArrayList<>();
@@ -164,7 +164,7 @@ public class AppService {
             }
         }
 
-        Reserva reserva = new Reserva(data, time, num_pessoal, c, r,pratos_reserva);
+        Reserva reserva = new Reserva(data, time, num_pessoal, nome, c, r,pratos_reserva);
         this.reservaRepo.save(reserva);
     }
 
@@ -228,7 +228,7 @@ public class AppService {
         this.restauranteRepo.save(r);
     }
 
-    public Restaurante infoRestauranteCoordenadas(){
+    public Map<String, Object> infoRestauranteCoordenadas(){
         List<Restaurante> res = this.restauranteRepo.findAll();
         Restaurante r = null;
         for(Restaurante restaurante : res){
@@ -237,14 +237,24 @@ public class AppService {
                 break;
             }
         }
-        return r;
+        Map<String, Object> map = new HashMap<>();
+        map.put("nome", r.getNome());
+        map.put("rua", r.getRua());
+        map.put("localidade", r.getLocalidade());
+        map.put("num_telefone", r.getNum_telefone());
+        map.put("horario", r.getHorario());
+        map.put("latitude", r.getLatitude());
+        map.put("longitude", r.getLongitude());
+        map.put("estrelas", r.mediaAvaliacao());
+        return map;
     }
 
     public List<Map<String,Object>> infoPratos() {
-        Restaurante res = infoRestauranteCoordenadas();
+        Map<String, Object> res = infoRestauranteCoordenadas();
+        Restaurante restaurante = this.restauranteRepo.getById((String) res.get("nome"));
         List<Map<String,Object>> out = new ArrayList<>();
         int i = 0;
-        for(Prato p : res.getPratos()){
+        for(Prato p : restaurante.getPratos()){
             Map<String,Object> pout = new HashMap<>();
             pout.put("value",i);
             pout.put("label",p.getNome());
@@ -270,7 +280,10 @@ public class AppService {
 
 
 
-
+    public List<Prato> menu(){
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        return r.getPratos();
+    }
 
     public String getEmail_utilizador() {
         return email_utilizador;

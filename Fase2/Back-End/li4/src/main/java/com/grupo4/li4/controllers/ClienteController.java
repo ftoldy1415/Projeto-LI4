@@ -78,6 +78,7 @@ public class ClienteController {
     @PostMapping(value = "/reserva")
     public void reserva(@RequestBody Map<String,Object> input){
         // nome, data, hora, num_pessoas, pratos
+        String nome = (String) input.get("nome");
         String data = (String) input.get("data");
         String hora = (String) input.get("hora") + ":00";
         int num_pessoas = (Integer) input.get("num_pessoas");
@@ -85,8 +86,7 @@ public class ClienteController {
         Date dataSql = Date.valueOf(data);
         Time timeSql = Time.valueOf(hora);
         System.out.println(timeSql);
-        appService.criarReserva(dataSql, timeSql, num_pessoas, pratos);
-
+        appService.criarReserva(dataSql, timeSql, num_pessoas, nome, pratos);
     }
 
     @CrossOrigin

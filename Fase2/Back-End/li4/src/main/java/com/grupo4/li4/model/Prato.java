@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Prato {
 
     @Id
+    @JsonIgnore
     @GeneratedValue
     @Column(name = "id")
     private int id;
