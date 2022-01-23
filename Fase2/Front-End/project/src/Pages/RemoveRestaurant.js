@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 
 
 
-import '../CSS/AddRestaurant.css';
 
 
 function RemoveRestaurant(){
@@ -74,7 +73,7 @@ function RemoveRestaurant(){
     
 
     return (
-        <div>
+        <div className = "divGrey">
             <h1>Selecione o restaurante que pretende remover : </h1>
             <Select options={restaurantes} onChange={handleChange} />
             <button onClick={Delete}>Eliminar</button>

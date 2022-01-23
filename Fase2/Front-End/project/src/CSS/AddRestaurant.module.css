@@ -1,16 +1,20 @@
-body{
+.body{
     background : black; 
+    height : 100vh;
+    margin: 0;
+    padding: 0;
 }
-h1{
+
+.h1{
     font-size: 40px;
     text-indent: 15px;
     color : white;
     padding: 5px;
 }
 
-.estrelasInput{
-    width: 60px;
-
+.horario{
+    text-indent : 15px;
+    padding-left : 15px;
 }
 
 .nomeInputs{

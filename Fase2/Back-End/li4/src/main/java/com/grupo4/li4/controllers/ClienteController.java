@@ -47,7 +47,7 @@ public class ClienteController {
     @PostMapping(value = "/registar")
     public void registar(@RequestBody Cliente cliente){
         cliente.setFiltro_distancia(5);
-        cliente.setFiltro_estrelas(5);
+        cliente.setFiltro_estrelas(0);
         appService.registar(cliente);
     }
 

@@ -53,13 +53,26 @@ function ChooseMap(){
         history.push(path);
     }
 
+    function Back(){
+        let path = '/FrontPageUser';
+        history.push(path);
+    }
+
 
     return(
-        <div>
-            <h1>Escolha o filtro desejado:</h1>
-            <button onClick={toMapDistancia}>Distância</button>
-            <button onClick={toMapClassificacao}>Classificação</button>
-            <button onClick={toMapAmbos}>Ambos</button>
+        <div className = "divGrey">
+            <div className = "center">
+                <h1>Escolha o filtro desejado:</h1>
+                <button onClick={toMapDistancia}>Distância</button>
+                <button onClick={toMapClassificacao}>Classificação</    button>
+                <button onClick={toMapAmbos}>Ambos</button>
+                <br/>
+                <br/>
+            </div>
+            <div className = "center">
+                <button onClick={Back}>Back</button>
+
+            </div>
         </div>
     );
 }

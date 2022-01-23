@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 
 
-import '../CSS/SignInOwner.css';
 
 
 function SignInOwner() {
@@ -48,15 +47,19 @@ function SignInOwner() {
 
     return(
 
-    <div>
+    <div className="center">
         <img src="logo.png" alt="" id="firstImg"/><br/><br/>
 
             <form action="">
-                <input type="email"     placeholder="Email"             name="email"    value={owner.email}     onChange={handleChange}/><br/>
-                <input type="text"      placeholder="Nome"              name="nome"     value={owner.nome}      onChange={handleChange}/><br/>
-                <input type="password"  placeholder="Password"          name="password" value={owner.password}  onChange={handleChange}/><br/>
-                <input type="password"  placeholder="Confirm Password"                                          onChange={(e) => setPassword(e.target.value)}/><br/>
-                <input type="number"    placeholder="NIF"               name="nif"      value={owner.nif}       onChange={handleChange}/><br/>
+                <input type="email"  className = "caixasTextoOrange"   placeholder="Email"             name="email"    value={owner.email}     onChange={handleChange}/><br/>
+                
+                <input type="text"   className = "caixasTextoOrange"   placeholder="Nome"              name="nome"     value={owner.nome}      onChange={handleChange}/><br/>
+                
+                <input type="password" className = "caixasTextoOrange"  placeholder="Password"          name="password" value={owner.password}  onChange={handleChange}/><br/>
+                
+                <input type="password" className = "caixasTextoOrange"  placeholder="Confirm Password"       onChange={(e) => setPassword(e.target.value)}/><br/>
+                
+                <input type="number"  className = "caixasTextoOrange"   placeholder="NIF"               name="nif"      value={owner.nif}       onChange={handleChange}/><br/>
                 <p id="error"></p>
             </form>
 

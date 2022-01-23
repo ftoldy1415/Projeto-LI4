@@ -80,6 +80,10 @@ export default function Map(){
 
     }
 
+    function Back() {
+        let path = '/FrontPageUser';
+        history.push(path); 
+    }
 
     if(loadError) return "Error Loading";
     if(!isLoaded) return "Loading";
@@ -87,6 +91,7 @@ export default function Map(){
 
     return(
         <div>
+            <button onClick={Back}>Voltar</button>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={17}

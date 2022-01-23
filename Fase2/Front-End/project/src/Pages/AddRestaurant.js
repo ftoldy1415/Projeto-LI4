@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useRef } from "react";
 
 
-import '../CSS/AddRestaurant.css';
-
 function AddRestaurant(){
 
     const history = useHistory();
@@ -81,85 +79,92 @@ function AddRestaurant(){
         return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
     }
 
-
+    //font_size: "40px",text-indent: 15px, 
+ 
     return(
-        <div >
-            <h1 >Adicionar Restaurante</h1>
-            <div className = "divForm1">
-                <form className = "form1" onSubmit={handleSubmit} >
+        <div>
+            <h1 style={{fontSize: "40px", color: "white", padding: "5px"}}> Adicionar Restaurante</h1>
+
+            <div style={{ background: "rgb(206, 206, 206)", border: "2px white solid" }}>
+                <form style = {{padding: "10px"}} className="form1" onSubmit={handleSubmit}>
                     <label for="nome">Nome :</label>
-                    <input type="text" name = "nome" ref={nome}/>
-                    <br/>
-                    <br/>
+                    <input className='caixasTextoWhite' type="text" name="nome" ref={nome} />
+                    <br />
+                    <br />
 
-                    <label for="rua">Endereço : </label>
-                    <input type="text" name = "rua" ref={rua}/>
-                    <br/>
-                    <br/>
+                    <label for="rua">Endereço: </label>
+                    <input className='caixasTextoWhite' type="text" name="rua" ref={rua} />
+                    <br />
+                    <br />
 
-                    <label for="localidade">Localidade : </label>
-                    <input type="text" name = "localidade" ref={localidade}/>
-                    <br/>
-                    <br/>
+                    <label for="localidade">Localidade: </label>
+                    <input className='caixasTextoWhite' type="text" name="localidade" ref={localidade} />
+                    <br />
+                    <br />
 
-                    <label for="telefone">Contacto Telefónico : </label>
-                    <input type="text" name = "num_telefone"  ref={num_telefone} />
-                    <br/>
+                    <label for="telefone">Contacto Telefónico: </label>
+                    <input className='caixasTextoWhite' type="text" name="num_telefone" ref={num_telefone} />
+                    <br />
 
-                    <p>Adicione as suas coordenadas : <span><input type="number" placeholder="lat" ref={lat} step="0.000001" /></span> e   <span><input type="number" placeholder="lng" ref={lng} step="0.000001" /></span></p>
+                    <p>Adicione as suas coordenadas: <span><input className='caixasTextoWhite' type="number" placeholder="lat" ref={lat} step="0.000001" /></span> e   <span><input className='caixasTextoWhite' type="number" placeholder="lng" ref={lng} step="0.000001" /></span></p>
                     <div>
-                        <h4>Insira o horário :</h4>
-                        <label className = "horario" for = "aSegunda">Segunda-feira : </label>
-                        <input type="text" name  = "aSegunda" ref={aSegunda}/>
-                        <input type="text" name  = "fSegunda" ref={fSegunda}/>
+                        <h4>Insira o horário no formato indicado :</h4>
+                        <label className="horario" for="aSegunda">Segunda-feira: </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="aSegunda" ref={aSegunda} placeholder="--:--" />
+                        <label for="fSegunda"> -- </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="fSegunda" ref={fSegunda} placeholder="--:--" />
+
+                        <br />
+                        <br />
+                        <label className="horario" for="aTerca">Terca-feira: </label>
+                        <input className='caixasTextoWhite' type="text" name="aTerca" ref={aTerca} placeholder="--:--" />
+                        <label for="fTerca"> -- </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="fTerca" ref={fTerca} placeholder="--:--" />
+
+                        <br />
+                        <br />
+                        <label className="horario" for="aQuarta">Quarta-feira: </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="aQuarta" ref={aQuarta} placeholder="--:--" />
+                        <label for="fQuarta"> -- </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="fQuarta" ref={fQuarta} placeholder="--:--" />
+
+                        <br />
+                        <br />
+                        <label className="horario" for="aQuinta">Quinta-feira: </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="aQuinta" ref={aQuinta} placeholder="--:--" />
+                        <label for="fQuinta"> -- </label>
+                        <input className='caixasTextoWhite' className="inputs" type="text" name="fQuinta" ref={fQuinta} placeholder="--:--" />
+
+
+                        <br />
+                        <br />
+                        <label className="horario" for="aSexta">Sexta-Feira: </label>
+                        <input className='caixasTextoWhite' type="text" name="aSexta" ref={aSexta} placeholder="--:--" />
+                        <label for="fSexta"> -- </label>
+                        <input className='caixasTextoWhite' type="text" name="fSexta" ref={fSexta} placeholder="--:--" />
+
+                        <br />
+                        <br />
+                        <label className="horario" for="aSabado">Sábado: </label>
+                        <input className='caixasTextoWhite' type="text" name="aSabado" ref={aSabado} placeholder="--:--" />
+                        <label for="fSabado"> -- </label>
+                        <input className='caixasTextoWhite' type="text" name="fSabado" ref={fSabado} placeholder="--:--" />
+
+                        <br />
+                        <br />
+                        <label className="horario" for="aDomingo">Domingo: </label>
+                        <input className='caixasTextoWhite' type="text" name="aDomingo" ref={aDomingo} placeholder="--:--" />
                         
-                        <br/>
-                        <br/>
-                        <label className = "horario" for = "aTerca">Terca-feira : </label>
-                        <input type="text" name  = "aTerca" ref={aTerca}/>
-                        <input type="text" name  = "fTerca" ref={fTerca}/>
-
-                        <br/>
-                        <br/>
-                        <label className = "horario" for = "aQuarta">Quarta-feira : </label>
-                        <input type="text" name  = "aQuarta" ref={aQuarta}/>
-                        <input type="text" name  = "fQuarta" ref={fQuarta}/>
-
-                        <br/>
-                        <br/>
-                        <label className = "horario" for = "aQuinta">Quinta-feira : </label>
-                        <input type="text" name  = "aQuinta" ref={aQuinta}/>
-                        <input type="text" name  = "fQuinta" ref={fQuinta}/>
-
-
-                        <br/>
-                        <br/>
-                        <label className = "horario" for = "aSexta">Sexta-Feira: </label>
-                        <input type="text" name  = "aSexta" ref={aSexta}/>
-                        <input type="text" name  = "fSexta" ref={fSexta}/>
-
-                        <br/>
-                        <br/>
-                        <label className = "horario" for = "aSabado">Sábado : </label>
-                        <input type="text" name  = "aSabado" ref={aSabado}/>
-                        <input type="text" name  = "fSabado" ref={fSabado}/>
-
-                        <br/>
-                        <br/>
-                        <label className = "horario" for = "aDomingo">Domingo : </label>
-                        <input type="text" name  = "aDomingo" ref={aDomingo}/>
-                        <input type="text" name  = "fDomingo" ref={fDomingo}/>
-                        
+                        <label for="fDomingo"> -- </label>
+                        <input className='caixasTextoWhite' type="text" name="fDomingo" ref={fDomingo} placeholder="--:--" />
                     </div>
 
-                    <button type='submit' className ="button" >Confirmar</button>
+                    <button type='submit' className="button">Confirmar</button>
+                    <button className="button" onClick={Back}>Cancelar</button>
 
                 </form>
-                <button className = "button" onClick={Back}>Cancelar</button>
-            </div>
-
+            </div>    
         </div>
-    );
-}
+    )}
 
 export default AddRestaurant;

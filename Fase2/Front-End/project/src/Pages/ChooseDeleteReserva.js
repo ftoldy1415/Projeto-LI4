@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-function ChooseEditRestaurant(){
+function ChooseDeleteReserva(){
 
     let history = useHistory();
 
@@ -35,7 +35,7 @@ function ChooseEditRestaurant(){
         setSelected(e.value);
     }
 
-    function Edit() {
+    function Next() {
 
         const data1 = {
             nome: selected
@@ -52,7 +52,7 @@ function ChooseEditRestaurant(){
             console.error('Error:', error);
         });
 
-        let path = '/EditRestaurant';
+        let path = '/DeleteReserva';
         history.push(path);   
     }
 
@@ -64,10 +64,10 @@ function ChooseEditRestaurant(){
 
     return(
         <div className = "divGrey">
-            <h1 className = "center">Selecione o restaurante que pretende editar : </h1>
+            <h1 className = "center">Selecione o restaurante que pretende eliminar reserva : </h1>
             <Select options={restaurantes} onChange={handleChange}/>
             <div className = "center">
-                <button onClick={Edit}>Editar</button>
+                <button onClick={Next}>Next</button>
                 <button onClick={Back}>Back</button>
             </div>
 
@@ -76,4 +76,4 @@ function ChooseEditRestaurant(){
     );
 }
 
-export default ChooseEditRestaurant;
+export default ChooseDeleteReserva;

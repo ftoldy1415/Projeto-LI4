@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react';
 
 
-import '../CSS/AddRestaurant.css';
 
 function EditRestaurant(){
 
@@ -33,7 +31,7 @@ function EditRestaurant(){
     const aSabado = useRef(null);
     const fSabado = useRef(null);
     const aDomingo = useRef(null);
-    const fDomingo = useRef(null);   
+    const fDomingo = useRef(null);  
 
     const codigoDescricao = useRef(null);
 
@@ -60,7 +58,6 @@ function EditRestaurant(){
                 setRestaurante(data);
             })
     },[]);
-
 
 
     const horarioArr = parseHorario(restaurante.horario);
@@ -115,21 +112,20 @@ function EditRestaurant(){
     function handleSubmitCodigo(e) {
 
         const data1 = {
-            codigoDescricao: codigoDescricao.current.value,
+            descricao: codigoDescricao.current.value,
         }
 
-        
-        fetch('http://127.0.0.1:8080/api/proprietario/alterar_dados', { ////add codigo
+        fetch('http://127.0.0.1:8080/api/proprietario/generate_qr_code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data1),
         })
-        .then(reponse => {
-            let path = '/FrontPageOwner';
-            history.push(path);
-        })
+
+        let path = '/FrontPageOwner';
+        history.push(path);
+
     }
 
     function handleSubmitPrato(e) {
@@ -172,37 +168,37 @@ function EditRestaurant(){
 
     return(
     <div>
-        <div className="split left">
-            <div className="centered">
-                <h1>{restaurante.nome}</h1><br></br>
-                <h2>{restaurante.num_telefone}</h2> 
-                <h3>Horario Atual</h3>
+        <div className="float-child1">
+            <div className="center">
+                <h1 className = "colorWhite" >{restaurante.nome}</h1><br/>
+                <h2 className = "colorWhite">{restaurante.num_telefone}</h2><br/>
+                <h3 className = "colorWhite">Horario Atual</h3>
 
-                <h4 style = {{color : 'white'}}>Segunda-feira : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[0]}</p><br/>
+                <h4 className = "colorWhite">Segunda-feira : </h4>
+                <p className = "colorWhite">{horarioArr[0]}</p>
                 
-                <h4 style = {{color : 'white'}}>Terca-feira : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[1]}</p><br/>
+                <h4 className = "colorWhite">Terca-feira : </h4>
+                <p className = "colorWhite">{horarioArr[1]}</p>
 
-                <h4 style = {{color : 'white'}}>Quarta-feira : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[2]}</p><br/>
+                <h4 className = "colorWhite">Quarta-feira : </h4>
+                <p className = "colorWhite">{horarioArr[2]}</p>
 
-                <h4 style = {{color : 'white'}}>Quinta-feira : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[3]}</p><br/>
+                <h4 className = "colorWhite">Quinta-feira : </h4>
+                <p className = "colorWhite">{horarioArr[3]}</p>
 
-                <h4 style = {{color : 'white'}}>Sexta-feira : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[4]}</p><br/>
+                <h4 className = "colorWhite">Sexta-feira : </h4>
+                <p className = "colorWhite">{horarioArr[4]}</p>
 
-                <h4 style = {{color : 'white'}}>Sabado : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[5]}</p><br/>
+                <h4 className = "colorWhite">Sabado : </h4>
+                <p className = "colorWhite">{horarioArr[5]}</p>
 
-                <h4 style = {{color : 'white'}}>Domingo : </h4>
-                <p style = {{color : 'white'}}>{horarioArr[6]}</p><br/>
+                <h4 className = "colorWhite">Domingo : </h4>
+                <p className = "colorWhite">{horarioArr[6]}</p><br/>
             </div>
         </div>
 
-        <div className="split right">
-            <div>
+        <div className="float-child2">
+            <div className = "center">
                 
                     <h1>Editar dados Restaurante</h1>
                     <button className="goBack" onClick={Back}>Voltar</button>
@@ -222,24 +218,28 @@ function EditRestaurant(){
                         <h4>Insira o novo horário :</h4>
                         <label className = "horario">Segunda-feira : </label>
                         <input type="text" name  = "aSegunda" ref={aSegunda}/>
+                        <label for="fSegunda"> -- </label>
                         <input type="text" name  = "fSegunda" ref={fSegunda}/>
                         
                         <br/>
                         <br/>
                         <label className = "horario">Terca-feira : </label>
                         <input type="text" name  = "aTerca" ref={aTerca}/>
+                        <label for="fTerca"> -- </label>
                         <input type="text" name  = "fTerca" ref={fTerca}/>
 
                         <br/>
                         <br/>
                         <label className = "horario">Quarta-feira : </label>
                         <input type="text" name  = "aQuarta" ref={aQuarta}/>
+                        <label for="fQuarta"> -- </label>
                         <input type="text" name  = "fQuarta" ref={fQuarta}/>
 
                         <br/>
                         <br/>
                         <label className = "horario">Quinta-feira : </label>
                         <input type="text" name  = "aQuinta" ref={aQuinta}/>
+                        <label for="fQuinta"> -- </label>
                         <input type="text" name  = "fQuinta" ref={fQuinta}/>
 
 
@@ -247,18 +247,21 @@ function EditRestaurant(){
                         <br/>
                         <label className = "horario">Sexta-Feira: </label>
                         <input type="text" name  = "aSexta" ref={aSexta}/>
+                        <label for="fSexta"> -- </label>
                         <input type="text" name  = "fSexta" ref={fSexta}/>
 
                         <br/>
                         <br/>
                         <label className = "horario">Sábado : </label>
                         <input type="text" name  = "aSabado" ref={aSabado}/>
+                        <label for="fSabado"> -- </label>
                         <input type="text" name  = "fSabado" ref={fSabado}/>
 
                         <br/>
                         <br/>
                         <label className = "horario">Domingo : </label>
                         <input type="text" name  = "aDomingo" ref={aDomingo}/>
+                        <label for="fDomingo"> -- </label>
                         <input type="text" name  = "fDomingo" ref={fDomingo}/>
 
                         <br/><br/>
@@ -270,7 +273,7 @@ function EditRestaurant(){
                     <form className = "codigos" onSubmit= {handleSubmitCodigo}>
                         <label>Insira a descrição do código que pretende adicionar: </label>
                         <input type="text" name="codigoDescricao" ref={codigoDescricao}/>
-                        <button type = 'submit' className = "button" >Alterar</button>
+                        <button type = 'submit' className = "button" >Gerar</button>
                     </form>
 
                     <form className = "pratos" onSubmit = {handleSubmitPrato}>
@@ -278,7 +281,7 @@ function EditRestaurant(){
                         <input type="text" name = "prato" ref = {pratoNome}/>
                         <label> Preco :  </label>
                         <input type= "text" name = "pratoPreco" ref = {pratoPreco}/>
-                        <button type = 'submit' className = "button">Alterar</button>
+                        <button type = 'submit' className = "button">Inserir</button>
                     </form>
 
             </div>

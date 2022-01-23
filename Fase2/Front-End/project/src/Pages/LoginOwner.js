@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
 import {useEffect, useRef, useState} from 'react'
 
-import '../CSS/LoginOwner.css';
 
 function LoginOwner(){
 
@@ -52,20 +51,21 @@ function LoginOwner(){
 
     return(
     
-        <div>
+        <div className = "center">
             <img src="logo.png" alt="" id=""/>
 
-            <div>
+            <div >
 
                 <form action="">
-                    <input id="email"       type="email"    placeholder="Email"    name='email'         value={user.email}          onChange={handleChange}/><br/>
-                    <input id="password"    type="password" placeholder="Password" name='palavra_passe' value={user.palavra_passe}  onChange={handleChange}/>
+                    <input className = "caixasTextoOrange"id="email"       type="email"    placeholder="Email"    name='email'         value={user.email}          onChange={handleChange}/><br/>
+                    <input className = "caixasTextoOrange" id="password"    type="password" placeholder="Password" name='palavra_passe' value={user.palavra_passe}  onChange={handleChange}/>
                 </form>
                 <button onClick={LoginOwner}>Login</button>
                 <button onClick={SignInOwner}>Registar</button>
 
             </div>
-
+            <br/>
+            <br/>
             <button id="back" onClick={Back}>Back</button>
         </div>
 

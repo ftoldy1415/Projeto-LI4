@@ -3,7 +3,6 @@ import {useEffect, useRef, useState} from 'react'
 import Select from 'react-select'
 import { useHistory } from "react-router-dom";
 
-import '../CSS/AddRestaurant.css';
 
 
 
@@ -32,11 +31,11 @@ function listAvaliacoes(){
     }
 
     return(
-        <div>
+        <div className = "divGrey">
             <h1>Lista de avaliacoes : </h1>
             {
                 avaliacoes.map((avaliacao) => (
-                    <div>
+                    <div className = "divAvaliacao">
                         <h2>Pontuação : {avaliacao.estrelas}</h2>
                         <h4>Comentário  : {avaliacao.comentario}</h4>
 

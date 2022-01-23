@@ -1,19 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
-import '../CSS/FirstPage.css';
+
 
 function FirstPage(){
+    const history = useHistory();
+    
+
+    function toCliente() {
+        let path = '/LoginUser';
+        history.push(path);
+    }
+
+    function toOwner() {
+        let path = '/LoginOwner';
+        history.push(path);
+    }
 
     return(
-
-    <div>
+    <div className = "center">
         <img src="../logo.png" alt="" id="firstImg"/>
         <br /><br /><br /><br /><br />
 
-        <Link to='/LoginUser' className='botton'>Sou cliente</Link>
-        <Link to='/LoginOwner' className='botton'>Sou proprietario</Link>
-        <Link to='/LoginAdmistrador' className='botton'>Sou admistrador</Link>
+        <button id="Sou Cliente" onClick={toCliente}>Sou Cliente</button>
+        <button id="Sou proprietario" onClick={toOwner}>Sou Proprietário</button>
 
     </div>
     );

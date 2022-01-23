@@ -1,11 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
 import {useState} from 'react';
 
 
-
-import '../CSS/FrontPageUser.css';
 
 function FrontPageUser(){
 
@@ -32,6 +29,16 @@ function FrontPageUser(){
     
         let path = '/ChooseMap';
         history.push(path);     
+    }
+
+    function toCodes(){
+        let path = '/Codes';
+        history.push(path);    
+    }
+
+    function toReservas(){
+        let path = '/Reservas';
+        history.push(path);        
     }
 
     function AboutUs() {
@@ -62,29 +69,28 @@ function FrontPageUser(){
     }
 
     return(
-        <div>
-            <div className='split left'>
-                <div className='centered'>
-                <img id="logo" src="logo.png" alt=""></img>
-                <br />
-                <br />
+        <div className ="float-container">
+            <div className="float-child1">
+                <div className="center">
+                    <img className="iconeFront" src="logo.png" alt=""></img>
+                    <br />
+                    <br />
 
-                <button onClick={toMap}>Mapa</button><br/>
-                <button onclick="toCodes()">Códigos Promocionais</button><br/>
-                <button onclick="toBookings()">Reservas</button><br/>
-                <button onClick={AboutUs}>About Us</button><br/>
-
-                <div className='bottom'>
-                    <button onClick={Perfil}>Perfil</button>
-                    <button onClick={LogOutUser}>Log Out</button>
-                </div>
-
+                    <button onClick={toMap}>Mapa</button><br/>
+                    <button onclick="toCodes()">Códigos Promocionais</button><br/>
+                    <button onClick={toReservas}>Reservas</button><br/>
+                    <button onClick={AboutUs}>About Us</button><br/>
+                    <br/><br/><br/><br/><br/><br/><br/>
+                    <div >
+                        <button onClick={Perfil}>Perfil</button><br/>
+                        <button onClick={LogOutUser}>Log Out</button><br/>
+                    </div>
                 </div>
             </div>
 
-            <div className='split right'>
-                <div className='centered'>
-                    <img src="braga.png" alt="" id="braga"></img>
+            <div className ="float-child2">
+                <div className="center">
+                    <img className = "iconeFront" src="braga.png" alt="" id="braga"></img>
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import {useEffect, useRef, useState} from 'react'
 
 
-import '../CSS/LoginUser.css';
 
 function LoginUser(){
 
@@ -55,20 +54,20 @@ function LoginUser(){
     }
 
     return(
-    <div>
+    <div className = "center">
         
         <img src="logo.png" alt="" id="firstImg"/>
 
-        <div>
+        <div >
             <form>
-                <input 
+                <input className = "caixasTextoOrange" 
                     id="email" 
                     type="email" 
                     value={email}
                     onChange={ (e) => setEmail(e.target.value)}                
                     placeholder="Email" /><br/>
 
-                <input 
+                <input className = "caixasTextoOrange"
                     id="password" 
                     type="password" 
                     value={password}

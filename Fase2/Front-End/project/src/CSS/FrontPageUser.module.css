@@ -12,41 +12,24 @@ body{
     padding-top: 20px;
 }
 
-/* Control the left side */
 .left {
     left: 0;
     background-color: black;
     width: 25%;
 }
 
-/* Control the right side */
 .right {
     background-color: white;
     right: 0;
     width: 75%;
     border: 10px black solid;
-
 }
 
-
-/* Style the image inside the centered container, if needed */
-#logo {
+.logo {
     margin-top: 30px;
     width: 80%;
 }
 
-button{
-
-    background: black;
-    color: white;
-    border: none;
-    margin: 10px 10px 10px 10px;
-
-}
-
-button:hover{
-    color: rgb(253, 118, 8);
-}
 
 .centered{
     text-align: center;
@@ -63,6 +46,3 @@ button:hover{
     width: 95%;
 }
 
-h1{
-    color: antiquewhite;
-}

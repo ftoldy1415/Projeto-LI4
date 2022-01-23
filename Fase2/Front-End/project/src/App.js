@@ -10,12 +10,17 @@ import ChooseMap from './Pages/ChooseMap';
 import MapDistancia from './Pages/MapDistancia';
 import MapClassificacao from './Pages/MapClassificacao';
 import MapAmbos from './Pages/MapAmbos';
+import Reservas from './Pages/Reservas';
 import FrontPageOwner from './Pages/FrontPageOwner';
 import AddRestaurant from './Pages/AddRestaurant';
 import RemoveRestaurant from './Pages/RemoveRestaurant';
 import ChooseEditRestaurant from './Pages/ChooseEditRestaurant';
 import EditRestaurant from './Pages/EditRestaurant';
+import ChooseDeleteReserva from './Pages/ChooseDeleteReserva';
+import DeleteReserva from './Pages/DeleteReserva';
 import MenuRestaurante from './Pages/MenuRestaurante';
+import Codes from './Pages/Codes';
+import CodesRestaurante from './Pages/CodesRestaurante';
 import Reservar from './Pages/Reservar';
 import Avaliar from './Pages/Avaliar';
 import Restaurante from './Pages/Restaurante';
@@ -40,12 +45,17 @@ function App() {
           <Route path="/MapDistancia" component={MapDistancia}></Route> 
           <Route path="/MapClassificacao" component={MapClassificacao}></Route> 
           <Route path="/MapAmbos" component={MapAmbos}></Route> 
+          <Route path="/Reservas" component={Reservas}></Route> 
           <Route path="/FrontPageOwner" component={FrontPageOwner}></Route> 
           <Route path="/AddRestaurant" component={AddRestaurant}></Route> 
           <Route path="/RemoveRestaurant" component={RemoveRestaurant}></Route> 
           <Route path="/ChooseEditRestaurant" component={ChooseEditRestaurant}></Route> 
           <Route path="/EditRestaurant" component={EditRestaurant}></Route> 
+          <Route path="/ChooseDeleteReserva" component={ChooseDeleteReserva}></Route> 
+          <Route path="/DeleteReserva" component={DeleteReserva}></Route> 
           <Route path="/MenuRestaurante" component={MenuRestaurante}></Route> 
+          <Route path="/Codes" component={Codes}></Route> 
+          <Route path="/CodesRestaurante" component={CodesRestaurante}></Route> 
           <Route path="/Reservar" component={Reservar}></Route> 
           <Route path="/Avaliar" component={Avaliar}></Route> 
           <Route path="/Restaurante" component={Restaurante}></Route> 

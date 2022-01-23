@@ -5,7 +5,6 @@ import {useEffect, useRef, useState} from 'react'
 import Select from 'react-select'
 
 
-import '../CSS/Reservas.css';
 
 function Reservar(){
     const [pratos,setPratos] = useState([]);
@@ -95,31 +94,31 @@ function Reservar(){
     return(
         <div>
             <div>
-                <h1>Reserva Editor</h1>
-                <div className = "divForm1">
+                <h1 className = "colorWhite">Reserva Editor</h1>
+                <div className = "divGrey">
                     <form className = "form1" action="">
                         <label  for="nome">Nome: </label>
-                        <input type  = "text" name = "nome" ref={nome}/>
+                        <input className = "caixasTextoWhite" type = "text" name = "nome" ref={nome}/>
                         <br/>
-                        <br/>
+
                         <label for = "data">Data: </label>
-                        <input type = "date" name = "data" ref={data}/>
+                        <input className = "caixasTextoWhiteLong" type = "date" name = "data" ref={data}/>
                         <br/>
-                        <br/>
+
                         <label for = "hora">Hora :</label>
-                        <input type = "time" name = "hora" ref={hora}/>
+                        <input className = "caixasTextoWhiteLong" type = "time" name = "hora" ref={hora}/>
                         <br/>
-                        <br/>
+
                         <label  for="numPessoas">Número de Pessoas </label>
-                        <input type  = "text" name = "numPessoas" value={numPeople} onChange={(e) => setNumPeople(e.target.value)}/>
+                        <input className = "caixasTextoWhite" type  = "text" name = "numPessoas" value={numPeople} onChange={(e) => setNumPeople(e.target.value)}/>
 
                     </form>
                 </div>
 
             </div>
 
-            <h1>Detalhes do pedido</h1>
-            <div class = "divForm2">        
+            <h1 className = "colorWhite">Detalhes do pedido</h1>
+            <div class = "divGrey">        
                 <br/>
                 <br/>
                 <h1>Selecione o prato : </h1>

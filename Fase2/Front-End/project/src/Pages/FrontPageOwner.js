@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
 import {useEffect, useRef, useState} from 'react'
 
-import '../CSS/FrontPageOwner.css';
-import EditRestaurant from './ChooseEditRestaurant';
 
 function FrontPageOwner(){
 
@@ -25,6 +23,11 @@ function FrontPageOwner(){
         history.push(path);        
     }
 
+    function DeleteRestaurant() {
+        let path = '/ChooseDeleteReserva';
+        history.push(path);
+    }
+
     function Back() {
         let path = '/';
         history.push(path);
@@ -33,16 +36,17 @@ function FrontPageOwner(){
     return( 
 
     <div>
-        <div className="split left">
-            <div className="centered">
+        <div className="float-child1">
+            <div className="center">
 
-                <img id="logo" src="logo.png" alt=""/>
+                <img className = "iconeFront" id="logo" src="logo.png" alt=""/>
                 <br/>
                 <br/>
 
                 <button onClick={AddRestaurant}>Adicionar Restaurante</button><br/>
                 <button onClick={RemoveRestaurant}>Remover Restaurante</button><br/>
                 <button onClick={EditRestaurant}>Editar Restaurante</button><br/>
+                <button onClick={DeleteRestaurant}>Eliminar Reserva</button><br/>
                 
                 <div className="bottom">
                 <button onClick={Back}>Log Out</button>
@@ -51,11 +55,11 @@ function FrontPageOwner(){
             </div>
         </div>
 
-        <div className="split right">
-            <div className="centered">
+        <div className="float-child2">
+            <div className="center">
 
-                <h1>Bem-Vindo a Braga</h1>
-                <img src="braga.png" alt="" id="braga"/>
+                <h1></h1>
+                <img className = "iconeFront" src="braga.png" alt="" id="braga"/>
 
             </div>
         </div>

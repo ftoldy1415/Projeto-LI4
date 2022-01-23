@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import {useEffect, useRef, useState} from 'react'
 
 
-import '../CSS/Perfil.css';
 
 function Perfil(){
 
@@ -77,7 +76,7 @@ function Perfil(){
             filtro: kms,
         }
 
-        fetch('http://127.0.0.1:8080/api/cliente/filtro_distancia', { 
+        fetch('http://127.0.0.1:8080/api/cliente/filtro', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -111,31 +110,36 @@ function Perfil(){
 
     return (
     <div>
-        <div className="split left">
-        <div className="centered">
+        <div className="float-child1">
+            <div className="center">
 
-            <h1>Meu perfil</h1><br />
-            <p>Nome de utilizador: {user.nome_utilizador}</p>
-            <p>Nome: {user.nome}</p>
-            <p>Numero de telemóvel: {user.num_telemovel}</p>
-            <p>Email: {user.email}</p>
+                <h1 className = "colorWhite">Meu perfil</h1><br/>
+                <h4 className = "colorWhite">Nome de utilizador: {user.nome_utilizador}</h4>
+                <h4 className = "colorWhite">Nome: {user.nome}</h4>
+                <h4 className = "colorWhite">Numero de telemóvel: {user.num_telemovel}</h4>
+                <h4 className = "colorWhite">Email: {user.email}</h4>
+                <button className="goBack" onClick={Back}>Go Back</button>
 
+            </div>
         </div>
-        </div>
 
-        <div className="split right">
-            <div>
+        <div className="float-child2">
+            <div className = "divWhite">
 
                 <form action="">
                     <h1>Editar Perfil</h1>
 
-                    <button className="goBack" onClick={Back}>Go Back</button>
 
-                    <input type="text"      name="nome_utilizador"          placeholder="novo username"         value={userChanged.nome_utilizador}      onChange={HandleChange}/><br/><br/><br/>
-                    <input type="text"      name="nome"                     placeholder="novo nome"             value={userChanged.nome}                 onChange={HandleChange}/><br/><br/><br/>
-                    <input type="number"    name="num_telemovel"            placeholder="número de telemóvel"   value={userChanged.num_telemovel}        onChange={HandleChange}/><br/><br/><br/>
+                    <input type="text"      name="nome_utilizador"          placeholder="novo username"         value={userChanged.nome_utilizador}      onChange={HandleChange}/><br/><br/>
+                    
+                    <input type="text"      name="nome"                     placeholder="novo nome"             value={userChanged.nome}                 onChange={HandleChange}/><br/><br/>
+                    
+                    <input type="number"    name="num_telemovel"            placeholder="número de telemóvel"   value={userChanged.num_telemovel}        onChange={HandleChange}/><br/><br/>
+                    
                     <input type="password"  name="palavra_passe_antiga"     placeholder="password antiga"       value={userChanged.palavra_passe_antiga} onChange={HandleChange}/><br/><br/>
+                    
                     <input type="password"  name="palavra_passe"            placeholder="password nova"         value={userChanged.palavra_passe}        onChange={HandleChange}/><br/><br/>
+                    
                     <input type="password"                                  placeholder="password nova"                                                  onChange={(e) => setPassword(e.target.value)}/>
                     <br/>
 

@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import {useEffect, useRef, useState} from 'react'
 
 
-import '../CSS/SignInUser.css';
 
 function SignInUser(){
     
@@ -55,17 +54,23 @@ function SignInUser(){
 
     return(
 
-        <div>
+        <div className="center">
             <img src="logo.png" alt="" id="firstImg"/><br/><br/>
 
             <form action="">
-                <input type="email"    placeholder="Email"                name='email'          value={user.email}            onChange={handleChange}/><br/>
-                <input type="password" placeholder="Password"             name='palavra_passe'  value={user.palavra_passe}    onChange={handleChange}/><br/>
-                <input type="password" placeholder="Confirm Password"                           value={secondPassword}        onChange={(e) => setPassword(e.target.value)}/><br/>
-                <input type="number"   placeholder="NIF"                  name='nif'            value={user.nif}              onChange={handleChange}/><br/>
-                <input type="text"     placeholder="Nome de utilizador"   name='nome_utilizador'value={user.nome_utilizador}  onChange={handleChange}/><br/>
-                <input type="text"     placeholder="Nome"                 name='nome'           value={user.nome}             onChange={handleChange}/><br/>
-                <input type="number"   placeholder="Número de telemóvel"  name='num_telemovel'  value={user.num_telemovel}    onChange={handleChange}/><br/>
+                <input className = "caixasTextoOrange" type="email"    placeholder="Email"                name='email'          value={user.email}            onChange={handleChange}/><br/>
+                
+                <input className = "caixasTextoOrange" type="password" placeholder="Password"             name='palavra_passe'  value={user.palavra_passe}    onChange={handleChange}/><br/>
+                
+                <input className = "caixasTextoOrange" type="password" placeholder="Confirm Password"                           value={secondPassword}        onChange={(e) => setPassword(e.target.value)}/><br/>
+                
+                <input className = "caixasTextoOrange" type="number"   placeholder="NIF"                  name='nif'            value={user.nif}              onChange={handleChange}/><br/>
+                
+                <input type="text"  className = "caixasTextoOrange"   placeholder="Nome de utilizador"   name='nome_utilizador'value={user.nome_utilizador}  onChange={handleChange}/><br/>
+                
+                <input type="text" className = "caixasTextoOrange"    placeholder="Nome"                 name='nome'           value={user.nome}             onChange={handleChange}/><br/>
+                
+                <input type="number" className = "caixasTextoOrange"   placeholder="Número de telemóvel"  name='num_telemovel'  value={user.num_telemovel}    onChange={handleChange}/><br/>
 
             </form>
 

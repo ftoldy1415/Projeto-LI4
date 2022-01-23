@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useRef } from "react";
 
 
-import '../CSS/Avaliacao.css';
-
 function Avaliar(){
 
     const history = useHistory();
@@ -39,9 +37,9 @@ function Avaliar(){
 
     return(
         <div>
-            <h1 className = "avalEditor">Avaliação Editor</h1>
-            <div className = "divForm1">
-                <form className = "form1" action="" onSubmit={handleSubmit}>
+            <h1 className = "title">Avaliação Editor</h1>
+            <div className = "divGrey">
+                <form className = "formStyle" action="" onSubmit={handleSubmit}>
                     <label for="estrelas">Numero de estrelas:</label>
                     <select className = "estrelasInput" name="estrelas" id="estrelas" ref={estrelas}>
                         <option value="0">0</option>
@@ -55,12 +53,13 @@ function Avaliar(){
                     <br/>
                     <label for = "labels">Coloque a sua opinião aqui:</label>
                     <br/>
-                    <textarea className = "textoAval" id="textoAval" name="textoAval" rows="20" cols="100" ref={comentario}></textarea>
+                    <textarea className = "textoAval" id="textoAval" name="textoAval" rows="20"  ref={comentario}></textarea>
                     <br/>
 
                     <button type='submit' onclick="confirm()">Confirmar</button>
+                    <button  onClick={Back}>Cancelar</button>
+
                 </form>
-                <button className = "button" onClick={Back}>Cancelar</button>
             </div>
         </div>
     );
