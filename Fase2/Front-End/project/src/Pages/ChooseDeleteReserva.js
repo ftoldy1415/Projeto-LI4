@@ -35,11 +35,13 @@ function ChooseDeleteReserva(){
         setSelected(e.value);
     }
 
-    function Next() {
+    async function ChooseRest() {
 
         const data1 = {
             nome: selected
         }
+
+        console.log("nomeRestaurante");
         
         fetch('http://127.0.0.1:8080/api/proprietario/nome_restaurante', {
                 method: 'POST',
@@ -48,10 +50,14 @@ function ChooseDeleteReserva(){
                 },
                 body: JSON.stringify(data1),
         })
+        .then(response => console.log(response))
         .catch((error) => {
             console.error('Error:', error);
         });
 
+    }
+
+    function showReservas() {
         let path = '/DeleteReserva';
         history.push(path);   
     }
@@ -67,7 +73,8 @@ function ChooseDeleteReserva(){
             <h1 className = "center">Selecione o restaurante que pretende eliminar reserva : </h1>
             <Select options={restaurantes} onChange={handleChange}/>
             <div className = "center">
-                <button onClick={Next}>Next</button>
+                <button onClick={ChooseRest}>Confirmar restaurante</button>
+                <button onClick={showReservas}>Ver reservas</button>
                 <button onClick={Back}>Back</button>
             </div>
 

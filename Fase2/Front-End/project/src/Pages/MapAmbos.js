@@ -6,12 +6,8 @@ import { useHistory } from "react-router-dom";
 
 
 const mapContainerStyle = {
-    width: "90vw",
+    width: "99vw",
     height: "90vh",
-};
-const center = {
-    lat: -23,
-    lng: 23,
 };
 
 
@@ -92,21 +88,25 @@ export default function MapClassificacao(){
     return(
         <div>
             <button onClick={Back}>Voltar</button>
-            <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={17}
-            center={location}
-            >
-            {
-                restaurantes.map( (marker) => (
-                    <Marker 
-                        key={marker.id} 
-                        position={ {lat: marker.lat, lng: marker.lng} }
-                        onClick={goToRestaurant}
-                    />
-                ))
-            }    
-            </GoogleMap>
+            <p></p>
+            <div className="center">
+                <GoogleMap 
+                mapContainerStyle={mapContainerStyle}
+                zoom={17}
+                center={location}
+                >
+                {
+                    restaurantes.map( (marker) => (
+                        <Marker 
+                            key={marker.id} 
+                            position={ {lat: marker.lat, lng:   marker.lng} }
+                            onClick={goToRestaurant}
+                        />
+                    ))
+                }    
+                </GoogleMap>
+            </div>
+
         </div> 
     );
 }

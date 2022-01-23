@@ -3,9 +3,6 @@ import { useHistory } from "react-router-dom";
 import {useState, useEffect} from 'react';
 
 
-
-
-
 function Restaurante(){
 
     const history = useHistory();
@@ -38,12 +35,14 @@ function Restaurante(){
         .then(response => {
             return response.json()
         })
-        .then(data => setRestaurante(data));
+        .then(data => {
+            setRestaurante(data);
+        });
     }
 
     const getAvaliacoes = async () => {
 
-        fetch('http://127.0.0.1:8080/api/', { ///////////
+        fetch('http://127.0.0.1:8080/api/cliente/get_avaliacoes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,12 +52,14 @@ function Restaurante(){
         .then(response => {
             return response.json()
         })
-        .then(data => setRestaurante(data));
+        .then(data => {
+            setAvaliacoes(data);
+        });
     }
 
     useEffect(()=>{
         getRestaurante();
-        //getAvaliacoes();
+        getAvaliacoes();
     },[]);
 
     const horarioArr = parseHorario(restaurante.horario);
@@ -133,7 +134,7 @@ function Restaurante(){
                     <h1 className='colorWhite'>{restaurante.nome}</h1>
                     <h2 className='colorWhite'>Avaliação  : {restaurante.estrelas}</h2>
                     <button className = "button" onClick={toMenu}>Menu</button>
-                    <br/>
+                    <br/><br/>
                     <button className = "button" onClick={toRestaurant}>Direções</button>
                     <br/>
                     <br/>
@@ -143,7 +144,7 @@ function Restaurante(){
                     <button className = "button" onClick={toReservas}>Reservar</button>
                     <br/>
                     <br/>
-                    <button className = "button" onClick={toAval}>Avaliação</button>
+                    <button className = "button" onClick={toAval}>Avaliar</button>
                     <br/>
                     <br/>
                     <button className = "button" onClick={Back}>Voltar</button>
@@ -152,7 +153,9 @@ function Restaurante(){
 
             <div className="float-child2">
                 <div>
-
+                    {
+                        console.log(avaliacoes)
+                    }
                     <h3>Rua : </h3>
                     <p style = {{color : 'black'}}>{restaurante.rua}</p>
 
@@ -177,8 +180,23 @@ function Restaurante(){
 
                     <h3>Telefone : </h3>
                     <p style = {{color : 'black'}}>{restaurante.num_telefone}</p>
+
+                    <h3>Avaliações do estabelecimento: </h3>
+                    {
+                        avaliacoes.map(
+                            (avaliacao) => 
+                                <div className="divAvaliacao">
+                                    <p>User : {avaliacao.nome}</p>
+                                    <p>Comentario : {avaliacao.comentario}</p>
+                                    <p>Número de estrelas : {avaliacao.estrelas}</p>
+                                </div> 
+                        )
+                    }
+                    
                 </div>
-            </div> 
+            </div>
+
+            
         </div>
     );
 }

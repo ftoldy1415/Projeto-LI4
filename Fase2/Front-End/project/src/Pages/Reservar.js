@@ -94,7 +94,7 @@ function Reservar(){
     return(
         <div>
             <div>
-                <h1 className = "colorWhite">Reserva Editor</h1>
+                <h1 className = "title">Reserva Editor</h1>
                 <div className = "divGrey">
                     <form className = "form1" action="">
                         <label  for="nome">Nome: </label>

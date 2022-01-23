@@ -58,8 +58,8 @@ body{
 .divAvaliacao{
     background: white;
     border : 2px grey solid;
-    padding : 3px;
-    margin : 3px;
+    padding : 10px;
+    margin : 15px;
 }
 
 .float-child1 {

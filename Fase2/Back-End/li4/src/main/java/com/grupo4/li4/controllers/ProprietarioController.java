@@ -79,6 +79,8 @@ public class ProprietarioController {
     @PostMapping(value = "/nome_restaurante")
     public void restauranteAtual(@RequestBody Map<String, Object> input){
         this.appService.setRestaurante_atual((String) input.get("nome"));
+        System.out.println("restaurante:"+this.appService.getRestaurante_atual());
+        System.out.println("nome:"+input.get("nome"));
     }
 
     @CrossOrigin

@@ -23,11 +23,7 @@ function Avaliar(){
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data1),
-        })
-
-    let path = '/Restaurante';
-    history.push(path); 
-    
+            })
     }
 
     function Back() {
@@ -56,8 +52,8 @@ function Avaliar(){
                     <textarea className = "textoAval" id="textoAval" name="textoAval" rows="20"  ref={comentario}></textarea>
                     <br/>
 
-                    <button type='submit' onclick="confirm()">Confirmar</button>
-                    <button  onClick={Back}>Cancelar</button>
+                    <button type='submit'>Confirmar</button>
+                    <button  onClick={Back}>Back</button>
 
                 </form>
             </div>

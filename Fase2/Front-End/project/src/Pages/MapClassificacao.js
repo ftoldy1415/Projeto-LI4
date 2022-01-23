@@ -6,14 +6,9 @@ import { useHistory } from "react-router-dom";
 
 
 const mapContainerStyle = {
-    width: "90vw",
+    width: "99vw",
     height: "90vh",
 };
-const center = {
-    lat: -23,
-    lng: 23,
-};
-
 
 
 export default function MapClassificacao(){
@@ -92,6 +87,7 @@ export default function MapClassificacao(){
     return(
         <div>
             <button onClick={Back}>Voltar</button>
+            <p></p>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={17}

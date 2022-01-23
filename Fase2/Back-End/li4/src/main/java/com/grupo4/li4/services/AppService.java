@@ -435,6 +435,11 @@ public class AppService {
             aux.put("hora", reserva.getHora());
             aux.put("nome",reserva.getNome());
             aux.put("num_pessoas", reserva.getNum_pessoas());
+            List<String> nomes = new ArrayList<>();
+            for(Prato p : reserva.getPratos()){
+                nomes.add(p.getNome());
+            }
+            aux.put("pratos", nomes);
             res.add(aux);
         }
         return res;
