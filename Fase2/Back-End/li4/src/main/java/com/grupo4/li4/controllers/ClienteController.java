@@ -7,10 +7,7 @@ import com.grupo4.li4.services.AppService;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/cliente")
@@ -141,17 +138,21 @@ public class ClienteController {
         return this.appService.getReservas();
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/set_codigo_atual")
+    public void setCodigoAtual(@RequestBody Map<String, String> input){
+        this.appService.setCodigo_atual(input.get("descricao"));
+    }
 
     @CrossOrigin
     @PostMapping(value = "/get_qr_code")
-    public byte[] getQRCode(@RequestBody Map<String, String> input){
-        return this.appService.getQRCode(input.get("descricao"));
+    public byte[] getQRCode(){
+        return this.appService.getQRCode();
     }
-
 
     @CrossOrigin
     @PostMapping(value = "/get_descricoes")
-    public Map<String, Object> getDescricoes(){
+    public List<Map<String,String>> getDescricoes(){
         return this.appService.getDescricoes();
     }
 
@@ -161,5 +162,6 @@ public class ClienteController {
     public List<Map<String, Object>> getAvaliacoes(){
         return this.appService.getAvaliacoes();
     }
+
 
 }

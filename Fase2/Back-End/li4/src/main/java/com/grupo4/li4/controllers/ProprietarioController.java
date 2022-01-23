@@ -113,4 +113,10 @@ public class ProprietarioController {
         this.appService.removerReserva(Integer.parseInt(id.get("id")));
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/descricoes_cod")
+    public List<byte[]> getDescricoesCod(){
+        return this.appService.getDescricoesCod();
+    }
+
 }

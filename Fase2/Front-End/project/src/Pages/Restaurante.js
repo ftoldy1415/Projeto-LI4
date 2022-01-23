@@ -77,8 +77,8 @@ function Restaurante(){
         window.open(`https://www.google.com/maps?saddr=My+Location&daddr=${restaurante.latitude},${restaurante.longitude}`);
     }
 
-    function toCodes(){
-        let path = '/CodesRestaurante';
+    function toChooseCode(){
+        let path = '/ChooseCode';
         history.push(path);
     }
 
@@ -138,7 +138,7 @@ function Restaurante(){
                     <button className = "button" onClick={toRestaurant}>Direções</button>
                     <br/>
                     <br/>
-                    <button className = "button" onClick={toCodes}>Códigos Promocionais</button>
+                    <button className = "button" onClick={toChooseCode}>Códigos Promocionais</button>
                     <br/>
                     <br/>
                     <button className = "button" onClick={toReservas}>Reservar</button>
@@ -153,9 +153,6 @@ function Restaurante(){
 
             <div className="float-child2">
                 <div>
-                    {
-                        console.log(avaliacoes)
-                    }
                     <h3>Rua : </h3>
                     <p style = {{color : 'black'}}>{restaurante.rua}</p>
 

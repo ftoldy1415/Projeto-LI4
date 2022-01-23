@@ -10,10 +10,8 @@ import java.io.IOException;
 import java.sql.Array;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AppService {
@@ -47,6 +45,7 @@ public class AppService {
     private double lat_restaurante;
     private double lng_restaurante;
     private String mapaAtual; //distancia, classificação, ambos
+    private String codigo_atual;
 
 
     public boolean loginCliente(LoginForm lf) {
@@ -356,7 +355,7 @@ public class AppService {
 
     public void generateQRCode(CodigoQR codigoQR) {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
-        CodigoQR res = new CodigoQR(codigoQR.getDescricao(), r);
+        CodigoQR res = new CodigoQR(r.getNome()+": "+codigoQR.getDescricao(), r);
         this.codigoQRRepo.save(res);
     }
 
@@ -379,17 +378,21 @@ public class AppService {
         return image;
     }
 
-    public Map<String, Object> getDescricoes() {
+    public List<Map<String,String>> getDescricoes() {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         List<CodigoQR> cds = r.getCodigos_promocionais();
-        Map<String, Object> res = new HashMap<>();
-        List<String> descricoes = new ArrayList<>();
-        for (CodigoQR qr : cds) {
-            descricoes.add(qr.getDescricao());
+
+        List<Map<String, String>> res = new ArrayList<>();
+
+        for(CodigoQR c : cds){
+            Map<String, String> aux = new HashMap<>();
+            aux.put("label", c.getDescricao());
+            aux.put("value", c.getDescricao());
+            res.add(aux);
         }
-        res.put("descricoes", descricoes);
         return res;
     }
+
 
     public List<Map<String, String>> getAllCodigos(){
         List<CodigoQR> codigos =  this.codigoQRRepo.findAll();
@@ -443,6 +446,39 @@ public class AppService {
             res.add(aux);
         }
         return res;
+    }
+
+    public List<byte[]> getDescricoesCod(){
+        List<CodigoQR> codigos =  this.codigoQRRepo.findAll().stream()
+                .sorted(Comparator.comparingInt(CodigoQR::getId))
+                .collect(Collectors.toList());
+        List<byte[]> resultado = new ArrayList<>();
+
+        for(int i = 0; i < codigos.size(); i++){
+            resultado.add(getQRCode(codigos.get(i).getDescricao()));
+        }
+        return resultado;
+    }
+
+    public byte[] getQRCode() {
+        byte[] image = new byte[0];
+        try {
+
+            // Generate and Return Qr Code in Byte Array
+            image = QRCodeGenerator.getQRCodeImage(this.codigo_atual, 250, 250);
+
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    public String getCodigo_atual() {
+        return codigo_atual;
+    }
+
+    public void setCodigo_atual(String codigo_atual) {
+        this.codigo_atual = codigo_atual;
     }
 
 

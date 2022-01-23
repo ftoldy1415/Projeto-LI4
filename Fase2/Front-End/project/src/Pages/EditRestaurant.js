@@ -194,93 +194,94 @@ function EditRestaurant(){
 
                 <h4 className = "colorWhite">Domingo : </h4>
                 <p className = "colorWhite">{horarioArr[6]}</p><br/>
+                <button className="goBack" onClick={Back}>Voltar</button>
             </div>
         </div>
 
         <div className="float-child2">
-            <div className = "center">
+            <div className = "textIndent">
                 
                     <h1>Editar dados Restaurante</h1>
-                    <button className="goBack" onClick={Back}>Voltar</button>
 
                     <form className = "novoNumero" onSubmit={handleSubmitNumero}>
-                        <label >Novo Número</label>
-                        <input type="text" name="novoNumero" ref = {num_telefone}/>
+                        <label >Novo Número: </label>
+                        <input className = "caixasTextoWhite " type="text" name="novoNumero" ref = {num_telefone}/>
                         <button type = 'submit' className = "button">Alterar</button>
 
                     </form>
+                    
+                    <div style = {{paddingLeft:"15px"}}>
+                        <form onSubmit= {handleSubmit}>
+                            <br/><br/>
+                            <h4>Insira o novo horário :</h4>
 
-                    <form className = "changes" onSubmit= {handleSubmit}>
+                            <label className = "horario">Segunda-feira : </label>
+                            <input className = "caixasTextoWhite " type="text"  placeholder="--:--" name  = "aSegunda" ref={aSegunda}/>
+                            <label for="fSegunda"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fSegunda" ref={fSegunda}/>
+
+                            <br/>
+                            <br/>
+                            <label className = "horario">Terca-feira : </label>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "aTerca" ref={aTerca}/>
+                            <label for="fTerca"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fTerca" ref={fTerca}/>
+
+                            <br/>
+                            <br/>
+                            <label className = "horario">Quarta-feira : </label>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "aQuarta" ref={aQuarta}/>
+                            <label for="fQuarta"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fQuarta" ref={fQuarta}/>
+
+                            <br/>
+                            <br/>
+                            <label className = "horario">Quinta-feira : </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "aQuinta" ref={aQuinta}/>
+                            <label for="fQuinta"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "fQuinta" ref={fQuinta}/>
 
 
-                        <br/><br/>
+                            <br/>
+                            <br/>
+                            <label className = "horario">Sexta-Feira: </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "aSexta" ref={aSexta}/>
+                            <label for="fSexta"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "fSexta" ref={fSexta}/>
 
-                        <h4>Insira o novo horário :</h4>
-                        <label className = "horario">Segunda-feira : </label>
-                        <input type="text" name  = "aSegunda" ref={aSegunda}/>
-                        <label for="fSegunda"> -- </label>
-                        <input type="text" name  = "fSegunda" ref={fSegunda}/>
-                        
-                        <br/>
-                        <br/>
-                        <label className = "horario">Terca-feira : </label>
-                        <input type="text" name  = "aTerca" ref={aTerca}/>
-                        <label for="fTerca"> -- </label>
-                        <input type="text" name  = "fTerca" ref={fTerca}/>
+                            <br/>
+                            <br/>
+                            <label className = "horario">Sábado : </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "aSabado" ref={aSabado}/>
+                            <label for="fSabado"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "fSabado" ref={fSabado}/>
 
-                        <br/>
-                        <br/>
-                        <label className = "horario">Quarta-feira : </label>
-                        <input type="text" name  = "aQuarta" ref={aQuarta}/>
-                        <label for="fQuarta"> -- </label>
-                        <input type="text" name  = "fQuarta" ref={fQuarta}/>
+                            <br/>
+                            <br/>
+                            <label className = "horario">Domingo : </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "aDomingo" ref={aDomingo}/>
+                            <label for="fDomingo"> -- </label>
+                            <input className = "caixasTextoWhite " type="text" name  = "fDomingo" ref={fDomingo}/>
 
-                        <br/>
-                        <br/>
-                        <label className = "horario">Quinta-feira : </label>
-                        <input type="text" name  = "aQuinta" ref={aQuinta}/>
-                        <label for="fQuinta"> -- </label>
-                        <input type="text" name  = "fQuinta" ref={fQuinta}/>
+                            <br/><br/>
+                            <button type = 'submit' className = "button">Alterar</button>
+                        </form>
 
-
-                        <br/>
-                        <br/>
-                        <label className = "horario">Sexta-Feira: </label>
-                        <input type="text" name  = "aSexta" ref={aSexta}/>
-                        <label for="fSexta"> -- </label>
-                        <input type="text" name  = "fSexta" ref={fSexta}/>
-
-                        <br/>
-                        <br/>
-                        <label className = "horario">Sábado : </label>
-                        <input type="text" name  = "aSabado" ref={aSabado}/>
-                        <label for="fSabado"> -- </label>
-                        <input type="text" name  = "fSabado" ref={fSabado}/>
-
-                        <br/>
-                        <br/>
-                        <label className = "horario">Domingo : </label>
-                        <input type="text" name  = "aDomingo" ref={aDomingo}/>
-                        <label for="fDomingo"> -- </label>
-                        <input type="text" name  = "fDomingo" ref={fDomingo}/>
-
-                        <br/><br/>
-                        <button type = 'submit' className = "button">Alterar</button>
-                    </form>
-
+                    </div>
+                    
 
 
                     <form className = "codigos" onSubmit= {handleSubmitCodigo}>
                         <label>Insira a descrição do código que pretende adicionar: </label>
-                        <input type="text" name="codigoDescricao" ref={codigoDescricao}/>
+                        <input className = "caixasTextoWhiteLong"type="text" name="codigoDescricao" ref={codigoDescricao}/>
                         <button type = 'submit' className = "button" >Gerar</button>
                     </form>
 
-                    <form className = "pratos" onSubmit = {handleSubmitPrato}>
+                    <form style = {{padding : "10px"}}onSubmit = {handleSubmitPrato}>
                         <label> Insira o nome do prato : </label>
-                        <input type="text" name = "prato" ref = {pratoNome}/>
+                        <input className = "caixasTextoWhiteLong" type="text" name = "prato" ref = {pratoNome}/>
                         <label> Preco :  </label>
-                        <input type= "text" name = "pratoPreco" ref = {pratoPreco}/>
+                        <input className = "caixasTextoWhite " type= "text" name = "pratoPreco" ref = {pratoPreco}/>
                         <button type = 'submit' className = "button">Inserir</button>
                     </form>
 

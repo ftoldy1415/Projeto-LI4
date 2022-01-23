@@ -124,36 +124,35 @@ function Perfil(){
         </div>
 
         <div className="float-child2">
-            <div className = "divWhite">
+            <h1>Editar Perfil</h1>
+                <div className = "textIndent" >
+                    <form action="">
 
-                <form action="">
-                    <h1>Editar Perfil</h1>
 
+                        <input className =  "caixasTextoWhiteLong" type="text"       name="nome_utilizador"           placeholder="novo username"          value={userChanged.nome_utilizador}          onChange={HandleChange}/><br/><br/>
 
-                    <input type="text"      name="nome_utilizador"          placeholder="novo username"         value={userChanged.nome_utilizador}      onChange={HandleChange}/><br/><br/>
-                    
-                    <input type="text"      name="nome"                     placeholder="novo nome"             value={userChanged.nome}                 onChange={HandleChange}/><br/><br/>
-                    
-                    <input type="number"    name="num_telemovel"            placeholder="número de telemóvel"   value={userChanged.num_telemovel}        onChange={HandleChange}/><br/><br/>
-                    
-                    <input type="password"  name="palavra_passe_antiga"     placeholder="password antiga"       value={userChanged.palavra_passe_antiga} onChange={HandleChange}/><br/><br/>
-                    
-                    <input type="password"  name="palavra_passe"            placeholder="password nova"         value={userChanged.palavra_passe}        onChange={HandleChange}/><br/><br/>
-                    
-                    <input type="password"                                  placeholder="password nova"                                                  onChange={(e) => setPassword(e.target.value)}/>
-                    <br/>
+                        <input className =  "caixasTextoWhiteLong" type="text"       name="nome"                      placeholder="novo nome"              value={userChanged.nome}                     onChange={HandleChange}/><br/><br/>
 
-                    <button onClick={SavePerfil}>Guardar</button>
+                        <input className =  "caixasTextoWhiteLong" type="number"     name="num_telemovel"             placeholder="número de telemóvel"    value={userChanged.num_telemovel}            onChange={HandleChange}/><br/><br/>
 
-                    <h1>Alterar distância no filtro</h1>
+                        <input className =  "caixasTextoWhiteLong" type="password"   name="palavra_passe_antiga"      placeholder="password antiga"        value={userChanged.palavra_passe_antiga}     onChange={HandleChange}/><br/><br/>
 
-                    <p>Procuro locais perto de mim em <span><input type="text" id="kilometers" value={kms} onChange={ (e) => setKms(e.target.value) }/></span> km</p>
-                    <button onClick={SaveDistancia} >Guardar</button><br/>
+                        <input className =  "caixasTextoWhiteLong" type="password"   name="palavra_passe"             placeholder="password nova"          value={userChanged.palavra_passe}            onChange={HandleChange}/><br/><br/>
 
-                    <p>Procuro estabelecimentos com mais de <span><input type="text" value={estrelas} onChange={ (e) => setEstrelas(e.target.value) }/></span> estrelas</p>
-                    <button onClick={SaveEstrelas} >Guardar</button>
-                </form>
-            </div>
+                        <input className =  "caixasTextoWhiteLong"   type="password"                                   placeholder="password    nova"                                                    onChange={(e) =>    setPassword(e.target.value)}/>
+                        <br/>
+
+                        <button onClick={SavePerfil}>Guardar</  button>
+
+                        <h1>Alterar distância no filtro</h1>
+
+                        <p>Procuro locais perto de mim em   <span><input className =  "caixasTextoWhite " type="text"  id="kilometers" value={kms} onChange={   (e) => setKms(e.target.value) }/></span>  km</p>
+                        <button onClick={SaveDistancia}     >Guardar</button><br/>
+
+                        <p>Procuro estabelecimentos com mais de     <span><input className =    "caixasTextoWhite " type="text" value= {estrelas} onChange={ (e) => setEstrelas (e.target.value) }/></span> estrelas</p>
+                        <button onClick={SaveEstrelas} >Guardar</   button>
+                    </form>
+                </div>
         </div>
     </div>
 

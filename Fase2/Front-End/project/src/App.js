@@ -19,8 +19,9 @@ import EditRestaurant from './Pages/EditRestaurant';
 import ChooseDeleteReserva from './Pages/ChooseDeleteReserva';
 import DeleteReserva from './Pages/DeleteReserva';
 import MenuRestaurante from './Pages/MenuRestaurante';
+import ChooseCode from './Pages/ChooseCode';
 import Codes from './Pages/Codes';
-import CodesRestaurante from './Pages/CodesRestaurante';
+import Code from './Pages/Code';
 import Reservar from './Pages/Reservar';
 import Avaliar from './Pages/Avaliar';
 import Restaurante from './Pages/Restaurante';
@@ -54,8 +55,9 @@ function App() {
           <Route path="/ChooseDeleteReserva" component={ChooseDeleteReserva}></Route> 
           <Route path="/DeleteReserva" component={DeleteReserva}></Route> 
           <Route path="/MenuRestaurante" component={MenuRestaurante}></Route> 
+          <Route path="/ChooseCode" component={ChooseCode}></Route> 
+          <Route path="/Code" component={Code}></Route> 
           <Route path="/Codes" component={Codes}></Route> 
-          <Route path="/CodesRestaurante" component={CodesRestaurante}></Route> 
           <Route path="/Reservar" component={Reservar}></Route> 
           <Route path="/Avaliar" component={Avaliar}></Route> 
           <Route path="/Restaurante" component={Restaurante}></Route> 
