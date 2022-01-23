@@ -49,9 +49,9 @@ public class AppService {
     private String mapaAtual; //distancia, classificação, ambos
 
 
-    public boolean loginCliente(LoginForm lf){
-        if(clienteRepo.encontraPorEmail(lf.getEmail()) == null) return false;
-        else{
+    public boolean loginCliente(LoginForm lf) {
+        if (clienteRepo.encontraPorEmail(lf.getEmail()) == null) return false;
+        else {
             this.email_utilizador = lf.getEmail();
             return clienteRepo.encontraPorEmail(lf.getEmail()).
                     getPalavra_passe().
@@ -59,16 +59,16 @@ public class AppService {
         }
     }
 
-    public void logoutCliente(){
+    public void logoutCliente() {
         this.email_utilizador = null;
     }
 
-    public void registar(Cliente cliente){
+    public void registar(Cliente cliente) {
         this.email_utilizador = cliente.getEmail();
         clienteRepo.save(cliente);
     }
 
-    public void atualizarDados(AtualizarDadosForm form){
+    public void atualizarDados(AtualizarDadosForm form) {
         String nome = form.getNome();
         String nome_utilizador = form.getNome_utilizador();
         String palavra_passe = form.getPalavra_passe();
@@ -77,36 +77,36 @@ public class AppService {
 
 
         Cliente c = clienteRepo.encontraPorEmail(this.email_utilizador);
-        if(palavra_passe_antiga.equals(c.getPalavra_passe())){
-            if(!nome.equals("")) c.setNome(nome);
-            if(!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
-            if(!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
-            if(!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
+        if (palavra_passe_antiga.equals(c.getPalavra_passe())) {
+            if (!nome.equals("")) c.setNome(nome);
+            if (!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
+            if (!palavra_passe.equals("")) c.setPalavra_passe(palavra_passe);
+            if (!num_telemovel.equals("")) c.setNum_telemovel(Integer.parseInt(num_telemovel));
             clienteRepo.save(c);
         }
     }
 
-    public void alterarFiltro(Map<String, Object> input){
+    public void alterarFiltro(Map<String, Object> input) {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         c.setFiltro_distancia(Integer.parseInt((String) input.get("filtro")));
         this.clienteRepo.save(c);
     }
 
-    public void registarProprietario(Proprietario proprietario){
+    public void registarProprietario(Proprietario proprietario) {
         this.email_proprietario = proprietario.getEmail();
         this.proprietarioRepo.save(proprietario);
     }
 
 
-    public void registarRestaurante(Restaurante restaurante){
+    public void registarRestaurante(Restaurante restaurante) {
         Proprietario p = proprietarioRepo.encontraPorEmail(this.email_proprietario);
         restaurante.setProprietario(p);
         restauranteRepo.save(restaurante);
     }
 
-    public boolean loginProprietario(LoginForm loginForm){
-        if(proprietarioRepo.encontraPorEmail(loginForm.getEmail()) == null) return false;
-        else{
+    public boolean loginProprietario(LoginForm loginForm) {
+        if (proprietarioRepo.encontraPorEmail(loginForm.getEmail()) == null) return false;
+        else {
             this.email_proprietario = loginForm.getEmail();
             return (proprietarioRepo.encontraPorEmail(loginForm.getEmail())
                     .getPassword()
@@ -114,32 +114,32 @@ public class AppService {
         }
     }
 
-    public Restaurante obtemInfoRestaurante(String nome){
+    public Restaurante obtemInfoRestaurante(String nome) {
         Restaurante r = this.restauranteRepo.getById(nome);
         return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario(), r.getLatitude(), r.getLongitude());
     }
 
-    public Cliente obtemInfoCliente(){
+    public Cliente obtemInfoCliente() {
         return this.clienteRepo.encontraPorEmail(this.email_utilizador);
     }
 
-    public Restaurante obtemRestaurante(){
+    public Restaurante obtemRestaurante() {
         return this.proprietarioRepo.encontraPorEmail(this.email_proprietario).getRestauranteNome(this.restaurante_atual);
     }
 
-    public void avaliacao(AvaliacaoForm form){
+    public void avaliacao(AvaliacaoForm form) {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
-        Avaliacao a = new Avaliacao(Integer.parseInt(form.getEstrelas()), form.getComentario(),r,c);
+        Avaliacao a = new Avaliacao(Integer.parseInt(form.getEstrelas()), form.getComentario(), r, c);
         this.avaliacaoRepo.save(a);
     }
 
-    public List<Restaurante> obterRestaurantesProprietario(){
+    public List<Restaurante> obterRestaurantesProprietario() {
         Proprietario p = this.proprietarioRepo.encontraPorEmail(this.email_proprietario);
         return p.getRestaurantes();
     }
 
-    public void inserirPrato(String nome, Float preco){
+    public void inserirPrato(String nome, Float preco) {
         Prato p = new Prato(nome, preco);
         this.pratoRepo.save(p);
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
@@ -147,28 +147,28 @@ public class AppService {
         this.restauranteRepo.save(r);
     }
 
-    public void teste(){
+    public void teste() {
     }
 
-    public void removerRestaurante(String nome){
+    public void removerRestaurante(String nome) {
         this.restauranteRepo.deleteById(nome);
     }
 
-    public void criarReserva(Date data, Time time, int num_pessoal, String nome, List<String> pratos){
+    public void criarReserva(Date data, Time time, int num_pessoal, String nome, List<String> pratos) {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Prato> pratos_reserva = new ArrayList<>();
         List<Prato> aux = r.getPratos();
-        for(int i = 0; i < pratos.size(); i++){
-            for(Prato p : aux){
-                if(p.getNome().equals(pratos.get(i))){
+        for (int i = 0; i < pratos.size(); i++) {
+            for (Prato p : aux) {
+                if (p.getNome().equals(pratos.get(i))) {
                     pratos_reserva.add(p);
                     break;
                 }
             }
         }
 
-        Reserva reserva = new Reserva(data, time, num_pessoal, nome, c, r,pratos_reserva);
+        Reserva reserva = new Reserva(data, time, num_pessoal, nome, c, r, pratos_reserva);
         this.reservaRepo.save(reserva);
     }
 
@@ -192,34 +192,34 @@ public class AppService {
         return Math.sqrt(distance);
     }
 
-    public List<Map<String, Object>> filtra_restaurantes(){
+    public List<Map<String, Object>> filtra_restaurantes() {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         List<Map<String, Object>> restaurantes = new ArrayList<>();
-        for(Restaurante rest : r){
-            double dist = distance(this.lat_utilizador, rest.getLatitude(), this.lng_utilizador, rest.getLongitude(),0.0,0.0);
+        for (Restaurante rest : r) {
+            double dist = distance(this.lat_utilizador, rest.getLatitude(), this.lng_utilizador, rest.getLongitude(), 0.0, 0.0);
             System.out.println("Distance from " + rest.getNome() + ": " + dist);
-            if(dist < c.getFiltro_distancia() * 1000) {
-            Map<String,Object> aux = new HashMap<>();
-            aux.put("nome", rest.getNome());
-            aux.put("lat",rest.getLatitude());
-            aux.put("lng", rest.getLongitude());
-            restaurantes.add(aux);
+            if (dist < c.getFiltro_distancia() * 1000) {
+                Map<String, Object> aux = new HashMap<>();
+                aux.put("nome", rest.getNome());
+                aux.put("lat", rest.getLatitude());
+                aux.put("lng", rest.getLongitude());
+                restaurantes.add(aux);
             }
         }
         return restaurantes;
     }
 
-    public List<Map<String, Object>> filtra_restaurantes_estrelas(){
+    public List<Map<String, Object>> filtra_restaurantes_estrelas() {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         double estrelas = c.getFiltro_estrelas();
         List<Map<String, Object>> resultado = new ArrayList<>();
-        for(Restaurante res : r){
-            if(res.mediaAvaliacao() >= estrelas) {
-                Map<String,Object> aux = new HashMap<>();
+        for (Restaurante res : r) {
+            if (res.mediaAvaliacao() >= estrelas) {
+                Map<String, Object> aux = new HashMap<>();
                 aux.put("nome", res.getNome());
-                aux.put("lat",res.getLatitude());
+                aux.put("lat", res.getLatitude());
                 aux.put("lng", res.getLongitude());
                 resultado.add(aux);
             }
@@ -227,17 +227,17 @@ public class AppService {
         return resultado;
     }
 
-    public List<Map<String, Object>> filtra_restaurantes_ambos(){
+    public List<Map<String, Object>> filtra_restaurantes_ambos() {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         double estrelas = c.getFiltro_estrelas();
         List<Map<String, Object>> resultado = new ArrayList<>();
-        for(Restaurante res : r){
-            double dist = distance(this.lat_utilizador, res.getLatitude(), this.lng_utilizador, res.getLongitude(),0.0,0.0);
-            if(dist < c.getFiltro_distancia() * 1000 && res.mediaAvaliacao() >= estrelas){
-                Map<String,Object> aux = new HashMap<>();
+        for (Restaurante res : r) {
+            double dist = distance(this.lat_utilizador, res.getLatitude(), this.lng_utilizador, res.getLongitude(), 0.0, 0.0);
+            if (dist < c.getFiltro_distancia() * 1000 && res.mediaAvaliacao() >= estrelas) {
+                Map<String, Object> aux = new HashMap<>();
                 aux.put("nome", res.getNome());
-                aux.put("lat",res.getLatitude());
+                aux.put("lat", res.getLatitude());
                 aux.put("lng", res.getLongitude());
                 resultado.add(aux);
             }
@@ -246,7 +246,7 @@ public class AppService {
     }
 
 
-    public void alterar_numero_restaurante(Map<String, Object> input){
+    public void alterar_numero_restaurante(Map<String, Object> input) {
         //num_telefone
         //horario
         String num_telefone = (String) input.get("num_telefone");
@@ -257,7 +257,7 @@ public class AppService {
         this.restauranteRepo.save(r);
     }
 
-    public void alterar_horario_restaurante(Map<String, Object> input){
+    public void alterar_horario_restaurante(Map<String, Object> input) {
         //num_telefone
         //horario
         String horario = (String) input.get("horario");
@@ -268,11 +268,11 @@ public class AppService {
         this.restauranteRepo.save(r);
     }
 
-    public Map<String, Object> infoRestauranteCoordenadas(){
+    public Map<String, Object> infoRestauranteCoordenadas() {
         List<Restaurante> res = this.restauranteRepo.findAll();
         Restaurante r = null;
-        for(Restaurante restaurante : res){
-            if(restaurante.getLatitude() == this.lat_restaurante && restaurante.getLongitude() == this.lng_restaurante){
+        for (Restaurante restaurante : res) {
+            if (restaurante.getLatitude() == this.lat_restaurante && restaurante.getLongitude() == this.lng_restaurante) {
                 r = restaurante;
                 break;
             }
@@ -289,84 +289,89 @@ public class AppService {
         return map;
     }
 
-    public List<Map<String,Object>> infoPratos() {
+    public List<Map<String, Object>> infoPratos() {
         Map<String, Object> res = infoRestauranteCoordenadas();
         Restaurante restaurante = this.restauranteRepo.getById((String) res.get("nome"));
-        List<Map<String,Object>> out = new ArrayList<>();
+        List<Map<String, Object>> out = new ArrayList<>();
         int i = 0;
-        for(Prato p : restaurante.getPratos()){
-            Map<String,Object> pout = new HashMap<>();
-            pout.put("value",i);
-            pout.put("label",p.getNome());
+        for (Prato p : restaurante.getPratos()) {
+            Map<String, Object> pout = new HashMap<>();
+            pout.put("value", i);
+            pout.put("label", p.getNome());
             out.add(pout);
             i++;
         }
         return out;
     }
 
-    public void logoutProprietario(){
+    public void logoutProprietario() {
         this.email_proprietario = null;
     }
 
-    public void setRestauranteAtualCoord(double lat, double lng){
+    public void setRestauranteAtualCoord(double lat, double lng) {
         List<Restaurante> rests = this.restauranteRepo.findAll();
-        for(Restaurante r : rests){
-            if(r.getLatitude() == lat && r.getLongitude() == lng){
+        for (Restaurante r : rests) {
+            if (r.getLatitude() == lat && r.getLongitude() == lng) {
                 this.restaurante_atual = r.getNome();
                 break;
             }
         }
     }
 
-    public void alterarFiltroEstrelas(String filtro){
+    public void alterarFiltroEstrelas(String filtro) {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         c.setFiltro_estrelas(Integer.parseInt(filtro));
         this.clienteRepo.save(c);
     }
 
 
-    public List<Prato> menu(){
+    public List<Prato> menu() {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         return r.getPratos();
     }
 
-    public List<Map<String, Object>> getReservas(){
+    public List<Map<String, Object>> getReservas() {
         Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
         List<Reserva> reservas = c.getReservas();
         List<Map<String, Object>> res = new ArrayList<>();
 
-        for(Reserva r : reservas){
+        for (Reserva r : reservas) {
             Map<String, Object> aux = new HashMap<>();
-            aux.put("nome_restaurante",r.getRestaurante().getNome());
+            aux.put("nome_restaurante", r.getRestaurante().getNome());
             aux.put("data", r.getData());
             aux.put("hora", r.getHora());
-            aux.put("num_pessoas",r.getNum_pessoas());
+            aux.put("num_pessoas", r.getNum_pessoas());
             aux.put("nome", r.getNome());
             List<Prato> pratos = r.getPratos();
             List<String> nomes = new ArrayList<>();
-            for(Prato p : pratos){
+            for (Prato p : pratos) {
                 nomes.add(p.getNome());
             }
             aux.put("pratos", nomes);
             res.add(aux);
         }
 
-       return res;
+        return res;
     }
 
-    public void generateQRCode(CodigoQR codigoQR){
+    public void generateQRCode(CodigoQR codigoQR) {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         CodigoQR res = new CodigoQR(codigoQR.getDescricao(), r);
         this.codigoQRRepo.save(res);
     }
 
-    public byte[] getQRCode(String descricao){
+    public byte[] getQRCode(String descricao) {
+        List<CodigoQR> codigos = this.codigoQRRepo.findAll();
+        String nome_rest = null;
+        for(CodigoQR c : codigos){
+            if(c.getDescricao().equals(descricao)) nome_rest = c.getRestaurante().getNome();
+        }
 
         byte[] image = new byte[0];
         try {
 
             // Generate and Return Qr Code in Byte Array
-            image = QRCodeGenerator.getQRCodeImage(descricao,250,250);
+            image = QRCodeGenerator.getQRCodeImage(nome_rest + " -> " + descricao, 250, 250);
 
         } catch (WriterException | IOException e) {
             e.printStackTrace();
@@ -374,14 +379,29 @@ public class AppService {
         return image;
     }
 
-    public List<String> getDescricoes(){
+    public List<String> getDescricoes() {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         List<CodigoQR> cds = r.getCodigos_promocionais();
         List<String> descricoes = new ArrayList<>();
-        for(CodigoQR qr : cds){
+        for (CodigoQR qr : cds) {
             descricoes.add(qr.getDescricao());
         }
         return descricoes;
+    }
+
+    public List<Map<String, String>> getAllCodigos(){
+        List<CodigoQR> codigos =  this.codigoQRRepo.findAll();
+
+        List<Map<String, String>> resultado = new ArrayList<>();
+
+        for(CodigoQR c : codigos){
+            Map<String, String> res = new HashMap<>();
+            res.put("nome_restaurante", c.getRestaurante().getNome());
+            res.put("descricao", c.getDescricao());
+            resultado.add(res);
+        }
+
+        return resultado;
     }
 
     public String getEmail_utilizador() {
