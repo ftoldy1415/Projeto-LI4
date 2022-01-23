@@ -65,4 +65,10 @@ public class RestauranteController {
         return this.appService.menu();
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/get_reservas")
+    public List<Map<String, Object>> getReservasRestaurante(){
+        return this.appService.getReservasRestaurante();
+    }
+
 }

@@ -337,7 +337,7 @@ public class AppService {
 
         for (Reserva r : reservas) {
             Map<String, Object> aux = new HashMap<>();
-            aux.put("nome_restaurante", r.getRestaurante().getNome());
+            aux.put("id", r.getId_reserva());
             aux.put("data", r.getData());
             aux.put("hora", r.getHora());
             aux.put("num_pessoas", r.getNum_pessoas());
@@ -371,7 +371,7 @@ public class AppService {
         try {
 
             // Generate and Return Qr Code in Byte Array
-            image = QRCodeGenerator.getQRCodeImage(nome_rest + " -> " + descricao, 250, 250);
+            image = QRCodeGenerator.getQRCodeImage(descricao, 250, 250);
 
         } catch (WriterException | IOException e) {
             e.printStackTrace();
@@ -379,14 +379,16 @@ public class AppService {
         return image;
     }
 
-    public List<String> getDescricoes() {
+    public Map<String, Object> getDescricoes() {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         List<CodigoQR> cds = r.getCodigos_promocionais();
+        Map<String, Object> res = new HashMap<>();
         List<String> descricoes = new ArrayList<>();
         for (CodigoQR qr : cds) {
             descricoes.add(qr.getDescricao());
         }
-        return descricoes;
+        res.put("descricoes", descricoes);
+        return res;
     }
 
     public List<Map<String, String>> getAllCodigos(){
@@ -403,6 +405,41 @@ public class AppService {
 
         return resultado;
     }
+
+    public void removerReserva(int id){
+        this.reservaRepo.deleteById(id);
+    }
+
+    public List<Map<String, Object>> getAvaliacoes(){
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        List<Map<String, Object>> res = new ArrayList<>();
+        Map<String, Object> avaliacao;
+        List<Avaliacao> avaliacoes = r.getAvaliacoes();
+        for(Avaliacao a : avaliacoes){
+            avaliacao = new HashMap<>();
+            avaliacao.put("nome", a.getCliente().getNome());
+            avaliacao.put("estrelas", a.getEstrelas());
+            avaliacao.put("comentario", a.getComentario());
+            res.add(avaliacao);
+        }
+        return res;
+    }
+
+    public List<Map<String, Object>> getReservasRestaurante(){
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        List<Map<String,Object>> res = new ArrayList<>();
+        for(Reserva reserva : r.getReservas()){
+            Map<String,Object> aux = new HashMap<>();
+            aux.put("id", reserva.getId_reserva());
+            aux.put("data",reserva.getData());
+            aux.put("hora", reserva.getHora());
+            aux.put("nome",reserva.getNome());
+            aux.put("num_pessoas", reserva.getNum_pessoas());
+            res.add(aux);
+        }
+        return res;
+    }
+
 
     public String getEmail_utilizador() {
         return email_utilizador;

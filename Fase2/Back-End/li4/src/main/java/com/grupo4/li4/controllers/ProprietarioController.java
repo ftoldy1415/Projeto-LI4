@@ -105,5 +105,10 @@ public class ProprietarioController {
         this.appService.generateQRCode(codigoQR);
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/remover_reserva")
+    public void removerReserva(@RequestBody Map<String, String> id){
+        this.appService.removerReserva(Integer.parseInt(id.get("id")));
+    }
 
 }

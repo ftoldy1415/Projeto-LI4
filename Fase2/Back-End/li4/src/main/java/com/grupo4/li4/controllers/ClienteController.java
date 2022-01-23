@@ -151,8 +151,15 @@ public class ClienteController {
 
     @CrossOrigin
     @PostMapping(value = "/get_descricoes")
-    public List<String> getDescricoes(){
+    public Map<String, Object> getDescricoes(){
         return this.appService.getDescricoes();
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/get_avaliacoes")
+    //username, classificacao e comentario
+    public List<Map<String, Object>> getAvaliacoes(){
+        return this.appService.getAvaliacoes();
     }
 
 }
