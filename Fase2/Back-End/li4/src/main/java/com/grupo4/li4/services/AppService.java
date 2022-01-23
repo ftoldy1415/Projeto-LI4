@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -359,19 +360,13 @@ public class AppService {
         this.codigoQRRepo.save(res);
     }
 
-    public byte[] getQRCode(int id){
-
-        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
-
-        List<CodigoQR> codigos = r.getCodigos_promocionais();
-
-        System.out.println((codigos.get(id).getDescricao()));
+    public byte[] getQRCode(String descricao){
 
         byte[] image = new byte[0];
         try {
 
             // Generate and Return Qr Code in Byte Array
-            image = QRCodeGenerator.getQRCodeImage(codigos.get(id).getDescricao(),250,250);
+            image = QRCodeGenerator.getQRCodeImage(descricao,250,250);
 
         } catch (WriterException | IOException e) {
             e.printStackTrace();
@@ -379,6 +374,15 @@ public class AppService {
         return image;
     }
 
+    public List<String> getDescricoes(){
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        List<CodigoQR> cds = r.getCodigos_promocionais();
+        List<String> descricoes = new ArrayList<>();
+        for(CodigoQR qr : cds){
+            descricoes.add(qr.getDescricao());
+        }
+        return descricoes;
+    }
 
     public String getEmail_utilizador() {
         return email_utilizador;

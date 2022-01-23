@@ -105,4 +105,5 @@ public class ProprietarioController {
         this.appService.generateQRCode(codigoQR);
     }
 
+
 }

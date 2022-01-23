@@ -144,8 +144,15 @@ public class ClienteController {
 
     @CrossOrigin
     @PostMapping(value = "/get_qr_code")
-    public byte[] getQRCode(@RequestBody Map<String, Integer> input){
-        return this.appService.getQRCode(input.get("id"));
+    public byte[] getQRCode(@RequestBody Map<String, String> input){
+        return this.appService.getQRCode(input.get("descricao"));
+    }
+
+
+    @CrossOrigin
+    @PostMapping(value = "/get_descricoes")
+    public List<String> getDescricoes(){
+        return this.appService.getDescricoes();
     }
 
 }
