@@ -31,11 +31,12 @@ function SignInUser(){
                 },
                 body: JSON.stringify(user),
                 })
-                .then(response => {
-
-                    let path = '/FrontPageUser';
-                    history.push(path);
-                    
+                .then(response => response.json())
+                .then(data => {
+                    if(data.registo){
+                        let path = '/FrontPageUser';
+                        history.push(path);
+                    }
                 })
                 .catch((error) => {
                 console.error('Error:', error);

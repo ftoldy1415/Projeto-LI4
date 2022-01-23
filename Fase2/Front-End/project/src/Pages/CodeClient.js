@@ -37,7 +37,7 @@ function Code(){
     }
 
     function Back() {
-        let path = '/ChooseCode';
+        let path = '/ChooseCodeCliente';
         history.push(path);        
     }
 

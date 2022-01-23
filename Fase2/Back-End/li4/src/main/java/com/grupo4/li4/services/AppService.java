@@ -62,9 +62,14 @@ public class AppService {
         this.email_utilizador = null;
     }
 
-    public void registar(Cliente cliente) {
-        this.email_utilizador = cliente.getEmail();
-        clienteRepo.save(cliente);
+    public String registar(Cliente cliente) {
+        boolean registado = true;
+        if(this.clienteRepo.encontraPorEmail(cliente.getEmail()) != null) registado = false;
+        else{
+            this.email_utilizador = cliente.getEmail();
+            clienteRepo.save(cliente);
+        }
+        return "{ \"registo\": " + registado + "}";
     }
 
     public void atualizarDados(AtualizarDadosForm form) {
@@ -91,11 +96,15 @@ public class AppService {
         this.clienteRepo.save(c);
     }
 
-    public void registarProprietario(Proprietario proprietario) {
-        this.email_proprietario = proprietario.getEmail();
-        this.proprietarioRepo.save(proprietario);
+    public String registarProprietario(Proprietario proprietario) {
+        boolean registado = true;
+        if(this.proprietarioRepo.encontraPorEmail(proprietario.getEmail()) != null) registado = false;
+        else{
+            this.email_proprietario = proprietario.getEmail();
+            this.proprietarioRepo.save(proprietario);
+        }
+        return "{ \"registo\": " + registado + " }";
     }
-
 
     public void registarRestaurante(Restaurante restaurante) {
         Proprietario p = proprietarioRepo.encontraPorEmail(this.email_proprietario);
@@ -394,6 +403,21 @@ public class AppService {
     }
 
 
+//    public List<Map<String, String>> getAllCodigos(){
+//        List<CodigoQR> codigos =  this.codigoQRRepo.findAll();
+//
+//        List<Map<String, String>> resultado = new ArrayList<>();
+//
+//        for(CodigoQR c : codigos){
+//            Map<String, String> res = new HashMap<>();
+//            res.put("nome_restaurante", c.getRestaurante().getNome());
+//            res.put("descricao", c.getDescricao());
+//            resultado.add(res);
+//        }
+//
+//        return resultado;
+//    }
+
     public List<Map<String, String>> getAllCodigos(){
         List<CodigoQR> codigos =  this.codigoQRRepo.findAll();
 
@@ -401,8 +425,9 @@ public class AppService {
 
         for(CodigoQR c : codigos){
             Map<String, String> res = new HashMap<>();
-            res.put("nome_restaurante", c.getRestaurante().getNome());
-            res.put("descricao", c.getDescricao());
+            String descricao = c.getDescricao();
+            res.put("value", descricao);
+            res.put("lable", descricao);
             resultado.add(res);
         }
 

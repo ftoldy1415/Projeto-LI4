@@ -28,9 +28,7 @@ function LoginUser(){
                 body: JSON.stringify(data1),
         })
 
-        .then(response => {
-            return response.json()
-        })
+        .then(response => response.json())
         .then((data) => {
             if(data.login){
                 let path = '/FrontPageUser';

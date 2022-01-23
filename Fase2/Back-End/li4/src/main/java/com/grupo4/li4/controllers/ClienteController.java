@@ -42,10 +42,10 @@ public class ClienteController {
 
     @CrossOrigin
     @PostMapping(value = "/registar")
-    public void registar(@RequestBody Cliente cliente){
+    public String registar(@RequestBody Cliente cliente){
         cliente.setFiltro_distancia(5);
-        cliente.setFiltro_estrelas(0);
-        appService.registar(cliente);
+        cliente.setFiltro_estrelas(5);
+        return appService.registar(cliente);
     }
 
     @CrossOrigin
@@ -161,6 +161,12 @@ public class ClienteController {
     //username, classificacao e comentario
     public List<Map<String, Object>> getAvaliacoes(){
         return this.appService.getAvaliacoes();
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/get_todos_codigos")
+    public List<Map<String, String>> getAllDescricoes(){
+        return this.appService.getAllCodigos();
     }
 
 

@@ -55,7 +55,7 @@ function Reservar(){
             for (let j = 0 ; j<pratos.length ;j++){
                 pratosI.push({label : pratos[j].label , value : i});
             }
-            ret.push(<Select options={pratosI} onChange={(e)=>handleChange(e)}/>);
+            ret.push(<Select style ={{margin: "5px"}} options={pratosI} onChange={(e)=>handleChange(e)}/>);
         }
         
         return ret;

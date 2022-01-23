@@ -11,8 +11,6 @@ const mapContainerStyle = {
 };
 
 
-
-
 export default function Map(){
 
     const [location, setLocation] = useState('');
@@ -92,7 +90,7 @@ export default function Map(){
             <p></p>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={17}
+            zoom={15}
             center={location}
             >
             {

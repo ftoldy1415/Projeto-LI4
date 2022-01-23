@@ -25,7 +25,6 @@ function DeleteReserva(){
 
         const reservass = await response.json();
         setReservas(reservass);
-        console.log(reservass);
 
         for( let i =0 ; i<reservass.length ; i++ ){
 

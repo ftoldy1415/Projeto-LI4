@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-function ChooseCode(){
+function ChooseCodeCliente(){
 
     let history = useHistory();
 
@@ -16,7 +16,7 @@ function ChooseCode(){
 
     
     const getDescricoes = async () => {
-        fetch('http://127.0.0.1:8080/api/cliente/get_descricoes', {
+        fetch('http://127.0.0.1:8080/api/cliente/get_todos_codigos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,8 +53,9 @@ function ChooseCode(){
             console.error('Error:', error);
         });
 
-        let path = '/Code';
+        let path = '/CodeCliente';
         history.push(path);
+
     }
 
 
@@ -76,4 +77,4 @@ function ChooseCode(){
     );
 }
 
-export default ChooseCode;
+export default ChooseCodeCliente;

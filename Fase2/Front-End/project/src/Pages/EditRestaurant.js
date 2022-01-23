@@ -237,31 +237,31 @@ function EditRestaurant(){
                             <br/>
                             <br/>
                             <label className = "horario">Quinta-feira : </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "aQuinta" ref={aQuinta}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "aQuinta" ref={aQuinta}/>
                             <label for="fQuinta"> -- </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "fQuinta" ref={fQuinta}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fQuinta" ref={fQuinta}/>
 
 
                             <br/>
                             <br/>
                             <label className = "horario">Sexta-Feira: </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "aSexta" ref={aSexta}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "aSexta" ref={aSexta}/>
                             <label for="fSexta"> -- </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "fSexta" ref={fSexta}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fSexta" ref={fSexta}/>
 
                             <br/>
                             <br/>
                             <label className = "horario">Sábado : </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "aSabado" ref={aSabado}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "aSabado" ref={aSabado}/>
                             <label for="fSabado"> -- </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "fSabado" ref={fSabado}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fSabado" ref={fSabado}/>
 
                             <br/>
                             <br/>
                             <label className = "horario">Domingo : </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "aDomingo" ref={aDomingo}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "aDomingo" ref={aDomingo}/>
                             <label for="fDomingo"> -- </label>
-                            <input className = "caixasTextoWhite " type="text" name  = "fDomingo" ref={fDomingo}/>
+                            <input className = "caixasTextoWhite " type="text" placeholder="--:--" name  = "fDomingo" ref={fDomingo}/>
 
                             <br/><br/>
                             <button type = 'submit' className = "button">Alterar</button>

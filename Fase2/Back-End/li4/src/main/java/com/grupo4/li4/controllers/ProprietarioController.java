@@ -37,8 +37,8 @@ public class ProprietarioController {
 
     @CrossOrigin
     @PostMapping(value = "/registar")
-    public void registar(@RequestBody Proprietario proprietario){
-        this.appService.registarProprietario(proprietario);
+    public String registar(@RequestBody Proprietario proprietario){
+        return this.appService.registarProprietario(proprietario);
     }
 
     @CrossOrigin

@@ -30,9 +30,12 @@ function SignInOwner() {
                 },
                 body: JSON.stringify(owner),
                 })
+                .then(response => response.json())
                 .then((data) => {
-                    let path = '/FrontPageOwner';
-                    history.push(path);
+                    if(data.registo){
+                        let path = '/FrontPageOwner';
+                        history.push(path);
+                    }
                 })
                 .catch((error) => {
                 console.error('Error:', error);

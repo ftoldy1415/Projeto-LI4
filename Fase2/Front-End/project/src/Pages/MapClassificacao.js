@@ -90,7 +90,7 @@ export default function MapClassificacao(){
             <p></p>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={17}
+            zoom={15}
             center={location}
             >
             {

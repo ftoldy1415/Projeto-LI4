@@ -32,7 +32,7 @@ function FrontPageUser(){
     }
 
     function toCodes(){
-        let path = '/Codes';
+        let path = '/ChooseCodeCliente';
         history.push(path);    
     }
 
@@ -77,7 +77,7 @@ function FrontPageUser(){
                     <br />
 
                     <button onClick={toMap}>Mapa</button><br/>
-                    <button onclick="toCodes()">Códigos Promocionais</button><br/>
+                    <button onClick={toCodes}>Códigos Promocionais</button><br/>
                     <button onClick={toReservas}>Reservas</button><br/>
                     <button onClick={AboutUs}>About Us</button><br/>
                     <br/><br/><br/><br/><br/><br/><br/>

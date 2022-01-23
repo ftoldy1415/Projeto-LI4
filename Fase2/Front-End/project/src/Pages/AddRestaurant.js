@@ -110,30 +110,30 @@ function AddRestaurant(){
                     <div>
                         <h4>Insira o horário no formato indicado :</h4>
                         <label className="horario" for="aSegunda">Segunda-feira: </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="aSegunda" ref={aSegunda} placeholder="--:--" />
+                        <input className='caixasTextoWhite'  type="text" name="aSegunda" ref={aSegunda} placeholder="--:--" />
                         <label for="fSegunda"> -- </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="fSegunda" ref={fSegunda} placeholder="--:--" />
+                        <input className='caixasTextoWhite'  type="text" name="fSegunda" ref={fSegunda} placeholder="--:--" />
 
                         <br />
                         <br />
                         <label className="horario" for="aTerca">Terca-feira: </label>
                         <input className='caixasTextoWhite' type="text" name="aTerca" ref={aTerca} placeholder="--:--" />
                         <label for="fTerca"> -- </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="fTerca" ref={fTerca} placeholder="--:--" />
+                        <input className='caixasTextoWhite' type="text" name="fTerca" ref={fTerca} placeholder="--:--" />
 
                         <br />
                         <br />
                         <label className="horario" for="aQuarta">Quarta-feira: </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="aQuarta" ref={aQuarta} placeholder="--:--" />
+                        <input className='caixasTextoWhite'  type="text" name="aQuarta" ref={aQuarta} placeholder="--:--" />
                         <label for="fQuarta"> -- </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="fQuarta" ref={fQuarta} placeholder="--:--" />
+                        <input className='caixasTextoWhite'  type="text" name="fQuarta" ref={fQuarta} placeholder="--:--" />
 
                         <br />
                         <br />
                         <label className="horario" for="aQuinta">Quinta-feira: </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="aQuinta" ref={aQuinta} placeholder="--:--" />
+                        <input className='caixasTextoWhite'  type="text" name="aQuinta" ref={aQuinta} placeholder="--:--" />
                         <label for="fQuinta"> -- </label>
-                        <input className='caixasTextoWhite' className="inputs" type="text" name="fQuinta" ref={fQuinta} placeholder="--:--" />
+                        <input className='caixasTextoWhite'  type="text" name="fQuinta" ref={fQuinta} placeholder="--:--" />
 
 
                         <br />
