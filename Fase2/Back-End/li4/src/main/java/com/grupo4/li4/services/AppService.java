@@ -1,10 +1,12 @@
 package com.grupo4.li4.services;
 
+import com.google.zxing.WriterException;
 import com.grupo4.li4.model.*;
 import com.grupo4.li4.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class AppService {
 
     @Autowired
     private ReservaRepo reservaRepo;
+
+    @Autowired
+    private CodigoQRRepo codigoQRRepo;
 
     private String email_utilizador;
     private String email_proprietario;
@@ -346,6 +351,32 @@ public class AppService {
         }
 
        return res;
+    }
+
+    public void generateQRCode(CodigoQR codigoQR){
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+        CodigoQR res = new CodigoQR(codigoQR.getDescricao(), r);
+        this.codigoQRRepo.save(res);
+    }
+
+    public byte[] getQRCode(int id){
+
+        Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
+
+        List<CodigoQR> codigos = r.getCodigos_promocionais();
+
+        System.out.println((codigos.get(id).getDescricao()));
+
+        byte[] image = new byte[0];
+        try {
+
+            // Generate and Return Qr Code in Byte Array
+            image = QRCodeGenerator.getQRCodeImage(codigos.get(id).getDescricao(),250,250);
+
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 
 

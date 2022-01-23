@@ -1,5 +1,6 @@
 package com.grupo4.li4.controllers;
 
+import com.grupo4.li4.model.CodigoQR;
 import com.grupo4.li4.model.Prato;
 import com.grupo4.li4.model.Restaurante;
 import com.grupo4.li4.services.AppService;

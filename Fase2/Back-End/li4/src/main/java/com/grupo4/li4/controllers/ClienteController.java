@@ -141,4 +141,11 @@ public class ClienteController {
         return this.appService.getReservas();
     }
 
+
+    @CrossOrigin
+    @PostMapping(value = "/get_qr_code")
+    public byte[] getQRCode(@RequestBody Map<String, Integer> input){
+        return this.appService.getQRCode(input.get("id"));
+    }
+
 }

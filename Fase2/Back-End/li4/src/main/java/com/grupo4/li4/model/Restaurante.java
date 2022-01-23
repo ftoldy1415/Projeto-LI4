@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "restaurante")
 public class Restaurante {
     @Id
+    @Column(name = "nome")
     private String nome;
 
     @Column(name = "rua")
@@ -49,6 +50,10 @@ public class Restaurante {
             joinColumns = @JoinColumn(name = "restaurante_nome"),
             inverseJoinColumns = @JoinColumn(name = "prato_id"))
     private List<Prato> pratos;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CodigoQR> codigos_promocionais;
 
     public Restaurante(){
     }
@@ -170,6 +175,18 @@ public class Restaurante {
 
     public void setPratos(List<Prato> pratos) {
         this.pratos = pratos;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public List<CodigoQR> getCodigos_promocionais() {
+        return codigos_promocionais;
+    }
+
+    public void setCodigos_promociais(List<CodigoQR> codigos_promocionais) {
+        this.codigos_promocionais = codigos_promocionais;
     }
 
     @Override

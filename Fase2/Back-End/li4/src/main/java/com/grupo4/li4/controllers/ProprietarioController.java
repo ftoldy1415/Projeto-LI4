@@ -1,9 +1,6 @@
 package com.grupo4.li4.controllers;
 
-import com.grupo4.li4.model.LoginForm;
-import com.grupo4.li4.model.Prato;
-import com.grupo4.li4.model.Proprietario;
-import com.grupo4.li4.model.Restaurante;
+import com.grupo4.li4.model.*;
 import com.grupo4.li4.services.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -100,6 +97,12 @@ public class ProprietarioController {
     @PostMapping(value = "/inserir_prato")
     public void inserirPrato(@RequestBody Map<String, Object> input){
         this.appService.inserirPrato((String) input.get("nome"), Float.parseFloat((String) input.get("preco")));
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/generate_qr_code")
+    public void generateQRCode(@RequestBody CodigoQR codigoQR){
+        this.appService.generateQRCode(codigoQR);
     }
 
 }
