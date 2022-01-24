@@ -370,12 +370,6 @@ public class AppService {
     }
 
     public byte[] getQRCode(String descricao) {
-        List<CodigoQR> codigos = this.codigoQRRepo.findAll();
-        String nome_rest = null;
-        for(CodigoQR c : codigos){
-            if(c.getDescricao().equals(descricao)) nome_rest = c.getRestaurante().getNome();
-        }
-
         byte[] image = new byte[0];
         try {
 
@@ -431,6 +425,10 @@ public class AppService {
             res.put("label", descricao);
             resultado.add(res);
         }
+        Map<String, String> res = new HashMap<>();
+        res.put("value", "codigo promocional 10%");
+        res.put("label", "codigo promocional 10%");
+        resultado.add(res);
         System.out.println("get all codigos");
         return resultado;
     }
