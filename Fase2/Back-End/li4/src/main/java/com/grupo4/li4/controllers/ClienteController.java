@@ -142,12 +142,15 @@ public class ClienteController {
     @PostMapping(value = "/set_codigo_atual")
     public void setCodigoAtual(@RequestBody Map<String, String> input){
         this.appService.setCodigo_atual(input.get("descricao"));
+        System.out.println("setCodigo");
+
     }
 
     @CrossOrigin
     @PostMapping(value = "/get_qr_code")
     public byte[] getQRCode(){
         String codigo = this.appService.getCodigo_atual();
+        System.out.println("QRCode:"+codigo);
         return this.appService.getQRCode(codigo);
     }
 

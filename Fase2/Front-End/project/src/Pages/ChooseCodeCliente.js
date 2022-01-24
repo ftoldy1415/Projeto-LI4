@@ -35,11 +35,12 @@ function ChooseCodeCliente(){
         setSelected(e.value);
     }
 
-    async function ChooseCode() {
-
+    async function Confirmar() {
         const data1 = {
             descricao: selected,
         }
+
+        console.log(data1);
 
         fetch('http://127.0.0.1:8080/api/cliente/set_codigo_atual', {
                 method: 'POST',
@@ -52,6 +53,9 @@ function ChooseCodeCliente(){
         .catch((error) => {
             console.error('Error:', error);
         });
+    } 
+
+    function ChooseCode() {
 
         let path = '/CodeClient';
         history.push(path);
@@ -70,6 +74,7 @@ function ChooseCodeCliente(){
             <h1 className = "center">Selecione o codigo que deseja aceder : </h1>
             <Select options={descricoes} onChange={handleChange}/>
             <div className = "center">
+                <button onClick={Confirmar}>Confirmar</button>
                 <button onClick={ChooseCode}>Ver código</button>
                 <button onClick={Back}>Back</button>
             </div>

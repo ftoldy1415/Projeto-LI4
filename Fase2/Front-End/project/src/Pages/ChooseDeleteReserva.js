@@ -73,7 +73,7 @@ function ChooseDeleteReserva(){
             <h1 className = "center">Selecione o restaurante que pretende eliminar reserva : </h1>
             <Select options={restaurantes} onChange={handleChange}/>
             <div className = "center">
-                <button onClick={ChooseRest}>Confirmar restaurante</button>
+                <button onClick={ChooseRest}>Confirmar</button>
                 <button onClick={showReservas}>Ver reservas</button>
                 <button onClick={Back}>Back</button>
             </div>
