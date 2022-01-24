@@ -472,32 +472,6 @@ public class AppService {
         return res;
     }
 
-    public List<byte[]> getDescricoesCod(){
-        List<CodigoQR> codigos =  this.codigoQRRepo.findAll().stream()
-                .sorted(Comparator.comparingInt(CodigoQR::getId))
-                .collect(Collectors.toList());
-        List<byte[]> resultado = new ArrayList<>();
-
-        for(int i = 0; i < codigos.size(); i++){
-            resultado.add(getQRCode(codigos.get(i).getDescricao()));
-        }
-        return resultado;
-    }
-
-    public byte[] getQRCode() {
-        byte[] image = new byte[0];
-        try {
-
-            // Generate and Return Qr Code in Byte Array
-            image = QRCodeGenerator.getQRCodeImage(this.codigo_atual, 250, 250);
-
-        } catch (WriterException | IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("codigo:"+this.codigo_atual);
-        return image;
-    }
-
     public String getCodigo_atual() {
         return codigo_atual;
     }

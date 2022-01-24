@@ -147,7 +147,8 @@ public class ClienteController {
     @CrossOrigin
     @PostMapping(value = "/get_qr_code")
     public byte[] getQRCode(){
-        return this.appService.getQRCode();
+        String codigo = this.appService.getCodigo_atual();
+        return this.appService.getQRCode(codigo);
     }
 
     @CrossOrigin
