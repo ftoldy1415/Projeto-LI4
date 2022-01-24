@@ -1,5 +1,4 @@
-import React from "react";
-import {useEffect, useState} from 'react'
+import React , {useEffect, useState} from "react";
 import Select from 'react-select'
 import { useHistory } from "react-router-dom";
 
@@ -40,8 +39,6 @@ function ChooseCodeCliente(){
         const data1 = {
             descricao: selected,
         }
-
-        console.log(data1);
 
         fetch('http://127.0.0.1:8080/api/cliente/set_codigo_atual', {
                 method: 'POST',

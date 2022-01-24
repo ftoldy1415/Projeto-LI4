@@ -1,7 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React , {useState} from 'react';
 import { useHistory } from "react-router-dom";
-import {useEffect, useRef, useState} from 'react'
 
 
 
@@ -75,7 +73,8 @@ function LoginUser(){
             <button onClick={logInUser}>Login</button>
             <button onClick={signInUser}>Sign In</button>
         </div>
-
+        <br/>
+        <br/>
         <button id="back" onClick={Back}>Back</button>
 
     </div>

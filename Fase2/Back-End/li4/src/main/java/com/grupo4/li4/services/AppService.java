@@ -66,7 +66,7 @@ public class AppService {
         boolean registado = true;
         if(this.clienteRepo.encontraPorNomeUtilizador(cliente.getNome_utilizador()) != null) registado = false;
         else{
-            this.nome_utilizador = cliente.getEmail();
+            this.nome_utilizador = cliente.getNome_utilizador();
             clienteRepo.save(cliente);
         }
         return "{ \"registo\": " + registado + "}";

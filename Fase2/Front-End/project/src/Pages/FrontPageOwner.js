@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useHistory } from "react-router-dom";
-import {useEffect, useRef, useState} from 'react'
 
 
 function FrontPageOwner(){

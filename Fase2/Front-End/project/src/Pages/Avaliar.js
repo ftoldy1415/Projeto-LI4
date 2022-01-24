@@ -36,6 +36,7 @@ function Avaliar(){
             <h1 className = "title">Avaliação Editor</h1>
             <div className = "divGrey">
                 <form className = "formStyle" action="" onSubmit={handleSubmit}>
+                    
                     <label for="estrelas">Numero de estrelas:</label>
                     <select className = "estrelasInput" name="estrelas" id="estrelas" ref={estrelas}>
                         <option value="0">0</option>

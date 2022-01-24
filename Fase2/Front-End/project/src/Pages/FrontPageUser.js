@@ -1,14 +1,11 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import {useState} from 'react';
 
 
 
 function FrontPageUser(){
 
     const history = useHistory();
-    const [location, setLocation] = useState('');
-
 
     function toMap() {
 

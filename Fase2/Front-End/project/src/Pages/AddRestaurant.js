@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { useHistory } from "react-router-dom";
-import { useRef } from "react";
 
 
 function AddRestaurant(){
@@ -81,7 +80,6 @@ function AddRestaurant(){
         return segundaHorario + tercaHorario + quartaHorario + quintaHorario + sextaHorario + sabadoHorario + domingoHorario;
     }
 
-    //font_size: "40px",text-indent: 15px, 
  
     return(
         <div>
