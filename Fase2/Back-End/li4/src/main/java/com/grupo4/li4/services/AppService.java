@@ -345,7 +345,7 @@ public class AppService {
 
         for (Reserva r : reservas) {
             Map<String, Object> aux = new HashMap<>();
-            aux.put("id", r.getId_reserva());
+            aux.put("nome_restaurante", r.getRestaurante().getNome());
             aux.put("data", r.getData());
             aux.put("hora", r.getHora());
             aux.put("num_pessoas", r.getNum_pessoas());
@@ -427,10 +427,10 @@ public class AppService {
             Map<String, String> res = new HashMap<>();
             String descricao = c.getDescricao();
             res.put("value", descricao);
-            res.put("lable", descricao);
+            res.put("label", descricao);
             resultado.add(res);
         }
-
+        System.out.println("get all codigos");
         return resultado;
     }
 
@@ -495,6 +495,7 @@ public class AppService {
         } catch (WriterException | IOException e) {
             e.printStackTrace();
         }
+        System.out.println("codigo:"+this.codigo_atual);
         return image;
     }
 

@@ -53,14 +53,14 @@ function ChooseCodeCliente(){
             console.error('Error:', error);
         });
 
-        let path = '/CodeCliente';
+        let path = '/CodeClient';
         history.push(path);
 
     }
 
 
     function Back() {
-        let path = '/Restaurante';
+        let path = '/FrontPageUser';
         history.push(path);
     }
 

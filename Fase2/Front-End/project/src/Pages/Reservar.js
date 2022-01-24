@@ -71,8 +71,6 @@ function Reservar(){
             pratos: pratosSelected,
         };
 
-        console.log(info);
-
         fetch('http://127.0.0.1:8080/api/cliente/reserva', {
                 method: 'POST',
                 headers: {
@@ -117,7 +115,7 @@ function Reservar(){
 
             </div>
 
-            <h1 className = "colorWhite">Detalhes do pedido</h1>
+            <h1 className = "colorWhiteIndent">Detalhes do pedido</h1>
             <div class = "divGrey">        
                 <br/>
                 <br/>

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-function Code(){
+function CodeClient(){
 
     let history = useHistory();
     
@@ -14,7 +14,7 @@ function Code(){
         getCode();
     },[]);
 
-    function getCode(descricao){
+    function getCode(){
 
         catchRainbow()
         .catch(error => {
@@ -24,16 +24,16 @@ function Code(){
     }
 
     async function catchRainbow() {
-        const response = await fetch('http://127.0.0.1:8080/api/cliente/get_qr_code', {
+        fetch('http://127.0.0.1:8080/api/cliente/get_qr_code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',     
             },
             body: JSON.stringify(),
-            });
+        })
+        .then(response => response.blob())
+        .then(data => setCodigo(URL.createObjectURL(data)))
 
-        const blob = await response.blob();
-        setCodigo(URL.createObjectURL(blob));
     }
 
     function Back() {
@@ -55,4 +55,4 @@ function Code(){
 
 }
 
-export default Code;
+export default CodeClient;

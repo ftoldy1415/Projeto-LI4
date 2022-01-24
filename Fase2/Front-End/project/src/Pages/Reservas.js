@@ -6,10 +6,8 @@ import {useEffect, useRef, useState} from 'react';
 function Reservas(){
 
     let history = useHistory();
-
     const [reservas, setReservas] = useState([]);
-
-    const data1 = { nothing: ''};
+    const data1 = {nothing:''};
 
     
     const getRestaurants = async () => {
@@ -50,22 +48,21 @@ function Reservas(){
 
     return(
         <div>
-            <h1 style={{color:"white"}}>As minhas Reservas : </h1>
+            <h1 className = "colorWhiteIndent">As minhas Reservas : </h1>
             <div className = "divGrey">
                 {
                     reservas.map((reserva) => (
                         <div className="divAvaliacao">
-                            <p style={{color:"black"}}  >Restaurante : {reserva.  nome_restaurante}</p>
-                            <p style={{color:"black"}}>Dia :    {reserva.data}</p>
-                            <p style={{color:"black"}}>Hora :   {reserva.hora}</p>
-                            <p style={{color:"black"}}>Número de    pessoas : {reserva.num_pessoas}</p>
-                            <p style={{color:"black"}}  >Representante  : {reserva.nome}</p>
-                            <p style={{color:"black"}}>Pratos  :    {getPratos(reserva.pratos)}</p>
+                            <p style={{color:"black"}}>Restaurante: {reserva.nome_restaurante}</p>
+                            <p style={{color:"black"}}>Dia: {reserva.data}</p>
+                            <p style={{color:"black"}}>Hora: {reserva.hora}</p>
+                            <p style={{color:"black"}}>Número de pessoas: {reserva.num_pessoas}</p>
+                            <p style={{color:"black"}}>Representante: {reserva.nome}</p>
+                            <p style={{color:"black"}}>Pratos: {getPratos(reserva.pratos)}</p>
 
                         </div>  
                     ))
                 }
-
             <button onClick={Back}>Back</button>
             </div>
         </div>

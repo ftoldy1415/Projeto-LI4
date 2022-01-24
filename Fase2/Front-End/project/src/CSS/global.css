@@ -76,7 +76,6 @@ body{
     width: 70%;
     float: right;
     padding : 10px;
-    text-indent: 15px;
 
 }  
 
@@ -100,6 +99,11 @@ body{
     background-color: rgb(253,118,8);
     padding : 5px;
     margin : 5px;
+}
+
+.colorWhiteIndent{
+    color: white;
+    text-indent: 10px;
 }
 
 .colorWhite{

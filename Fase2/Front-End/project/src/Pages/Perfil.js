@@ -113,11 +113,13 @@ function Perfil(){
         <div className="float-child1">
             <div className="center">
 
+
+
                 <h1 className = "colorWhite">Meu perfil</h1><br/>
-                <h4 className = "colorWhite">Nome de utilizador: {user.nome_utilizador}</h4>
-                <h4 className = "colorWhite">Nome: {user.nome}</h4>
-                <h4 className = "colorWhite">Numero de telemóvel: {user.num_telemovel}</h4>
-                <h4 className = "colorWhite">Email: {user.email}</h4>
+                <h3 className = "colorWhite">Nome de utilizador: {user.nome_utilizador}</h3>
+                <h3 className = "colorWhite">Nome: {user.nome}</h3>
+                <h3 className = "colorWhite">Numero de telemóvel: {user.num_telemovel}</h3>
+                <h3 className = "colorWhite">Email: {user.email}</h3>
                 <button className="goBack" onClick={Back}>Go Back</button>
 
             </div>
@@ -125,7 +127,7 @@ function Perfil(){
 
         <div className="float-child2">
             <h1>Editar Perfil</h1>
-                <div className = "textIndent" >
+                <div  >
                     <form action="">
 
 
@@ -146,11 +148,11 @@ function Perfil(){
 
                         <h1>Alterar distância no filtro</h1>
 
-                        <p>Procuro locais perto de mim em   <span><input className =  "caixasTextoWhite " type="text"  id="kilometers" value={kms} onChange={   (e) => setKms(e.target.value) }/></span>  km</p>
-                        <button onClick={SaveDistancia}     >Guardar</button><br/>
+                        <p>Procuro locais perto de mim em   <span><input className =  "caixasTextoWhite " type="text"  id="kilometers" value={kms} onChange={   (e) => setKms(e.target.value) }/></span>  km <button onClick={SaveDistancia}     >Guardar</button></p>
+                        
 
-                        <p>Procuro estabelecimentos com mais de     <span><input className =    "caixasTextoWhite " type="text" value= {estrelas} onChange={ (e) => setEstrelas (e.target.value) }/></span> estrelas</p>
-                        <button onClick={SaveEstrelas} >Guardar</   button>
+                        <p>Procuro estabelecimentos com mais de     <span><input className =    "caixasTextoWhite " type="text" value= {estrelas} onChange={ (e) => setEstrelas (e.target.value) }/></span> estrelas   <button onClick={SaveEstrelas} >Guardar</   button> </p>
+                        
                     </form>
                 </div>
         </div>

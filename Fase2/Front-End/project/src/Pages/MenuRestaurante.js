@@ -41,12 +41,12 @@ function MenuRestaurante() {
             <h1>Menu do restaurante:</h1>
             <div className ="divGrey">
                 {pratos.map(
-                    (prato) => {
+                    (prato) => (
                     <div className = "divAvaliacao">
                         <h5>{prato.nome}</h5>  
                         <p>{prato.preco}€</p>
                     </div>
-                    }
+                    )
                 )}
                 <br/>
                 <br/>

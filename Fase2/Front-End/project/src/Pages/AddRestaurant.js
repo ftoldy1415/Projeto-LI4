@@ -11,6 +11,7 @@ function AddRestaurant(){
     const rua = useRef(null);
     const localidade = useRef(null);
     const num_telefone = useRef(null);
+    const codPostal = useRef(null);
     const lat = useRef(null);
     const lng = useRef(null);
     const aSegunda = useRef(null);
@@ -101,10 +102,15 @@ function AddRestaurant(){
                     <input className='caixasTextoWhite' type="text" name="localidade" ref={localidade} />
                     <br />
                     <br />
-
+                    <label for="codPostal">Código Postal :  </label>
+                    <input className='caixasTextoWhite' type="text" name="codPostal" ref={codPostal} />
+                    <br />
+                    <br/>
                     <label for="telefone">Contacto Telefónico: </label>
                     <input className='caixasTextoWhite' type="text" name="num_telefone" ref={num_telefone} />
                     <br />
+
+
 
                     <p>Adicione as suas coordenadas: <span><input className='caixasTextoWhite' type="number" placeholder="lat" ref={lat} step="0.000001" /></span> e   <span><input className='caixasTextoWhite' type="number" placeholder="lng" ref={lng} step="0.000001" /></span></p>
                     <div>
