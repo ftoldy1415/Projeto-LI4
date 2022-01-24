@@ -43,6 +43,7 @@ function AddRestaurant(){
             horario: horario,
             latitude : lat.current.value,
             longitude : lng.current.value,
+            codigo_postal: codPostal.current.value,
         }
 
 

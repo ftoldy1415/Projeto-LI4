@@ -16,7 +16,8 @@ function Restaurante(){
             horario:'',
             latitude:'',
             longitude:'',
-            estrelas:''
+            estrelas:'',
+            codigo_postal:'',
         });
     
     const data1 = {
@@ -158,6 +159,9 @@ function Restaurante(){
 
                     <h3>Localidade : </h3>
                     <p style = {{color : 'black'}}>{restaurante.localidade}</p>
+
+                    <h3>Código Postal : </h3>
+                    <p style = {{color : 'black'}}>{restaurante.codigo_postal}</p>
 
                     <h3>Horário : </h3>
                     
