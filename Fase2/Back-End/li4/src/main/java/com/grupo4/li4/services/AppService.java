@@ -64,6 +64,11 @@ public class AppService {
 
     public String registar(Cliente cliente) {
         boolean registado = true;
+        List<Cliente> c = this.clienteRepo.findAll();
+        for(Cliente cli : c){
+            if(cli.getEmail().equals(cliente.getEmail())) registado = false;
+            if(cli.getNif() == cliente.getNif()) registado = false;
+        }
         if(this.clienteRepo.encontraPorNomeUtilizador(cliente.getNome_utilizador()) != null) registado = false;
         else{
             this.nome_utilizador = cliente.getNome_utilizador();
@@ -98,6 +103,13 @@ public class AppService {
 
     public String registarProprietario(Proprietario proprietario) {
         boolean registado = true;
+        List<Proprietario> p = this.proprietarioRepo.findAll();
+        for(Proprietario pro : p){
+            if(pro.getNif() == proprietario.getNif()) {
+                registado = false;
+                break;
+            }
+        }
         if(this.proprietarioRepo.encontraPorEmail(proprietario.getEmail()) != null) registado = false;
         else{
             this.email_proprietario = proprietario.getEmail();

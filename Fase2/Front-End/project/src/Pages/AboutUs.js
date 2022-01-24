@@ -35,9 +35,10 @@ function AboutUs(){
                 <img className = "imagem" src="braga mapa.png" alt=""/>
             </div>
 
-            <div>
+            <div style = {{textAlign : "center"}}>
                 <button onClick={Back}>Go Back</button>
-            </div><br/>
+            </div>
+            <br/>
         </div>
     );
 }

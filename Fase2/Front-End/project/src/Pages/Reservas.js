@@ -63,7 +63,9 @@ function Reservas(){
                         </div>  
                     ))
                 }
-            <button onClick={Back}>Back</button>
+                <div className = "center">
+                    <button  onClick={Back}>Back</button>
+                </div>
             </div>
         </div>
 

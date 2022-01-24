@@ -76,8 +76,11 @@ function RemoveRestaurant(){
         <div className = "divGrey">
             <h1>Selecione o restaurante que pretende remover : </h1>
             <Select options={restaurantes} onChange={handleChange} />
-            <button onClick={Delete}>Eliminar</button>
-            <button onClick={Back}>Back</button>
+            <div className = "center">
+                <button onClick={Delete}>Eliminar</button>
+                <button onClick={Back}>Back</button>
+
+            </div>
         </div>
     )
     

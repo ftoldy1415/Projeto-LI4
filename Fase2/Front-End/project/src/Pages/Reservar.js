@@ -117,12 +117,14 @@ function Reservar(){
 
             <h1 className = "colorWhiteIndent">Detalhes do pedido</h1>
             <div class = "divGrey">        
-                <br/>
-                <br/>
                 <h1>Selecione o prato : </h1>
                 {getSelects()}
-                <button className = "button" onClick={Confirm}>Confirmar</button>
-                <button className = "button" onClick={Back}>Cancelar</button>
+
+                <div className="center">
+                    <button className = "button" onClick={Confirm}>Confirmar</button>
+                    <button className = "button" onClick={Back}>Cancelar</button>
+
+                </div>
 
             </div>
         </div>
