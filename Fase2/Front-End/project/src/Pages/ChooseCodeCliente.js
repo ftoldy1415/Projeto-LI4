@@ -11,6 +11,7 @@ function ChooseCodeCliente(){
 
     const [descricoes,setDescricoes] = useState([]);
     const [selected, setSelected] = useState('');
+    const [canGo,setCanGo] = useState(false);
 
     const data1 = { nothing: ''};
 
@@ -53,13 +54,20 @@ function ChooseCodeCliente(){
         .catch((error) => {
             console.error('Error:', error);
         });
+
+        setCanGo(true);
     } 
 
     function ChooseCode() {
-
         let path = '/CodeClient';
         history.push(path);
+    }
 
+    function CanGo() {
+        if(canGo){
+            return <button onClick={ChooseCode}>Ver código</button>
+        }
+        return null
     }
 
 
@@ -75,7 +83,7 @@ function ChooseCodeCliente(){
             <Select options={descricoes} onChange={handleChange}/>
             <div className = "center">
                 <button onClick={Confirmar}>Confirmar</button>
-                <button onClick={ChooseCode}>Ver código</button>
+                <CanGo/>
                 <button onClick={Back}>Back</button>
             </div>
         </div>

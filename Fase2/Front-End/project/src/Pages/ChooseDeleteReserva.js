@@ -11,6 +11,7 @@ function ChooseDeleteReserva(){
 
     const [restaurantes, setRestaurantes] = useState([]);
     const [selected, setSelected] = useState('');
+    const [canGo, setCanGo] = useState(false);
 
     const data1 = { nothing: ''};
 
@@ -55,6 +56,14 @@ function ChooseDeleteReserva(){
             console.error('Error:', error);
         });
 
+        setCanGo(true);
+    }
+
+    function CanGo(){
+        if(canGo){
+            return <button onClick={showReservas}>Ver reservas</button>;
+        }
+        return null
     }
 
     function showReservas() {
@@ -74,7 +83,7 @@ function ChooseDeleteReserva(){
             <Select options={restaurantes} onChange={handleChange}/>
             <div className = "center">
                 <button onClick={ChooseRest}>Confirmar</button>
-                <button onClick={showReservas}>Ver reservas</button>
+                <CanGo/>
                 <button onClick={Back}>Back</button>
             </div>
 
