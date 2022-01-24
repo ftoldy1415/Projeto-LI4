@@ -9,14 +9,14 @@ function LoginUser(){
 
     const history = useHistory();
 
-    const [ email , setEmail] = useState('');
+    const [ username , setUsername] = useState('');
     const [ password , setPassword] = useState('');
 
 
     function logInUser() {
 
         var data1 = {
-            email : email,
+            nome_utilizador : username,
             palavra_passe : password
         };
 
@@ -60,16 +60,16 @@ function LoginUser(){
             <form>
                 <input className = "caixasTextoOrange" 
                     id="email" 
-                    type="email" 
-                    value={email}
-                    onChange={ (e) => setEmail(e.target.value)}                
-                    placeholder="Email" /><br/>
+                    type="text" 
+                    value={username}
+                    onChange={ (e) => setUsername(e.target.value)}                
+                    placeholder="username" /><br/>
 
                 <input className = "caixasTextoOrange"
                     id="password" 
                     type="password" 
                     value={password}
-                    onChange={ (e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"/>
             </form>
             <button onClick={logInUser}>Login</button>
