@@ -38,7 +38,7 @@ function MenuRestaurante() {
 
     return(
         <div>
-            <h1>Menu do restaurante:</h1>
+            <h1 style={{color:"white"}}>Menu do restaurante:</h1>
             <div className ="divGrey">
                 {pratos.map(
                     (prato) => (
