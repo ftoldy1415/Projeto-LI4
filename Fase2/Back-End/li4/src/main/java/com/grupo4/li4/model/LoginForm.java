@@ -2,17 +2,17 @@ package com.grupo4.li4.model;
 
 public class LoginForm {
 
-    private String email;
+    private String nome_utilizador;
 
     private String palavra_passe;
 
 
-    public String getEmail() {
-        return email;
+    public String getNome_utilizador() {
+        return this.nome_utilizador;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setNome_utilizador(String nome_utilizador) {
+        this.nome_utilizador = nome_utilizador;
     }
 
     public String getPalavra_passe() {
@@ -27,7 +27,7 @@ public class LoginForm {
     @Override
     public String toString() {
         return "LoginForm{" +
-                "nome_utilizador='" + email + '\'' +
+                "nome_utilizador='" + nome_utilizador + '\'' +
                 ", palavra_passe='" + palavra_passe + '\'' +
                 '}';
     }

@@ -24,8 +24,8 @@ public class ProprietarioController {
 
     @CrossOrigin
     @PostMapping(value = "/login")
-    public String login(@RequestBody LoginForm loginForm){
-        boolean res = appService.loginProprietario(loginForm);
+    public String login(@RequestBody Map<String, Object> input){
+        boolean res = appService.loginProprietario(input);
         return "{ \"login\": " + res +"}";
     }
 

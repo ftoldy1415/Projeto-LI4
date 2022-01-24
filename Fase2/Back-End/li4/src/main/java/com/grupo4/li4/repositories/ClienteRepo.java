@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ClienteRepo extends JpaRepository<Cliente,Integer> {
 
-    @Query("FROM Cliente WHERE email = ?1")
-    Cliente encontraPorEmail(String email);
-
+    @Query("FROM Cliente WHERE nome_utilizador = ?1")
+    Cliente encontraPorNomeUtilizador(String nome_utilizador);
 
 }

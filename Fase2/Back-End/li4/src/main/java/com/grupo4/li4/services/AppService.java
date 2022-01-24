@@ -37,7 +37,7 @@ public class AppService {
     @Autowired
     private CodigoQRRepo codigoQRRepo;
 
-    private String email_utilizador;
+    private String nome_utilizador;
     private String email_proprietario;
     private String restaurante_atual;
     private double lat_utilizador;
@@ -49,24 +49,24 @@ public class AppService {
 
 
     public boolean loginCliente(LoginForm lf) {
-        if (clienteRepo.encontraPorEmail(lf.getEmail()) == null) return false;
+        if (clienteRepo.encontraPorNomeUtilizador(lf.getNome_utilizador()) == null) return false;
         else {
-            this.email_utilizador = lf.getEmail();
-            return clienteRepo.encontraPorEmail(lf.getEmail()).
+            this.nome_utilizador = lf.getNome_utilizador();
+            return clienteRepo.encontraPorNomeUtilizador(lf.getNome_utilizador()).
                     getPalavra_passe().
                     equals(lf.getPalavra_passe());
         }
     }
 
     public void logoutCliente() {
-        this.email_utilizador = null;
+        this.nome_utilizador = null;
     }
 
     public String registar(Cliente cliente) {
         boolean registado = true;
-        if(this.clienteRepo.encontraPorEmail(cliente.getEmail()) != null) registado = false;
+        if(this.clienteRepo.encontraPorNomeUtilizador(cliente.getNome_utilizador()) != null) registado = false;
         else{
-            this.email_utilizador = cliente.getEmail();
+            this.nome_utilizador = cliente.getEmail();
             clienteRepo.save(cliente);
         }
         return "{ \"registo\": " + registado + "}";
@@ -80,7 +80,7 @@ public class AppService {
         String palavra_passe_antiga = form.getPalavra_passe_antiga();
 
 
-        Cliente c = clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         if (palavra_passe_antiga.equals(c.getPalavra_passe())) {
             if (!nome.equals("")) c.setNome(nome);
             if (!nome_utilizador.equals("")) c.setNome_utilizador(nome_utilizador);
@@ -91,7 +91,7 @@ public class AppService {
     }
 
     public void alterarFiltro(Map<String, Object> input) {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         c.setFiltro_distancia(Integer.parseInt((String) input.get("filtro")));
         this.clienteRepo.save(c);
     }
@@ -112,13 +112,13 @@ public class AppService {
         restauranteRepo.save(restaurante);
     }
 
-    public boolean loginProprietario(LoginForm loginForm) {
-        if (proprietarioRepo.encontraPorEmail(loginForm.getEmail()) == null) return false;
+    public boolean loginProprietario(Map<String,Object> loginForm) {
+        if (proprietarioRepo.encontraPorEmail( (String) loginForm.get("email")) == null) return false;
         else {
-            this.email_proprietario = loginForm.getEmail();
-            return (proprietarioRepo.encontraPorEmail(loginForm.getEmail())
+            this.email_proprietario = (String) loginForm.get("email");
+            return (proprietarioRepo.encontraPorEmail((String) loginForm.get("email"))
                     .getPassword()
-                    .equals(loginForm.getPalavra_passe()));
+                    .equals(loginForm.get("palavra_passe")));
         }
     }
 
@@ -128,7 +128,7 @@ public class AppService {
     }
 
     public Cliente obtemInfoCliente() {
-        return this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        return this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
     }
 
     public Restaurante obtemRestaurante() {
@@ -136,7 +136,7 @@ public class AppService {
     }
 
     public void avaliacao(AvaliacaoForm form) {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
         Avaliacao a = new Avaliacao(Integer.parseInt(form.getEstrelas()), form.getComentario(), r, c);
         this.avaliacaoRepo.save(a);
@@ -164,7 +164,7 @@ public class AppService {
 
     public void criarReserva(Date data, Time time, int num_pessoal, String nome, List<String> pratos) {
         Restaurante r = this.restauranteRepo.getById(this.restaurante_atual);
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         List<Prato> pratos_reserva = new ArrayList<>();
         List<Prato> aux = r.getPratos();
         for (int i = 0; i < pratos.size(); i++) {
@@ -201,7 +201,7 @@ public class AppService {
     }
 
     public List<Map<String, Object>> filtra_restaurantes() {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         List<Map<String, Object>> restaurantes = new ArrayList<>();
         for (Restaurante rest : r) {
@@ -219,7 +219,7 @@ public class AppService {
     }
 
     public List<Map<String, Object>> filtra_restaurantes_estrelas() {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         double estrelas = c.getFiltro_estrelas();
         List<Map<String, Object>> resultado = new ArrayList<>();
@@ -236,7 +236,7 @@ public class AppService {
     }
 
     public List<Map<String, Object>> filtra_restaurantes_ambos() {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         List<Restaurante> r = this.restauranteRepo.findAll();
         double estrelas = c.getFiltro_estrelas();
         List<Map<String, Object>> resultado = new ArrayList<>();
@@ -328,7 +328,7 @@ public class AppService {
     }
 
     public void alterarFiltroEstrelas(String filtro) {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         c.setFiltro_estrelas(Integer.parseInt(filtro));
         this.clienteRepo.save(c);
     }
@@ -340,7 +340,7 @@ public class AppService {
     }
 
     public List<Map<String, Object>> getReservas() {
-        Cliente c = this.clienteRepo.encontraPorEmail(this.email_utilizador);
+        Cliente c = this.clienteRepo.encontraPorNomeUtilizador(this.nome_utilizador);
         List<Reserva> reservas = c.getReservas();
         List<Map<String, Object>> res = new ArrayList<>();
 
@@ -509,12 +509,12 @@ public class AppService {
     }
 
 
-    public String getEmail_utilizador() {
-        return email_utilizador;
+    public String getNome_utilizador() {
+        return this.nome_utilizador;
     }
 
-    public void setEmail_utilizador(String email_utilizador) {
-        this.email_utilizador = email_utilizador;
+    public void setNome_utilizaor(String nome_utilizador) {
+        this.nome_utilizador = nome_utilizador;
     }
 
     public String getEmail_proprietario() {
