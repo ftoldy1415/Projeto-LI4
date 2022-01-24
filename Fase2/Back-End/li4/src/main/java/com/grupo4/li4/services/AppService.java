@@ -124,7 +124,7 @@ public class AppService {
 
     public Restaurante obtemInfoRestaurante(String nome) {
         Restaurante r = this.restauranteRepo.getById(nome);
-        return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario(), r.getLatitude(), r.getLongitude());
+        return new Restaurante(r.getNome(), r.getRua(), r.getLocalidade(), r.getNum_telefone(), r.getHorario(), r.getLatitude(), r.getLongitude(), r.getCodigo_postal());
     }
 
     public Cliente obtemInfoCliente() {
@@ -289,6 +289,7 @@ public class AppService {
         map.put("nome", r.getNome());
         map.put("rua", r.getRua());
         map.put("localidade", r.getLocalidade());
+        map.put("codigo_postal", r.getCodigo_postal());
         map.put("num_telefone", r.getNum_telefone());
         map.put("horario", r.getHorario());
         map.put("latitude", r.getLatitude());

@@ -18,6 +18,9 @@ public class Restaurante {
     @Column(name = "localidade")
     private String localidade;
 
+    @Column(name = "codigo_postal")
+    private String codigo_postal;
+
     @Column(name = "num_telefone")
     private int num_telefone;
 
@@ -58,7 +61,7 @@ public class Restaurante {
     public Restaurante(){
     }
 
-    public Restaurante(String nome, String rua, String localidade, int num_telefone, String horario, double lat, double lng){
+    public Restaurante(String nome, String rua, String localidade, int num_telefone, String horario, double lat, double lng, String codigo_postal){
         this.nome = nome;
         this.rua = rua;
         this.localidade = localidade;
@@ -67,6 +70,7 @@ public class Restaurante {
         this.proprietario = null;
         this.latitude = lat;
         this.longitude = lng;
+        this.codigo_postal = codigo_postal;
     }
 
 
@@ -187,6 +191,14 @@ public class Restaurante {
 
     public void setCodigos_promociais(List<CodigoQR> codigos_promocionais) {
         this.codigos_promocionais = codigos_promocionais;
+    }
+
+    public String getCodigo_postal() {
+        return codigo_postal;
+    }
+
+    public void setCodigo_postal(String codigo_postal) {
+        this.codigo_postal = codigo_postal;
     }
 
     @Override
